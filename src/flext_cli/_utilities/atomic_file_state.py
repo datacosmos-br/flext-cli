@@ -26,6 +26,8 @@ def destination_state(
     try:
         state = file_descriptor.entry_stat(parent, path)
     except FileNotFoundError:
+        state = None
+    if state is None:
         return None
     _validate_regular_state(path, state)
     return state

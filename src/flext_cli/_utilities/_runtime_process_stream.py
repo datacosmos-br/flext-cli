@@ -6,6 +6,8 @@ import os
 import threading
 from typing import IO, BinaryIO, ClassVar
 
+from flext_cli import r
+
 
 class FlextCliUtilitiesRuntimeProcessStreamMixin:
     """Route child bytes to captured, durable, and live output owners."""
@@ -27,14 +29,23 @@ class FlextCliUtilitiesRuntimeProcessStreamMixin:
                     return
                 remaining = remaining[written:]
         except BrokenPipeError:
-            pass
+            # Why: the child stopped reading stdin early (exited or was
+            # killed) -- an expected end for the writer, not an execution
+            # failure; wake immediately instead of waiting for `finally`.
+            wake.set()
         except (OSError, ValueError) as exc:
-            failures.append(f"stdin write error: {exc}")
+            failures.append(
+                r[str].fail(f"stdin write error: {exc}", exception=exc).error
+                or str(exc)
+            )
         finally:
             try:
                 sink.close()
             except (OSError, ValueError) as exc:
-                failures.append(f"stdin close error: {exc}")
+                failures.append(
+                    r[str].fail(f"stdin close error: {exc}", exception=exc).error
+                    or str(exc)
+                )
             wake.set()
 
     @classmethod
@@ -76,7 +87,10 @@ class FlextCliUtilitiesRuntimeProcessStreamMixin:
         try:
             chunk = source.read(cls._STREAM_CHUNK_BYTES)
         except (OSError, ValueError) as exc:
-            failures.append(f"output read error: {exc}")
+            failures.append(
+                r[str].fail(f"output read error: {exc}", exception=exc).error
+                or str(exc)
+            )
             return None
         return chunk or None
 
@@ -91,7 +105,9 @@ class FlextCliUtilitiesRuntimeProcessStreamMixin:
                 remaining = remaining[written:]
             durable_log.flush()
         except (OSError, ValueError) as exc:
-            return f"durable log write error: {exc}"
+            return r[str].fail(
+                f"durable log write error: {exc}", exception=exc
+            ).error or str(exc)
         return None
 
     @classmethod
@@ -106,7 +122,10 @@ class FlextCliUtilitiesRuntimeProcessStreamMixin:
                 stop.wait(cls._STREAM_POLL_SECONDS)
                 continue
             except (BrokenPipeError, OSError, ValueError) as exc:
-                diagnostics.append(f"live output unavailable: {exc}")
+                diagnostics.append(
+                    r[str].fail(f"live output unavailable: {exc}", exception=exc).error
+                    or str(exc)
+                )
                 return False
             if written <= 0:
                 diagnostics.append("live output write made no progress")

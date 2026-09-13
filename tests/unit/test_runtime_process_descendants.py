@@ -29,11 +29,12 @@ class _ObservedWindowsCli(u.Cli):
 
 
 def _process_exists(process_id: int) -> bool:
+    exists = True
     try:
         os.kill(process_id, 0)
     except OSError:
-        return False
-    return True
+        exists = False
+    return exists
 
 
 class TestsFlextCliRuntimeProcessDescendants:

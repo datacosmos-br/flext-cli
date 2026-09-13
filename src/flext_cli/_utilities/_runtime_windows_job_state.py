@@ -63,7 +63,9 @@ class FlextCliUtilitiesRuntimeWindowsJobStateMixin:
         try:
             return cls._windows_job_terminate_native(job_handle, exit_code)
         except (OSError, TypeError, ValueError) as exc:
-            return f"Windows Job Object termination error: {exc}"
+            return r[str].fail(
+                f"Windows Job Object termination error: {exc}", exception=exc
+            ).error or str(exc)
 
     @staticmethod
     def _windows_job_terminate_native(job_handle: int, exit_code: int) -> str | None:
@@ -89,7 +91,9 @@ class FlextCliUtilitiesRuntimeWindowsJobStateMixin:
         try:
             return cls._windows_job_close_native(job_handle)
         except (OSError, TypeError, ValueError) as exc:
-            return f"Windows Job Object close error: {exc}"
+            return r[str].fail(
+                f"Windows Job Object close error: {exc}", exception=exc
+            ).error or str(exc)
 
     @staticmethod
     def _windows_job_close_native(job_handle: int) -> str | None:

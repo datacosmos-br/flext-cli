@@ -112,7 +112,9 @@ class FlextCliUtilitiesRuntimeWindowsJobStartMixin:
         try:
             return cls._windows_process_resume_native(process_id)
         except (OSError, TypeError, ValueError) as exc:
-            return f"Windows process resume error: {exc}"
+            return r[str].fail(
+                f"Windows process resume error: {exc}", exception=exc
+            ).error or str(exc)
 
     @staticmethod
     def _windows_process_resume_native(process_id: int) -> str | None:

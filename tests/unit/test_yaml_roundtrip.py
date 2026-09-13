@@ -139,11 +139,11 @@ class TestsFlextCliYamlRoundtripLoad:
                     result = u.Cli.yaml_roundtrip_load_text(document)
                     if result.failure:
                         failures.append(ValueError(result.error))
-                        return
+                        break
                     result.unwrap()
                 except c.CATCHABLE_RUNTIME_EXCEPTIONS as exc:
                     failures.append(exc)
-                    return
+                    break
 
         with ThreadPoolExecutor(max_workers=len(documents)) as pool:
             list(pool.map(parse_repeatedly, documents))
