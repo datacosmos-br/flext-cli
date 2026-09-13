@@ -15,7 +15,7 @@ import fnmatch
 from collections.abc import Mapping, MutableSequence
 from typing import TYPE_CHECKING
 
-from flext_cli._utilities.json import FlextCliUtilitiesJson as uj
+from ..json import FlextCliUtilitiesJson as uj
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -50,9 +50,11 @@ class FlextCliUtilitiesRulesMatchersMixin:
 
     @staticmethod
     def rules_match_catalog_entry[TKind](
-        action_name: str, check_name: str, rule_catalog: t.Cli.RuleCatalog[TKind]
+        action_name: str, check_name: str, rule_catalog: t.Cli.RuleCatalog[TKind] | None
     ) -> t.Pair[TKind, t.Cli.RuleMatcher] | None:
         """Find the catalog kind whose matcher covers the action/check name."""
+        if rule_catalog is None:
+            return None
         for rule_kind, matchers in rule_catalog.items():
             for matcher in matchers:
                 actions, checks, _, _ = matcher

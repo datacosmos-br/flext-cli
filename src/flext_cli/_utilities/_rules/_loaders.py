@@ -14,9 +14,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from flext_cli import c, m, p, r, t
-from flext_cli._utilities.json import FlextCliUtilitiesJson as uj
-from flext_cli._utilities.yaml import FlextCliUtilitiesYaml as uy
 
+from ..json import FlextCliUtilitiesJson as uj
+from ..yaml import FlextCliUtilitiesYaml as uy
 from ._matchers import FlextCliUtilitiesRulesMatchersMixin
 
 if TYPE_CHECKING:
@@ -107,7 +107,7 @@ class FlextCliUtilitiesRulesLoadersMixin(FlextCliUtilitiesRulesMatchersMixin):
             return r[t.Cli.RuleLoadResult[TRuleKind, TFileRuleKind]].fail(
                 f"Rules directory not found: {rules_dir}"
             )
-        file_catalog = options.file_rule_catalog or {}
+        file_catalog = options.file_rule_catalog
         loaded_rules: t.MutableSequenceOf[t.Pair[TRuleKind, t.JsonMapping]] = []
         loaded_file_rules: t.MutableSequenceOf[
             t.Pair[TFileRuleKind, t.JsonMapping]
@@ -130,12 +130,7 @@ class FlextCliUtilitiesRulesLoadersMixin(FlextCliUtilitiesRulesMatchersMixin):
                 if not cls.rules_matches_filters(rule_id, options.rule_filters):
                     continue
                 action_name = uj.json_get_str_key(
-                    typed_rule_def,
-                    options.action_key,
-                    default=uj.json_get_str_key(
-                        typed_rule_def, options.fallback_action_key
-                    ),
-                    case="lower",
+                    typed_rule_def, options.action_key, case="lower"
                 )
                 check_name = uj.json_get_str_key(
                     typed_rule_def, options.check_key, case="lower"

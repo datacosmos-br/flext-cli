@@ -3,25 +3,56 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from types import MappingProxyType
 from typing import Annotated, ClassVar
 
 from flext_cli import t
 from flext_core import m, u
 
+from .._defaults import EMPTY_JSON_MAPPING
+
 
 class FlextCliModelsBase:
     """Implementation part for FlextCliModelsBase."""
 
+    class ProcessOutcome(m.Value):
+        """Causal completion state for one fully reaped process."""
+
+        raw_return_code: Annotated[
+            int, m.Field(description="Raw operating-system process return code")
+        ]
+        timed_out: Annotated[
+            bool, m.Field(description="Whether the process deadline expired")
+        ]
+        forwarded_signal: Annotated[
+            int | None,
+            m.Field(description="First operator signal forwarded to the process"),
+        ]
+
     class CommandOutput(m.Value):
         """Standardized external command execution payload. Use m.Cli.CommandOutput."""
 
-        stdout: Annotated[str, m.Field("", description="Captured standard output")] = ""
-        stderr: Annotated[str, m.Field("", description="Captured standard error")] = ""
-        exit_code: Annotated[int, m.Field(description="Command exit code")] = 0
+        stdout: Annotated[
+            str,
+            t.StringConstraints(strip_whitespace=False),
+            m.Field("", description="Captured standard output"),
+        ] = ""
+        stderr: Annotated[
+            str,
+            t.StringConstraints(strip_whitespace=False),
+            m.Field("", description="Captured standard error"),
+        ] = ""
+        outcome: Annotated[
+            FlextCliModelsBase.ProcessOutcome,
+            m.Field(description="Causal process completion state"),
+        ]
         duration: Annotated[
             t.NonNegativeFloat, m.Field(0.0, description="Duration in seconds")
         ] = 0.0
+
+        @property
+        def exit_code(self) -> int:
+            """Expose the process return code without duplicating stored state."""
+            return self.outcome.raw_return_code
 
     class CommandBytesOutput(m.Value):
         """Byte-exact external command payload. Use m.Cli.CommandBytesOutput."""
@@ -32,10 +63,18 @@ class FlextCliModelsBase:
         stderr: Annotated[
             bytes, m.Field(b"", description="Captured standard error as raw bytes")
         ] = b""
-        exit_code: Annotated[int, m.Field(description="Command exit code")] = 0
+        outcome: Annotated[
+            FlextCliModelsBase.ProcessOutcome,
+            m.Field(description="Causal process completion state"),
+        ]
         duration: Annotated[
             t.NonNegativeFloat, m.Field(0.0, description="Duration in seconds")
         ] = 0.0
+
+        @property
+        def exit_code(self) -> int:
+            """Expose the process return code without duplicating stored state."""
+            return self.outcome.raw_return_code
 
     class ProcessDeadline(m.Value):
         """Absolute monotonic process deadline. Use m.Cli.ProcessDeadline."""
@@ -47,10 +86,6 @@ class FlextCliModelsBase:
         termination_grace_seconds: Annotated[
             t.PositiveFloat,
             m.Field(description="Reserved graceful termination and drain budget"),
-        ]
-        timeout_exit_code: Annotated[
-            t.PositiveInt,
-            m.Field(description="Canonical exit code returned for deadline expiry"),
         ]
 
     class RuntimeComponents(m.BaseModel):
@@ -84,12 +119,12 @@ class FlextCliModelsBase:
         data: Annotated[
             t.JsonMapping,
             m.Field(
-                default_factory=lambda: MappingProxyType({}),
+                default_factory=lambda: EMPTY_JSON_MAPPING,
                 description="Field-value pairs for display",
             ),
         ]
 
-        @u.model_serializer(mode="plain")
+        @u.model_serializer
         def _serialize(self) -> t.JsonMapping:
             """Serialize the wrapper as its display payload."""
             return dict(self.data)
@@ -103,8 +138,7 @@ class FlextCliModelsBase:
         content: Annotated[
             t.JsonMapping,
             m.Field(
-                default_factory=lambda: MappingProxyType({}),
-                description="Loaded configuration content (dict or other JSON value)",
+                description="Loaded configuration content (dict or other JSON value)"
             ),
         ]
 
@@ -134,7 +168,7 @@ class FlextCliModelsBase:
         default: Annotated[
             t.JsonMapping,
             m.Field(
-                default_factory=lambda: MappingProxyType({}),
+                default_factory=lambda: EMPTY_JSON_MAPPING,
                 description="Default mapping if value is not a dict",
             ),
         ]

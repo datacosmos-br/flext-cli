@@ -28,7 +28,9 @@ class FlextCliUtilitiesConversion:
             instance: M = model_class.model_validate(cli_args)
             return r[M].ok(instance)
         except c.ValidationError as exc:
-            return r[M].fail(f"Validation error for {model_class.__name__}: {exc}")
+            return r[M].fail(
+                f"Validation error for {model_class.__name__}: {exc}", exception=exc
+            )
 
     @staticmethod
     def resolve_optional_path(value: t.Cli.TextPath | None, *, default: Path) -> Path:
@@ -46,7 +48,9 @@ class FlextCliUtilitiesConversion:
         if isinstance(value, Path):
             return str(value)
         normalized = u.norm_str(value, default="").strip()
-        return normalized or None
+        if not normalized:
+            return None
+        return normalized
 
     @staticmethod
     def normalize_required_text(value: t.JsonValue | Path, *, default: str) -> str:

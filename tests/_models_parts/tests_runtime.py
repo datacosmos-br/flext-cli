@@ -79,6 +79,9 @@ class TestsFlextCliModelsRuntime:
         ] = None
         expected: Annotated[str, m.Field(description="Expected captured output")] = ""
         error_has: Annotated[str, m.Field(description="Expected error substring")] = ""
+        timed_out: Annotated[
+            bool, m.Field(description="Whether the run must end owned-timeout")
+        ] = False
 
         @staticmethod
         def id_for(case: TestsFlextCliModelsRuntime.RuntimeCommandCase) -> str:
@@ -135,15 +138,15 @@ class TestsFlextCliModelsRuntime:
                 }),
                 cls.model_validate({
                     "case_id": "non-utf8-output",
-                    "command": ("sh", "-c", "printf '\\xff\\xfe'"),
+                    "command": ("sh", "-c", "printf '\\377\\376'"),
                     "error_has": "non-UTF-8",
                     "expect_success": False,
                 }),
                 cls.model_validate({
                     "case_id": "timeout",
                     "command": ("sleep", "10"),
-                    "error_has": "timeout",
-                    "expect_success": False,
+                    "expect_success": True,
+                    "timed_out": True,
                     "timeout": 1,
                 }),
                 cls.model_validate({
@@ -192,8 +195,8 @@ class TestsFlextCliModelsRuntime:
                 cls.model_validate({
                     "case_id": "timeout",
                     "command": ("sleep", "10"),
-                    "error_has": "timeout",
-                    "expect_success": False,
+                    "expect_success": True,
+                    "timed_out": True,
                     "timeout": 1,
                 }),
             )
