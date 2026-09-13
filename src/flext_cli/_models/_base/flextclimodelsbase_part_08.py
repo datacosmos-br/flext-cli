@@ -16,7 +16,7 @@ class FlextCliModelsBase:
     class AtomicDirectoryChainPlan(m.BaseModel):
         """Exact existing anchor plus contiguous directories observed absent."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             extra="forbid", frozen=True, arbitrary_types_allowed=True
         )
         target: Annotated[Path, m.Field(description="Requested directory path")]

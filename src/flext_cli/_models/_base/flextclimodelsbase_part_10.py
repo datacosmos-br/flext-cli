@@ -15,7 +15,7 @@ class FlextCliModelsBase:
     class AtomicFilePublication(m.BaseModel):
         """One guarded live state and its caller-owned staged replacement."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             extra="forbid", frozen=True, arbitrary_types_allowed=True
         )
         before: Annotated[
