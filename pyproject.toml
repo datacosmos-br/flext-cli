@@ -599,7 +599,7 @@ dependencies = ["flext-cli"]
 name = "flext-tests"
 
 [tool.flext.docs]
-package_name = "flext_cli"
+project_class = "platform"
 
 
 [tool.flext.project.budget.boundary]

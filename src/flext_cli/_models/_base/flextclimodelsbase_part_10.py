@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, ClassVar, Self
 
-from flext_core import m, t, u
+from flext_core import m, u
 
 from .flextclimodelsbase_part_02 import FlextCliModelsBase as FlextCliModelsBasePart02
 

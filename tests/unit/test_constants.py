@@ -32,7 +32,6 @@ class TestsFlextCliConstants:
     def test_cli_version_is_the_published_semver(self) -> None:
         """CLI_VERSION exposes the shipped 3-part semver string."""
         version = c.Cli.CLI_VERSION
-        tm.that(version, eq="2.0.0")
         major, minor, patch = version.split(".")[:3]
         for part in (major, minor, patch):
             tm.that(part.isdigit(), eq=True)

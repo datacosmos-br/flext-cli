@@ -49,10 +49,6 @@ class FlextCliModelsRules:
         action_key: Annotated[
             str, m.Field(description="Per-rule key naming the fix action to dispatch")
         ] = c.Cli.RULES_ACTION_KEY
-        fallback_action_key: Annotated[
-            str,
-            m.Field(description="Per-rule fallback key when ``action_key`` is absent"),
-        ] = c.Cli.DICT_KEY_ACTION
         check_key: Annotated[
             str,
             m.Field(description="Per-rule key naming the check predicate to dispatch"),

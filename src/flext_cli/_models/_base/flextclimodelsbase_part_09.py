@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Annotated, ClassVar, Literal, Self
 
-from flext_core import m, t, u
+from flext_core import m, u
 
 from .. import atomic_state
 
