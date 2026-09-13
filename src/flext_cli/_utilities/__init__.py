@@ -39,6 +39,9 @@ if TYPE_CHECKING:
     from ._rules._loaders import FlextCliUtilitiesRulesLoadersMixin
     from ._rules._matchers import FlextCliUtilitiesRulesMatchersMixin
     from ._runtime_commands import FlextCliUtilitiesRuntimeCommandsMixin
+    from ._runtime_darwin_process_group import (
+        FlextCliUtilitiesRuntimeDarwinProcessGroupMixin,
+    )
     from ._runtime_process_cleanup import FlextCliUtilitiesRuntimeProcessCleanupMixin
     from ._runtime_process_execution import (
         FlextCliUtilitiesRuntimeProcessExecutionMixin,
@@ -190,6 +193,7 @@ if TYPE_CHECKING:
     )
     from .atomic_parent_failure import preserve_recheck_failure
     from .atomic_tree_cleanup import cleanup_physical_tree_guarded
+    from .atomic_tree_darwin import FlextCliAtomicTreeDarwin
     from .atomic_tree_descriptor import (
         measure_authenticated_file,
         mount_id,
@@ -233,6 +237,7 @@ __all__: tuple[str, ...] = (
     "NO_MODE_PRECONDITION",
     "DirectoryChainInspection",
     "DirectoryPhysicalState",
+    "FlextCliAtomicTreeDarwin",
     "FlextCliUtilitiesAuth",
     "FlextCliUtilitiesCli",
     "FlextCliUtilitiesCmd",
@@ -268,6 +273,7 @@ __all__: tuple[str, ...] = (
     "FlextCliUtilitiesRulesMatchersMixin",
     "FlextCliUtilitiesRuntime",
     "FlextCliUtilitiesRuntimeCommandsMixin",
+    "FlextCliUtilitiesRuntimeDarwinProcessGroupMixin",
     "FlextCliUtilitiesRuntimeProcessCleanupMixin",
     "FlextCliUtilitiesRuntimeProcessExecutionMixin",
     "FlextCliUtilitiesRuntimeProcessGroupMixin",
@@ -443,6 +449,9 @@ _LAZY_IMPORTS = MappingProxyType(
             "._rules._loaders": ("FlextCliUtilitiesRulesLoadersMixin",),
             "._rules._matchers": ("FlextCliUtilitiesRulesMatchersMixin",),
             "._runtime_commands": ("FlextCliUtilitiesRuntimeCommandsMixin",),
+            "._runtime_darwin_process_group": (
+                "FlextCliUtilitiesRuntimeDarwinProcessGroupMixin",
+            ),
             "._runtime_process_cleanup": (
                 "FlextCliUtilitiesRuntimeProcessCleanupMixin",
             ),
@@ -614,6 +623,7 @@ _LAZY_IMPORTS = MappingProxyType(
             ),
             ".atomic_parent_failure": ("preserve_recheck_failure",),
             ".atomic_tree_cleanup": ("cleanup_physical_tree_guarded",),
+            ".atomic_tree_darwin": ("FlextCliAtomicTreeDarwin",),
             ".atomic_tree_descriptor": (
                 "measure_authenticated_file",
                 "mount_id",

@@ -44,6 +44,26 @@ class FlextCliUtilitiesRuntimeProcessGroupMixin(
         return r[bool].ok(False)
 
     @classmethod
+    def _signal_process_tree_windows(
+        cls,
+        process: p.Cli.ProcessHandle,
+        signal_number: int,
+        job_handle: int,
+        *,
+        force: bool,
+    ) -> p.Result[bool]:
+        """Signal one owned process tree through the Windows Job Object."""
+        if not force and signal_number == signal.SIGINT:
+            process.send_signal(int(getattr(signal, "CTRL_BREAK_EVENT", signal.SIGINT)))
+            return r[bool].ok(True)
+        terminate_error = cls._windows_job_terminate(
+            job_handle, 128 + abs(signal_number)
+        )
+        if terminate_error is not None:
+            return r[bool].fail(terminate_error)
+        return r[bool].ok(True)
+
+    @classmethod
     def _signal_process_tree(
         cls,
         process: p.Cli.ProcessHandle,
@@ -51,32 +71,32 @@ class FlextCliUtilitiesRuntimeProcessGroupMixin(
         job_handle: int,
         *,
         force: bool,
-    ) -> str | None:
+    ) -> p.Result[bool]:
         """Signal the complete owned process tree."""
+        if os.name == "nt":
+            return cls._signal_process_tree_windows(
+                process, signal_number, job_handle, force=force
+            )
         try:
-            if os.name == "nt":
-                if not force and signal_number == signal.SIGINT:
-                    process.send_signal(
-                        int(getattr(signal, "CTRL_BREAK_EVENT", signal.SIGINT))
-                    )
-                    return None
-                return cls._windows_job_terminate(job_handle, 128 + abs(signal_number))
             os.killpg(process.pid, signal.SIGKILL if force else signal_number)
         except ProcessLookupError:
-            return None
+            return r[bool].ok(True)
         except PermissionError as exc:
             # XNU killpg excludes zombies and returns EPERM if none are live.
             # Confirm that state; cleanup still waits for every PID to be reaped.
             if platform.system() == "Darwin":
                 try:
                     if cls._darwin_process_group_exited(process.pid):
-                        return None
+                        return r[bool].ok(True)
                 except OSError as probe_error:
-                    return f"process-tree state error: {probe_error}"
-            return f"process-tree signal error: {exc}"
+                    return r[bool].fail(
+                        f"process-tree state error: {probe_error}",
+                        exception=probe_error,
+                    )
+            return r[bool].fail(f"process-tree signal error: {exc}", exception=exc)
         except (OSError, ValueError) as exc:
-            return f"process-tree signal error: {exc}"
-        return None
+            return r[bool].fail(f"process-tree signal error: {exc}", exception=exc)
+        return r[bool].ok(True)
 
 
 __all__: list[str] = ["FlextCliUtilitiesRuntimeProcessGroupMixin"]

@@ -75,7 +75,9 @@ class FlextCliUtilitiesXlsxAddresses:
             )
         except (TypeError, ValueError) as exc:
             detail = str(exc).strip() or request.reference
-            return cls._range_failure(detail)
+            return r[m.Cli.XlsxCellRange].fail(
+                f"{c.Cli.XlsxError.RANGE_INVALID}: {detail}", exception=exc
+            )
         if (
             first_column is None
             or first_row is None

@@ -21,12 +21,12 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     # once into XlsxCellValue and vendor instances never leave this utility.
     @staticmethod
     def _snapshot_style_name(cell: Cell) -> str | None:
+        style_name: str | None
         try:
-            style_name: str | None = cell.style
+            style_name = cell.style
         except IndexError:
-            return None
-        else:
-            return style_name
+            style_name = None
+        return style_name
 
     @staticmethod
     def _require_success(result: r[T]) -> T:

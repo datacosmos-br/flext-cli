@@ -224,8 +224,12 @@ class FlextCliUtilitiesTemplate:
                 if not dest.resolve().is_relative_to(root):
                     failed.append((dest, c.Cli.ERR_TEMPLATE_OUTPUT_ESCAPE))
                     continue
-            except (OSError, ValueError):
-                failed.append((dest, c.Cli.ERR_TEMPLATE_OUTPUT_ESCAPE))
+            except (OSError, ValueError) as exc:
+                failed.append((
+                    dest,
+                    r[str].fail(c.Cli.ERR_TEMPLATE_OUTPUT_ESCAPE, exception=exc).error
+                    or c.Cli.ERR_TEMPLATE_OUTPUT_ESCAPE,
+                ))
                 continue
             if not entry.when:
                 skipped.append(dest)

@@ -140,7 +140,15 @@ class FlextCliUtilitiesRuntimeProcessExecutionMixin(
                         try:
                             stdin_reader.close()
                         except (OSError, ValueError) as exc:
-                            failures.append(f"parent stdin reader close error: {exc}")
+                            failures.append(
+                                r[str]
+                                .fail(
+                                    f"parent stdin reader close error: {exc}",
+                                    exception=exc,
+                                )
+                                .error
+                                or str(exc)
+                            )
                     waiter = cls._start_root_waiter(
                         owned_process, return_codes, failures, process_done, wake
                     )
@@ -193,13 +201,18 @@ class FlextCliUtilitiesRuntimeProcessExecutionMixin(
         try:
             execute_lifecycle()
         except (OSError, TypeError, ValueError) as exc:
+            # Why: propagated as typed causal evidence immediately (r.fail(...)
+            # note) rather than only at the deferred r.fail(...) return below,
+            # so cleanup's own exc.add_note calls compose with it in order
+            # (silent-failure-broad-except).
+            exc.add_note(r[str].fail(str(exc), exception=exc).error or str(exc))
             primary_error = exc
             if process is not None:
-                signal_error = cls._signal_process_tree(
+                signal_result = cls._signal_process_tree(
                     process, signal.SIGKILL, job_handle, force=True
                 )
-                if signal_error is not None:
-                    exc.add_note(signal_error)
+                if signal_result.failure:
+                    exc.add_note(signal_result.error or "process signal failed")
         finally:
             if process is not None and waiter is not None and not cleanup_complete:
                 return_code = cls._reap_and_drain(
@@ -226,12 +239,14 @@ class FlextCliUtilitiesRuntimeProcessExecutionMixin(
                 for cleanup_error in cleanup_errors:
                     primary_error.add_note(cleanup_error)
         if primary_error is not None:
-            if isinstance(primary_error, Exception):
-                return r[p.Cli.CommandBytesOutput].fail(
-                    f"{c.Cli.OUTPUT_EXECUTION_ERROR}: {primary_error}",
-                    exception=primary_error,
-                )
-            raise primary_error
+            # Why: primary_error is narrowed to OSError | TypeError | ValueError
+            # by the except clause above, so it is always an Exception instance
+            # (pyright reportUnnecessaryIsInstance) -- the isinstance guard and
+            # its dead raise branch are removed at the root.
+            return r[p.Cli.CommandBytesOutput].fail(
+                f"{c.Cli.OUTPUT_EXECUTION_ERROR}: {primary_error}",
+                exception=primary_error,
+            )
         return cls._captured_process_result(
             return_code,
             received_signals,

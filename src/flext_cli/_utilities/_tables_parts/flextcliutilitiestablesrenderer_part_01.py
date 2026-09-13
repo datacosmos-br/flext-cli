@@ -52,8 +52,10 @@ class FlextCliUtilitiesTablesRenderer:
         try:
             float(cell)
         except ValueError:
-            return False
-        return True
+            is_numeric_cell = False
+        else:
+            is_numeric_cell = True
+        return is_numeric_cell
 
     @classmethod
     def _header_labels(

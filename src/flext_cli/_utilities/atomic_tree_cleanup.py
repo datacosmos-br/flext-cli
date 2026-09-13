@@ -130,11 +130,13 @@ def _delete_symlink(entry: m.Cli.AtomicPhysicalTreeEntry) -> None:
             _raise_changed(entry.path)
         file_descriptor.unlink_entry(parent, entry.path)
         file_durability.sync_parent(parent)
+        deletion_confirmed = False
         try:
             file_descriptor.entry_stat(parent, entry.path)
         except FileNotFoundError:
-            return
-        _raise_changed(entry.path)
+            deletion_confirmed = True
+        if not deletion_confirmed:
+            _raise_changed(entry.path)
 
 
 def _delete_directory(entry: m.Cli.AtomicPhysicalTreeEntry) -> None:

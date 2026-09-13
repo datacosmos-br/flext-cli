@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, ClassVar, Self
 
-from flext_core import m, t, u
+from flext_core import m, u
 
 from .flextclimodelsbase_part_02 import FlextCliModelsBase as FlextCliModelsBasePart02
 
@@ -15,7 +15,7 @@ class FlextCliModelsBase:
     class AtomicFilePublication(m.BaseModel):
         """One guarded live state and its caller-owned staged replacement."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             extra="forbid", frozen=True, arbitrary_types_allowed=True
         )
         before: Annotated[
