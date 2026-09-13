@@ -10,6 +10,7 @@ from flext_core.lazy import build_lazy_import_map, install_lazy_exports
 
 if TYPE_CHECKING:
     from . import _cli_parts
+    from ._prompts_support import FlextCliPromptsSupport
     from .auth import FlextCliAuth
     from .cli import FlextCliCli
     from .cli_params import FlextCliCommonParams
@@ -38,6 +39,7 @@ __all__: tuple[str, ...] = (
     "FlextCliPipeline",
     "FlextCliPptx",
     "FlextCliPrompts",
+    "FlextCliPromptsSupport",
     "FlextCliRules",
     "FlextCliRuntime",
     "FlextCliTables",
@@ -50,6 +52,7 @@ _LAZY_IMPORTS = MappingProxyType(
     build_lazy_import_map(
         MappingProxyType({
             "._cli_parts": ("_cli_parts",),
+            "._prompts_support": ("FlextCliPromptsSupport",),
             ".auth": ("FlextCliAuth",),
             ".cli": ("FlextCliCli",),
             ".cli_params": ("FlextCliCommonParams",),

@@ -33,14 +33,12 @@ class FlextCliUtilitiesOptions:
                 ],
             )
         )
+        # Why: get_origin() on these concrete generics never returns None;
+        # the prior None-filter was dead code (pyright reportUnnecessaryComparison).
         set_origins: dict[object, type] = {
-            o: t_
-            for o, t_ in [
-                (get_origin(dict[str, t.Scalar]), dict),
-                (get_origin(frozenset[str]), frozenset),
-                (get_origin(set[str]), set),
-            ]
-            if o is not None
+            get_origin(dict[str, t.Scalar]): dict,
+            get_origin(frozenset[str]): frozenset,
+            get_origin(set[str]): set,
         }
         resolved_annotation_input = annotation
         origin = get_origin(resolved_annotation_input)

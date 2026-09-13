@@ -24,8 +24,8 @@ _EXAMPLE_REQUIRED_DATA_FIELDS: t.VariadicTuple[str] = ("id", "name", "value")
 
 def save_user_preferences(
     preferences: t.MappingKV[str, t.JsonPayloadCollectionValue], config_dir: Path
-) -> bool:
-    """Save user preferences to JSON in YOUR app."""
+) -> p.Result[bool]:
+    """Save user preferences to JSON in YOUR app. Returns r[bool]; no bare bool sentinel."""
     config_file = config_dir / "preferences.json"
 
     write_result = cli.write_json_file(
@@ -37,12 +37,12 @@ def save_user_preferences(
             f"❌ Failed to save: {write_result.error}",
             style=c.Cli.MessageStyles.BOLD_RED,
         )
-        return False
+        return r[bool].from_failure(write_result)
 
     cli.print(
         f"✅ Saved preferences to {config_file.name}", style=c.Cli.MessageStyles.GREEN
     )
-    return True
+    return r[bool].ok(True)
 
 
 def load_user_preferences(config_dir: Path) -> p.Result[m.Cli.LoadedConfig]:
@@ -73,8 +73,8 @@ def load_user_preferences(config_dir: Path) -> p.Result[m.Cli.LoadedConfig]:
 
 def save_deployment_config(
     settings: t.MappingKV[str, t.JsonPayloadCollectionValue], config_file: Path
-) -> bool:
-    """Save deployment settings to YAML in YOUR tool."""
+) -> p.Result[bool]:
+    """Save deployment settings to YAML in YOUR tool. Returns r[bool]; no bare bool sentinel."""
     # Normalize the mapping into the CLI JSON contract before writing YAML.
     write_result = cli.write_yaml_file(config_file, u.normalize_to_json_value(settings))
 
@@ -83,10 +83,10 @@ def save_deployment_config(
             f"❌ Config save failed: {write_result.error}",
             style=c.Cli.MessageStyles.BOLD_RED,
         )
-        return False
+        return r[bool].from_failure(write_result)
 
     cli.print("✅ Saved deployment settings", style=c.Cli.MessageStyles.GREEN)
-    return True
+    return r[bool].ok(True)
 
 
 def load_deployment_config(config_file: Path) -> p.Result[m.Cli.LoadedConfig]:

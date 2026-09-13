@@ -41,7 +41,7 @@ class TestsFlextCliExamplesSmoke:
         """File examples must report invalid filesystem and payload failures."""
         broken_config_root = tmp_path / "broken-config-root"
         broken_config_root.write_text("not-a-directory", encoding="utf-8")
-        tm.that(save_user_preferences({"theme": "dark"}, broken_config_root), eq=False)
+        tm.fail(save_user_preferences({"theme": "dark"}, broken_config_root))
 
         missing_preferences = load_user_preferences(tmp_path / "missing-config")
         tm.fail(missing_preferences)
