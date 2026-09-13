@@ -48,7 +48,9 @@ class FlextCliUtilitiesConversion:
         if isinstance(value, Path):
             return str(value)
         normalized = u.norm_str(value, default="").strip()
-        return normalized or None
+        if normalized == "":
+            return None
+        return normalized
 
     @staticmethod
     def normalize_required_text(value: t.JsonValue | Path, *, default: str) -> str:
