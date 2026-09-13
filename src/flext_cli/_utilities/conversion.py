@@ -48,7 +48,7 @@ class FlextCliUtilitiesConversion:
         if isinstance(value, Path):
             return str(value)
         normalized = u.norm_str(value, default="").strip()
-        if normalized == "":
+        if not normalized:
             return None
         return normalized
 
