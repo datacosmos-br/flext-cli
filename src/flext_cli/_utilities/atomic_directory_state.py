@@ -20,9 +20,12 @@ def destination_state(
     path: Path, *, parent: file_descriptor.ParentDescriptor
 ) -> os.stat_result | None:
     """Read one final directory entry without following it or crossing devices."""
+    state: os.stat_result | None
     try:
         state = file_descriptor.entry_stat(parent, path)
     except FileNotFoundError:
+        state = None
+    if state is None:
         return None
     file_path.validate_directory_state(path, state)
     if state.st_dev != parent.state.st_dev:

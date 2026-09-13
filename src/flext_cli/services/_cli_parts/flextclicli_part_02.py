@@ -28,9 +28,12 @@ class FlextCliCli(FlextCliCliPart01):
             u.fetch_logger(__name__).warning(
                 "failed to apply cli params", error=result.error or ""
             )
-            return
+        else:
+            self._apply_updated_settings(result.value)
 
-        updated_settings = result.value
+    @staticmethod
+    def _apply_updated_settings(updated_settings: p.Cli.Settings) -> None:
+        """Diff resolved settings against the singleton and update overrides."""
         # NOTE (multi-agent): the ``settings`` singleton is always the
         # concrete FlextCliSettings, which provably satisfies the Settings
         # protocol — the old isinstance guard was dead code (pyright

@@ -17,7 +17,7 @@ class FlextCliModelsBase:
     class AtomicDirectoryState(m.BaseModel):
         """Exact empty-directory presence and physical identity."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             extra="forbid", frozen=True, arbitrary_types_allowed=True
         )
         path: Annotated[Path, m.Field(description="Absolute directory path")]
@@ -97,7 +97,7 @@ class FlextCliModelsBase:
     class CommandEntryModel(m.BaseModel):
         """Single command entry: name + handler. Use m.Cli.CommandEntryModel."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             arbitrary_types_allowed=True, extra="forbid"
         )
         name: Annotated[t.NonEmptyStr, m.Field(..., description="Command name")]
@@ -108,7 +108,7 @@ class FlextCliModelsBase:
     class ResultCommandRoute(m.BaseModel):
         """Type-erased route contract for heterogeneous batch registration."""
 
-        model_config: ClassVar[t.ConfigDict] = m.ConfigDict(
+        model_config: ClassVar[m.ConfigDict] = m.ConfigDict(
             arbitrary_types_allowed=True, extra="forbid", frozen=True
         )
         name: Annotated[t.NonEmptyStr, m.Field(..., description="Command name")]

@@ -204,9 +204,11 @@ class FlextCliUtilitiesRuntimeProcessMonitorMixin(
         return forwarded_count, term_sent, kill_sent
 
     @staticmethod
-    def _record_signal_error(failures: list[str], error: str | None) -> None:
-        if error is not None:
-            failures.append(error)
+    def _record_signal_error(
+        failures: list[str], signal_result: p.Result[bool]
+    ) -> None:
+        if signal_result.failure:
+            failures.append(signal_result.error or "process signal failed")
 
     @staticmethod
     def _next_boundary(now: float, *boundaries: float | None) -> float | None:

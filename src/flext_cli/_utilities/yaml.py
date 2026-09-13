@@ -177,7 +177,12 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
                 allow_unicode=True,
                 indent=indent,
             )
-        except (c.Cli.YamlParseError, ValueError, TypeError):
+        except (c.Cli.YamlParseError, ValueError, TypeError) as exc:
+            u.fetch_logger(__name__).warning(
+                "YAML serialization failed",
+                error=r[str].fail(str(exc), exception=exc).error or str(exc),
+                error_type=type(exc).__name__,
+            )
             return ""
         else:
             return serialized
