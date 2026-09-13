@@ -62,10 +62,11 @@ class TestsFlextCliExamplesSmoke:
         config_dir.mkdir()
         preferences = m.Tests.UserPreferences(theme="dark", notifications=True)
 
-        tm.that(
-            save_user_preferences(preferences.model_dump(mode="json"), config_dir),
-            eq=True,
+        save_preferences_result = save_user_preferences(
+            preferences.model_dump(mode="json"), config_dir
         )
+        tm.ok(save_preferences_result)
+        tm.that(save_preferences_result.value, eq=True)
 
         preferences_result = load_user_preferences(config_dir)
         tm.ok(preferences_result)
@@ -76,12 +77,11 @@ class TestsFlextCliExamplesSmoke:
 
         deployment_file = tmp_path / "deployment.yaml"
         deployment_config = m.Tests.DeploymentConfig(environment="dev", replicas=2)
-        tm.that(
-            save_deployment_config(
-                deployment_config.model_dump(mode="json"), deployment_file
-            ),
-            eq=True,
+        save_deployment_result = save_deployment_config(
+            deployment_config.model_dump(mode="json"), deployment_file
         )
+        tm.ok(save_deployment_result)
+        tm.that(save_deployment_result.value, eq=True)
 
         deployment_result = load_deployment_config(deployment_file)
         tm.ok(deployment_result)

@@ -10,7 +10,7 @@ from collections.abc import Callable
 from types import FrameType
 from typing import IO, BinaryIO
 
-from flext_cli import p
+from flext_cli import p, r
 
 from ._runtime_process_monitor import FlextCliUtilitiesRuntimeProcessMonitorMixin
 from ._runtime_process_threads import FlextCliUtilitiesRuntimeProcessThreadsMixin
@@ -65,7 +65,15 @@ class FlextCliUtilitiesRuntimeProcessCleanupMixin(
             try:
                 restore()
             except (OSError, ValueError) as exc:
-                failures.append(f"signal handler restore failed: {exc}")
+                # Why: cleanup continues across every handler; each failure is
+                # propagated as typed causal evidence via r.fail(...).error
+                # (silent-failure-broad-except), never silently dropped.
+                failures.append(
+                    r[str]
+                    .fail(f"signal handler restore failed: {exc}", exception=exc)
+                    .error
+                    or str(exc)
+                )
         return tuple(failures)
 
     @classmethod
@@ -117,7 +125,12 @@ class FlextCliUtilitiesRuntimeProcessCleanupMixin(
             try:
                 sink.close()
             except (OSError, ValueError) as exc:
-                cleanup_errors.append(f"process input close error: {exc}")
+                cleanup_errors.append(
+                    r[str]
+                    .fail(f"process input close error: {exc}", exception=exc)
+                    .error
+                    or str(exc)
+                )
             pump.join(cls._remaining(cleanup_deadline))
         if pump.is_alive():
             cleanup_errors.append("process deadline expired before input drain")
@@ -178,15 +191,20 @@ class FlextCliUtilitiesRuntimeProcessCleanupMixin(
             try:
                 source.close()
             except (OSError, ValueError) as exc:
-                cleanup_errors.append(f"process output close error: {exc}")
+                cleanup_errors.append(
+                    r[str]
+                    .fail(f"process output close error: {exc}", exception=exc)
+                    .error
+                    or str(exc)
+                )
             pump.join(cls._remaining(cleanup_deadline))
         if pump.is_alive():
             cleanup_errors.append("process deadline expired before output drain")
 
     @staticmethod
-    def _append_signal_error(errors: list[str], error: str | None) -> None:
-        if error is not None:
-            errors.append(error)
+    def _append_signal_error(errors: list[str], signal_result: p.Result[bool]) -> None:
+        if signal_result.failure:
+            errors.append(signal_result.error or "process signal failed")
 
     @staticmethod
     def _remaining(absolute_deadline: float) -> float:

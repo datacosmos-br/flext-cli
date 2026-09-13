@@ -84,10 +84,12 @@ class FlextCliUtilitiesToml:
     @staticmethod
     def toml_parse_text(text: str) -> TOMLDocument | None:
         """Parse TOML text, returning ``None`` on invalid input."""
+        parsed: TOMLDocument | None
         try:
-            return tomlkit.parse(text)
+            parsed = tomlkit.parse(text)
         except c.EXC_TYPE_VALIDATION:
-            return None
+            parsed = None
+        return parsed
 
     @staticmethod
     def toml_dumps(doc: TOMLDocument) -> str:
@@ -97,14 +99,19 @@ class FlextCliUtilitiesToml:
     @staticmethod
     def toml_mapping_from_text(text: str) -> t.JsonMapping | None:
         """Parse TOML text into one validated plain mapping."""
+        loaded: t.JsonMapping | None
         try:
             loaded = tomllib.loads(text)
         except tomllib.TOMLDecodeError:
+            loaded = None
+        if loaded is None:
             return None
+        validated: t.JsonMapping | None
         try:
-            return t.Cli.JSON_MAPPING_ADAPTER.validate_python(loaded)
+            validated = t.Cli.JSON_MAPPING_ADAPTER.validate_python(loaded)
         except c.ValidationError:
-            return None
+            validated = None
+        return validated
 
     @staticmethod
     def toml_document_from_mapping(mapping: t.JsonMapping) -> TOMLDocument:

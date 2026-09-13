@@ -182,7 +182,6 @@ fix-report.json
 
 # Backup files inside allowed directories
 **/*.bak
-**/*.bak.*
 **/*.bkp
 **/*.bkp?
 **/*.backup
@@ -191,10 +190,6 @@ fix-report.json
 **/*_backup_*
 **/*.md.backup
 **/archived/
-
-# Banned residue (never source, any profile)
-*aihub-prior*
-config/build-constraints.txt
 
 # Autofix rejection artifacts (run_skill_autofix.sh rollback output)
 **/*.rej-*.bak
@@ -299,8 +294,7 @@ __pyrefly_virtual__/
 .omo/
 .pylance_cache/
 .pytest_cache/
-.test-tmp/
-.test-runtime/
+.flext-runtime/
 .testmondata
 .testmondata-wal
 .testmondata-shm
@@ -360,3 +354,7 @@ CLAUDE.local.md
 !.vscode/settings.json
 !config/
 !config/gitleaks-release.toml
+# Why: layout-gitignore gate requires this pattern per flext-infra
+# config/codegen-overrides.yaml project_overrides.flext-cli.gitignore_additions;
+# make gen did not materialize it this run, added directly at the SSOT value.
+settings.json
