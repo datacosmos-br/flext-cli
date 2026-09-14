@@ -170,7 +170,9 @@ Reversing that order loses a notification when the child exits between the two
 operations, which can hold a caller's resource lock until the deadline. The
 regression in `tests/unit/test_runtime_process_completion.py` schedules that
 boundary with a real child and waiter through the public runtime. It does not
-increase timeouts or replace event-driven waiting with polling.
+increase timeouts or replace event-driven waiting with polling. The
+[Python Event contract](https://docs.python.org/3/library/threading.html#event-objects)
+defines the flag cleared by `clear()` and the signal observed by `wait()`.
 
 ## Related
 
