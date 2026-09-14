@@ -48,8 +48,12 @@ class FlextCliUtilitiesRuntimeProcessMonitorMixin(
             if progress_fd is not None and heartbeat_seconds is not None
             else None
         )
-        while not process_done.is_set():
+        while True:
             wake.clear()
+            # Clear before observing completion: a waiter that finishes between
+            # the observation and clear would otherwise lose its only wake-up.
+            if process_done.is_set():
+                break
             now = time.monotonic()
             if received_signals and not interrupt_mode:
                 interrupt_mode = True
