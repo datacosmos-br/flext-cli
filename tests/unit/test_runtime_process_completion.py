@@ -21,7 +21,9 @@ if TYPE_CHECKING:
 class TestsRuntimeProcessCompletion:
     """A completed child must not wait for its execution deadline."""
 
-    def test_completion_before_wake_clear_returns_promptly(self, tmp_path: Path) -> None:
+    def test_completion_before_wake_clear_returns_promptly(
+        self, tmp_path: Path
+    ) -> None:
         """Schedule a real waiter at the exact lost-notification boundary.
 
         Tracing only controls thread scheduling; process creation, events,
@@ -29,9 +31,7 @@ class TestsRuntimeProcessCompletion:
         """
         scheduled: list[bool] = []
 
-        def trace(
-            frame: FrameType, event: str, _argument: object
-        ) -> TraceFunction:
+        def trace(frame: FrameType, event: str, _argument: object) -> TraceFunction:
             if (
                 event == "line"
                 and frame.f_code.co_name == "_monitor_process"
