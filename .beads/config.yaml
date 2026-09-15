@@ -7,5 +7,3 @@
 # other runtime setting come from the environment, never from this file.
 # bd reads `issue_prefix` (underscore). Do not emit `issue-prefix`.
 issue_prefix: "flext"
-sync:
-    remote: "git+ssh://git@github.com/flext-sh/flext-cli.git"
