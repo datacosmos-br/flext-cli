@@ -42,7 +42,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @staticmethod
     def _snapshot_value(
         value: t.Cli.XlsxCellPrimitive, *, formula_view: bool
-    ) -> r[m.Cli.XlsxCellValue]:
+    ) -> p.Result[m.Cli.XlsxCellValue]:
         try:
             return FlextCliUtilitiesXlsxSnapshotValues._snapshot_value_unchecked(
                 value, formula_view=formula_view
@@ -56,7 +56,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @staticmethod
     def _snapshot_value_unchecked(
         value: t.Cli.XlsxCellPrimitive, *, formula_view: bool
-    ) -> r[m.Cli.XlsxCellValue]:
+    ) -> p.Result[m.Cli.XlsxCellValue]:
         if formula_view:
             if isinstance(value, str) and value.startswith("="):
                 converted: m.Cli.XlsxCellValue = m.Cli.XlsxFormulaValue(value=value)
@@ -106,7 +106,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @classmethod
     def _snapshot_cell(
         cls, formula_cell: Cell, value_sheet: Worksheet, *, data_only: bool
-    ) -> r[m.Cli.XlsxCellSnapshot]:
+    ) -> p.Result[m.Cli.XlsxCellSnapshot]:
         try:
             return cls._snapshot_cell_unchecked(
                 formula_cell, value_sheet, data_only=data_only
@@ -118,7 +118,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @classmethod
     def _snapshot_cell_unchecked(
         cls, formula_cell: Cell, value_sheet: Worksheet, *, data_only: bool
-    ) -> r[m.Cli.XlsxCellSnapshot]:
+    ) -> p.Result[m.Cli.XlsxCellSnapshot]:
         formula = cls._formula(formula_cell)
         selected = (
             value_sheet.cell(formula_cell.row, formula_cell.column)
@@ -161,7 +161,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @classmethod
     def _snapshot_cells(
         cls, formula_sheet: Worksheet, value_sheet: Worksheet, *, data_only: bool
-    ) -> r[t.VariadicTuple[m.Cli.XlsxCellSnapshot]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxCellSnapshot]]:
         try:
             cells = cls._snapshot_cells_unchecked(
                 formula_sheet, value_sheet, data_only=data_only

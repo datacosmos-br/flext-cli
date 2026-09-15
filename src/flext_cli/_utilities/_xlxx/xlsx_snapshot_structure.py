@@ -42,7 +42,7 @@ class FlextCliUtilitiesXlsxSnapshotStructure:
     @staticmethod
     def _snapshot_tables(
         worksheet: Worksheet,
-    ) -> r[t.VariadicTuple[m.Cli.XlsxTableSnapshot]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxTableSnapshot]]:
         tables: t.VariadicTuple[m.Cli.XlsxTableSnapshot] = ()
         try:
             for item in worksheet.tables.values():
@@ -79,7 +79,7 @@ class FlextCliUtilitiesXlsxSnapshotStructure:
     @staticmethod
     def _snapshot_rows(
         worksheet: Worksheet,
-    ) -> r[t.VariadicTuple[m.Cli.XlsxRowDimensionSnapshot]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxRowDimensionSnapshot]]:
         rows: t.VariadicTuple[m.Cli.XlsxRowDimensionSnapshot] = ()
         try:
             for item in worksheet.row_dimensions.values():
@@ -106,7 +106,7 @@ class FlextCliUtilitiesXlsxSnapshotStructure:
     @staticmethod
     def _snapshot_columns(
         worksheet: Worksheet,
-    ) -> r[t.VariadicTuple[m.Cli.XlsxColumnDimensionSnapshot]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxColumnDimensionSnapshot]]:
         columns: t.VariadicTuple[m.Cli.XlsxColumnDimensionSnapshot] = ()
         try:
             for item in worksheet.column_dimensions.values():
@@ -138,7 +138,7 @@ class FlextCliUtilitiesXlsxSnapshotStructure:
     @staticmethod
     def _snapshot_names(
         workbook: Workbook,
-    ) -> r[t.VariadicTuple[m.Cli.XlsxDefinedNameSnapshot]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxDefinedNameSnapshot]]:
         names: t.VariadicTuple[m.Cli.XlsxDefinedNameSnapshot] = ()
         try:
             for item in workbook.defined_names.values():

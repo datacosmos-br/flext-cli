@@ -19,7 +19,9 @@ class FlextCliUtilitiesXlsxWorkbookIo(FlextCliUtilitiesXlsxArchive):
     # NOTE (multi-agent, mro-j2yt.1): source bytes pass the safe OOXML
     # inventory before openpyxl receives them; workbook objects stay private.
     @classmethod
-    def _load_workbook(cls, source: bytes, *, data_only: bool = False) -> r[Workbook]:
+    def _load_workbook(
+        cls, source: bytes, *, data_only: bool = False
+    ) -> p.Result[Workbook]:
         inspection_request = m.Cli.XlsxArchiveInspectionRequest(
             source=source, policy=m.Cli.XlsxArchivePolicy()
         )

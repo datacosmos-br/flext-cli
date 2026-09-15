@@ -22,7 +22,7 @@ class FlextCliUtilitiesXlsxSnapshotSheet(
     @staticmethod
     def _snapshot_state(
         worksheet: Worksheet,
-    ) -> r[Literal["visible", "hidden", "veryHidden"]]:
+    ) -> p.Result[Literal["visible", "hidden", "veryHidden"]]:
         sheet_state: str = worksheet.sheet_state
         if sheet_state == "visible":
             return r[Literal["visible", "hidden", "veryHidden"]].ok("visible")
@@ -37,7 +37,7 @@ class FlextCliUtilitiesXlsxSnapshotSheet(
     @classmethod
     def _snapshot_sheet(
         cls, formula_sheet: Worksheet, value_sheet: Worksheet, *, position: int
-    ) -> r[m.Cli.XlsxSheetSnapshot]:
+    ) -> p.Result[m.Cli.XlsxSheetSnapshot]:
         try:
             snapshot = cls._snapshot_sheet_unchecked(
                 formula_sheet, value_sheet, position=position
