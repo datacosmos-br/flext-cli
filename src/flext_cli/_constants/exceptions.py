@@ -9,9 +9,8 @@ from __future__ import annotations
 from typing import ClassVar
 
 from ruamel.yaml import YAMLError as RuamelYAMLError
-from yaml import YAMLError
 
-from flext_core import e
+from flext_core import e, u
 
 
 class FlextCliConstantsExceptions:
@@ -42,7 +41,7 @@ class FlextCliConstantsExceptions:
 
         _default_error_code: ClassVar[str] = "VALIDATION_ERROR"
 
-    YamlParseError: ClassVar[type[Exception]] = YAMLError
+    YamlParseError: ClassVar[type[Exception]] = u.Yaml.YAMLError
     YamlRoundtripError: ClassVar[type[Exception]] = RuamelYAMLError
 
 

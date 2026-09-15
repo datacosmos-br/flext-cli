@@ -13,8 +13,6 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import ClassVar
 
-from yaml import safe_dump, safe_load
-
 from flext_cli import c, p, r, t
 from flext_core import u
 
@@ -99,7 +97,7 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
     def _yaml_parse_list(path: Path) -> t.SequenceOf[t.JsonValue]:
         """Parse *path* as a top-level YAML list; raises on any failure."""
         raw = path.read_text(encoding=c.Cli.ENCODING_DEFAULT)
-        parsed = safe_load(raw)
+        parsed = u.Yaml.safe_load(raw)
         if not isinstance(parsed, list):
             msg = f"YAML content is not a list: {type(parsed).__name__}"
             raise TypeError(msg)
@@ -143,15 +141,15 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
             validated = FlextCliUtilitiesJson.normalize_json_value(data)
+            serialized: str = u.Yaml.safe_dump(
+                validated,
+                default_flow_style=False,
+                sort_keys=sort_keys,
+                allow_unicode=True,
+                indent=indent,
+            )
             with path.open("w", encoding=c.Cli.ENCODING_DEFAULT) as fh:
-                safe_dump(
-                    validated,
-                    fh,
-                    default_flow_style=False,
-                    sort_keys=sort_keys,
-                    allow_unicode=True,
-                    indent=indent,
-                )
+                fh.write(serialized)
             return r[bool].ok(True)
         except (OSError, c.Cli.YamlParseError, ValueError, TypeError) as exc:
             return r[bool].fail(f"YAML write error: {exc}", exception=exc)
@@ -170,7 +168,7 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
         """
         try:
             validated = FlextCliUtilitiesJson.normalize_json_value(data)
-            serialized: str = safe_dump(
+            serialized: str = u.Yaml.safe_dump(
                 validated,
                 default_flow_style=False,
                 sort_keys=sort_keys,
