@@ -5,6 +5,7 @@ from __future__ import annotations
 from flext_tests import tm
 
 from flext_cli import cli, m
+from tests import t
 
 
 def test_xlsx_parse_range_returns_typed_concrete_bounds() -> None:
@@ -85,7 +86,7 @@ def test_xlsx_format_reference_collapses_equal_bounds_and_rejects_inversion() ->
     tm.that("xlsx_range_invalid" in (invalid.error or ""), eq=True)
 
 
-__all__: tuple[str, ...] = (
+__all__: t.VariadicTuple[str] = (
     "test_xlsx_format_reference_collapses_equal_bounds_and_rejects_inversion",
     "test_xlsx_format_reference_exposes_every_typed_rendering_mode",
     "test_xlsx_parse_range_fails_loud_for_non_concrete_or_inverted_input",

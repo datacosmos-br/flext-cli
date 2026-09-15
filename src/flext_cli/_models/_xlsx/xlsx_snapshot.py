@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
+from flext_cli import t
 from flext_core import m
 
 from .xlsx_cells import FlextCliModelsXlsxCells
@@ -109,10 +110,12 @@ class FlextCliModelsXlsxSnapshot:
         name: Annotated[
             str, m.Field(min_length=1, description="Resolved defined name.")
         ]
-        cells: tuple[FlextCliModelsXlsxSnapshot.XlsxDefinedNameCell, ...] = m.Field(
-            min_length=1,
-            strict=False,
-            description="Ordered cached cell values for the defined-name extent.",
+        cells: t.VariadicTuple[FlextCliModelsXlsxSnapshot.XlsxDefinedNameCell] = (
+            m.Field(
+                min_length=1,
+                strict=False,
+                description="Ordered cached cell values for the defined-name extent.",
+            )
         )
 
     class XlsxRowDimensionSnapshot(m.FrozenModel):
@@ -157,19 +160,19 @@ class FlextCliModelsXlsxSnapshot:
         max_column: Annotated[
             int, m.Field(ge=1, description="Maximum occupied column.")
         ]
-        cells: tuple[FlextCliModelsXlsxSnapshot.XlsxCellSnapshot, ...] = m.Field(
+        cells: t.VariadicTuple[FlextCliModelsXlsxSnapshot.XlsxCellSnapshot] = m.Field(
             default=(), strict=False, description="Ordered semantic cells."
         )
-        tables: tuple[FlextCliModelsXlsxSnapshot.XlsxTableSnapshot, ...] = m.Field(
+        tables: t.VariadicTuple[FlextCliModelsXlsxSnapshot.XlsxTableSnapshot] = m.Field(
             default=(), strict=False, description="Ordered worksheet tables."
         )
-        row_dimensions: tuple[
-            FlextCliModelsXlsxSnapshot.XlsxRowDimensionSnapshot, ...
+        row_dimensions: t.VariadicTuple[
+            FlextCliModelsXlsxSnapshot.XlsxRowDimensionSnapshot
         ] = m.Field(default=(), strict=False, description="Explicit row dimensions.")
-        column_dimensions: tuple[
-            FlextCliModelsXlsxSnapshot.XlsxColumnDimensionSnapshot, ...
+        column_dimensions: t.VariadicTuple[
+            FlextCliModelsXlsxSnapshot.XlsxColumnDimensionSnapshot
         ] = m.Field(default=(), strict=False, description="Explicit column dimensions.")
-        merged_ranges: tuple[str, ...] = m.Field(
+        merged_ranges: t.VariadicTuple[str] = m.Field(
             default=(), strict=False, description="Ordered merged ranges."
         )
         freeze_pane: str | None = m.Field(
@@ -195,13 +198,13 @@ class FlextCliModelsXlsxSnapshot:
 
     class XlsxWorkbookSnapshot(m.FrozenModel):
         data_only: bool = m.Field(description="Whether cells expose cached values.")
-        sheets: tuple[FlextCliModelsXlsxSnapshot.XlsxSheetSnapshot, ...] = m.Field(
+        sheets: t.VariadicTuple[FlextCliModelsXlsxSnapshot.XlsxSheetSnapshot] = m.Field(
             min_length=1, strict=False, description="Exact worksheet order."
         )
-        defined_names: tuple[
-            FlextCliModelsXlsxSnapshot.XlsxDefinedNameSnapshot, ...
+        defined_names: t.VariadicTuple[
+            FlextCliModelsXlsxSnapshot.XlsxDefinedNameSnapshot
         ] = m.Field(default=(), strict=False, description="Ordered defined names.")
-        named_styles: tuple[str, ...] = m.Field(
+        named_styles: t.VariadicTuple[str] = m.Field(
             default=(), strict=False, description="Registered named styles."
         )
         formula_count: Annotated[
@@ -212,4 +215,4 @@ class FlextCliModelsXlsxSnapshot:
         ]
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxSnapshot",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxSnapshot",)

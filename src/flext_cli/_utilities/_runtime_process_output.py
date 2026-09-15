@@ -6,7 +6,7 @@ import contextlib
 import threading
 from typing import IO, BinaryIO
 
-from flext_cli import p
+from flext_cli import p, t
 
 from ._runtime_process_threads import FlextCliUtilitiesRuntimeProcessThreadsMixin
 
@@ -30,7 +30,7 @@ class FlextCliUtilitiesRuntimeProcessOutputMixin(
         stderr_output: bytearray,
         *,
         capture_output: bool,
-    ) -> tuple[tuple[threading.Thread, IO[bytes]], ...]:
+    ) -> t.VariadicTuple[t.Pair[threading.Thread, IO[bytes]]]:
         combine_output = durable_log is not None
         pipe_output = combine_output or capture_output
         pump_streams: list[tuple[threading.Thread, IO[bytes]]] = []

@@ -6,14 +6,14 @@ import errno
 import os
 from pathlib import Path
 
-from flext_cli import m
+from flext_cli import m, t
 
 type PhysicalState = tuple[int, int, int, int | None, int | None]
 
 
 def require_existing(
     state: m.Cli.AtomicFileState, *, purpose: str
-) -> tuple[bytes, int, tuple[int, int]]:
+) -> t.Triple[bytes, int, t.Pair[int, int]]:
     """Return required content, mode, and inode identity from an existing state."""
     if (
         state.content is None

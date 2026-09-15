@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from flext_cli import t
+
 from ._xlsx.xlsx_archive import FlextCliModelsXlsxArchive
 from ._xlsx.xlsx_cells import FlextCliModelsXlsxCells
 from ._xlsx.xlsx_layout import FlextCliModelsXlsxLayout
@@ -34,4 +36,4 @@ class FlextCliModelsXlsx(
     # XLSX namespace without a parallel public model surface.
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsx",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsx",)

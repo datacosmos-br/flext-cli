@@ -165,7 +165,7 @@ class TestsFlextCliOptions:
 
     @pytest.mark.parametrize("args", [["check", "--all"], []])
     def test_reorder_prefixed_options_is_identity_without_leading_prefixes(
-        self, args: list[str]
+        self, args: t.SequenceOf[str]
     ) -> None:
         """Verify that reorder prefixed options is identity without leading prefixes."""
         tm.that(

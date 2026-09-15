@@ -7,6 +7,8 @@ import os
 import stat
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_path as file_path,
@@ -59,7 +61,7 @@ def validate_precondition(
 
 def assert_temporary_owned(
     temporary: Path,
-    expected_identity: tuple[int, int],
+    expected_identity: t.Pair[int, int],
     *,
     parent: file_descriptor.ParentDescriptor | None = None,
 ) -> None:
@@ -104,7 +106,7 @@ def assert_destination_unchanged(
     file_descriptor.assert_parent_unchanged(parent)
 
 
-def identity(state: os.stat_result) -> tuple[int, int]:
+def identity(state: os.stat_result) -> t.Pair[int, int]:
     """Return the filesystem identity shared by descriptor and pathname stats."""
     return file_path.identity(state)
 

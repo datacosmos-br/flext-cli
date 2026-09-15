@@ -25,7 +25,7 @@ class FlextCliModelsDocxDocument:
         )
 
     class DocxParagraphPlan(m.FrozenModel):
-        runs: tuple[FlextCliModelsDocxDocument.DocxRunPlan, ...] = m.Field(
+        runs: t.VariadicTuple[FlextCliModelsDocxDocument.DocxRunPlan] = m.Field(
             default=(), strict=False, description="Paragraph runs."
         )
         style: (
@@ -47,17 +47,17 @@ class FlextCliModelsDocxDocument:
         ) = None
 
     class DocxTableCellPlan(m.FrozenModel):
-        paragraphs: tuple[FlextCliModelsDocxDocument.DocxParagraphPlan, ...] = m.Field(
-            default=(), strict=False, description="Cell paragraphs."
+        paragraphs: t.VariadicTuple[FlextCliModelsDocxDocument.DocxParagraphPlan] = (
+            m.Field(default=(), strict=False, description="Cell paragraphs.")
         )
 
     class DocxTableRowPlan(m.FrozenModel):
-        cells: tuple[FlextCliModelsDocxDocument.DocxTableCellPlan, ...] = m.Field(
+        cells: t.VariadicTuple[FlextCliModelsDocxDocument.DocxTableCellPlan] = m.Field(
             default=(), strict=False, description="Row cells."
         )
 
     class DocxTablePlan(m.FrozenModel):
-        rows: tuple[FlextCliModelsDocxDocument.DocxTableRowPlan, ...] = m.Field(
+        rows: t.VariadicTuple[FlextCliModelsDocxDocument.DocxTableRowPlan] = m.Field(
             default=(), strict=False, description="Table rows."
         )
         style: (
@@ -90,13 +90,13 @@ class FlextCliModelsDocxDocument:
         ) = None
 
     class DocxDocumentPlan(m.FrozenModel):
-        paragraphs: tuple[FlextCliModelsDocxDocument.DocxParagraphPlan, ...] = m.Field(
-            default=(), strict=False, description="Document paragraphs."
+        paragraphs: t.VariadicTuple[FlextCliModelsDocxDocument.DocxParagraphPlan] = (
+            m.Field(default=(), strict=False, description="Document paragraphs.")
         )
-        tables: tuple[FlextCliModelsDocxDocument.DocxTablePlan, ...] = m.Field(
+        tables: t.VariadicTuple[FlextCliModelsDocxDocument.DocxTablePlan] = m.Field(
             default=(), strict=False, description="Document tables."
         )
-        sections: tuple[FlextCliModelsDocxDocument.DocxSectionPlan, ...] = m.Field(
+        sections: t.VariadicTuple[FlextCliModelsDocxDocument.DocxSectionPlan] = m.Field(
             default=(), strict=False, description="Document sections."
         )
         core_properties: t.JsonMapping = m.Field(
@@ -136,4 +136,4 @@ class FlextCliModelsDocxDocument:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsDocxDocument",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsDocxDocument",)

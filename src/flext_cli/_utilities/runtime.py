@@ -59,7 +59,7 @@ class FlextCliUtilitiesRuntime(
     def _spawn_streamed_process(
         cmd: t.StrSequence,
         cwd: t.Cli.TextPath | None,
-        env: dict[str, str] | None,
+        env: t.MappingKV[str, str] | None,
         stdin_handle: BinaryIO | None,
         *,
         capture_output: bool,

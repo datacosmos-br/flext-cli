@@ -5,7 +5,7 @@ from __future__ import annotations
 import threading
 from typing import IO, BinaryIO
 
-from flext_cli import p
+from flext_cli import p, t
 
 from ._runtime_process_stream import FlextCliUtilitiesRuntimeProcessStreamMixin
 from ._runtime_process_wait import FlextCliUtilitiesRuntimeProcessWaitMixin
@@ -18,7 +18,11 @@ class FlextCliUtilitiesRuntimeProcessThreadsMixin(
 
     @classmethod
     def _start_input_pump(
-        cls, sink: BinaryIO, payload: bytes, failures: list[str], wake: threading.Event
+        cls,
+        sink: BinaryIO,
+        payload: bytes,
+        failures: t.SequenceOf[str],
+        wake: threading.Event,
     ) -> threading.Thread:
         """Start the sole non-daemon writer for one anonymous stdin pipe."""
         pump = threading.Thread(
@@ -34,8 +38,8 @@ class FlextCliUtilitiesRuntimeProcessThreadsMixin(
     def _start_root_waiter(
         cls,
         process: p.Cli.ProcessHandle,
-        return_codes: list[int],
-        failures: list[str],
+        return_codes: t.SequenceOf[int],
+        failures: t.SequenceOf[str],
         process_done: threading.Event,
         wake: threading.Event,
     ) -> threading.Thread:
@@ -55,7 +59,7 @@ class FlextCliUtilitiesRuntimeProcessThreadsMixin(
         durable_log: BinaryIO | None,
         captured_output: bytearray | None,
         live_fd: int | None,
-        failures: list[str],
+        failures: t.SequenceOf[str],
         stop: threading.Event,
         wake: threading.Event,
         *,

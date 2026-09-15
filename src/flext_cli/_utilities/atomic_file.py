@@ -6,7 +6,7 @@ import errno
 import os
 from pathlib import Path
 
-from flext_cli import m
+from flext_cli import m, t
 
 from . import (
     atomic_file_cleanup as file_cleanup,
@@ -96,7 +96,7 @@ def _stage_and_publish(
 ) -> None:
     temporary = file_temporary.temporary_path(parent)
     descriptor: int | None = None
-    staged_identity: tuple[int, int] | None = None
+    staged_identity: t.Pair[int, int] | None = None
     try:
         descriptor = file_temporary.create_descriptor(parent, temporary)
         staged_identity = file_state.identity(os.fstat(descriptor))
@@ -144,7 +144,7 @@ def _write_staged(
     parent: file_descriptor.ParentDescriptor,
     temporary: Path,
     descriptor: int,
-    identity: tuple[int, int],
+    identity: t.Pair[int, int],
     content: bytes,
     target_mode: int | None,
 ) -> int:
@@ -163,7 +163,7 @@ def _validate_replacement(
     temporary: Path,
     content: bytes,
     staged_mode: int,
-    staged_identity: tuple[int, int],
+    staged_identity: t.Pair[int, int],
 ) -> None:
     staged_state = _validate_staged(
         parent, temporary, content, staged_mode, staged_identity
@@ -181,7 +181,7 @@ def _validate_staged(
     temporary: Path,
     content: bytes,
     mode: int,
-    identity: tuple[int, int],
+    identity: t.Pair[int, int],
 ) -> os.stat_result:
     state = file_state.destination_state(temporary, parent=parent)
     if state is None:

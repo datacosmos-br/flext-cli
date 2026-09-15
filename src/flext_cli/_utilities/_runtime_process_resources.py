@@ -7,7 +7,7 @@ import os
 import time
 from typing import BinaryIO, Final
 
-from flext_cli import c, p, r
+from flext_cli import c, p, r, t
 
 _STDOUT_DESCRIPTOR: Final[int] = 1
 _STDERR_DESCRIPTOR: Final[int] = 2
@@ -19,7 +19,7 @@ class FlextCliUtilitiesRuntimeProcessResourcesMixin:
     @staticmethod
     def _prepare_streamed_stdin(
         stack: contextlib.ExitStack, input_data: str | bytes | None
-    ) -> p.Result[tuple[BinaryIO | None, BinaryIO | None, bytes]]:
+    ) -> p.Result[t.Triple[BinaryIO | None, BinaryIO | None, bytes]]:
         if input_data is None:
             return r[tuple[BinaryIO | None, BinaryIO | None, bytes]].ok((
                 None,
@@ -46,7 +46,9 @@ class FlextCliUtilitiesRuntimeProcessResourcesMixin:
         ))
 
     @staticmethod
-    def _anonymous_stdin_pipe(stack: contextlib.ExitStack) -> tuple[BinaryIO, BinaryIO]:
+    def _anonymous_stdin_pipe(
+        stack: contextlib.ExitStack,
+    ) -> t.Pair[BinaryIO, BinaryIO]:
         """Open one memory-only parent-writer/child-reader pipe pair."""
         read_fd, write_fd = os.pipe()
         try:
@@ -68,7 +70,7 @@ class FlextCliUtilitiesRuntimeProcessResourcesMixin:
     @staticmethod
     def _prepare_live_descriptor(
         stack: contextlib.ExitStack, *, live: bool
-    ) -> p.Result[tuple[int | None, int | None]]:
+    ) -> p.Result[t.Pair[int | None, int | None]]:
         if not live:
             return r[tuple[int | None, int | None]].ok((None, None))
         try:
@@ -95,7 +97,7 @@ class FlextCliUtilitiesRuntimeProcessResourcesMixin:
         return mirrored
 
     @staticmethod
-    def _flush_durable_log(durable_log: BinaryIO) -> tuple[str, ...]:
+    def _flush_durable_log(durable_log: BinaryIO) -> t.VariadicTuple[str]:
         """Finalize the durable log after reaping; only I/O errors are failures.
 
         The flush runs post-reaping, after bounded cleanup has deliberately
@@ -111,7 +113,7 @@ class FlextCliUtilitiesRuntimeProcessResourcesMixin:
         return tuple(errors)
 
     @staticmethod
-    def _close_process_resources(stack: contextlib.ExitStack) -> tuple[str, ...]:
+    def _close_process_resources(stack: contextlib.ExitStack) -> t.VariadicTuple[str]:
         try:
             stack.close()
         except c.EXC_OS_VALUE as exc:

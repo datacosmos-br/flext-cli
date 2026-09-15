@@ -119,7 +119,7 @@ class TestsFlextCliAuthUtilsCov:
         "payload", [{"user": "admin"}, {c.Cli.DICT_KEY_AUTH_TOKEN: ""}]
     )
     def test_extract_token_fails_when_no_usable_token(
-        self, payload: dict[str, t.JsonValue]
+        self, payload: t.MappingKV[str, t.JsonValue]
     ) -> None:
         # Act
         """Verify that extract token fails when no usable token."""

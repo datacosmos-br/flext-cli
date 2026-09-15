@@ -6,10 +6,11 @@ from openpyxl.cell.cell import Cell
 from openpyxl.utils.exceptions import IllegalCharacterError
 from openpyxl.worksheet.worksheet import Worksheet
 
-# mro-j47u (kimi): utilities consume local facades only, never private modules.
 from flext_cli import c, m, p, r, t
 
 from .xlsx_formula_codec import FlextCliUtilitiesXlsxFormulaCodec
+
+# mro-j47u (kimi): utilities consume local facades only, never private modules.
 
 
 class FlextCliUtilitiesXlsxCells:
@@ -30,7 +31,7 @@ class FlextCliUtilitiesXlsxCells:
     def _apply_cells(
         cls,
         worksheet: Worksheet,
-        plans: tuple[m.Cli.XlsxCellPlan, ...],
+        plans: t.VariadicTuple[m.Cli.XlsxCellPlan],
         named_styles: frozenset[str],
     ) -> p.Result[bool]:
         try:
@@ -53,4 +54,4 @@ class FlextCliUtilitiesXlsxCells:
         return r[bool].ok(True)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxCells",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxCells",)

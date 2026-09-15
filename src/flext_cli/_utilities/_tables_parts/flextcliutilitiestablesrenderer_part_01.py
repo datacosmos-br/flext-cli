@@ -121,7 +121,7 @@ class FlextCliUtilitiesTablesRenderer:
 
     @classmethod
     def _numeric_columns(
-        cls, cells: list[list[str]], *, settings: m.Cli.TableConfig
+        cls, cells: t.SequenceOf[t.SequenceOf[str]], *, settings: m.Cli.TableConfig
     ) -> set[int]:
         if settings.disable_numparse is True or not cells:
             return set()
@@ -195,9 +195,9 @@ class FlextCliUtilitiesTablesRenderer:
     @classmethod
     def _compose(
         cls,
-        cells: list[list[str]],
-        header_labels: list[str],
-        widths: list[int],
+        cells: t.SequenceOf[t.SequenceOf[str]],
+        header_labels: t.SequenceOf[str],
+        widths: t.SequenceOf[int],
         alignments: list[str],
         *,
         settings: m.Cli.TableConfig,

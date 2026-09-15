@@ -22,7 +22,7 @@ class FlextCliUtilitiesRuntimeProcessTimingMixin:
         live: bool,
         heartbeat_seconds: float | None,
         on_main_thread: bool,
-    ) -> p.Result[tuple[float | None, float]]:
+    ) -> p.Result[t.Pair[float | None, float]]:
         if timeout is not None and deadline is not None:
             return r[tuple[float | None, float]].fail(
                 "timeout and deadline are mutually exclusive"

@@ -25,7 +25,6 @@ from ._toml_parts.flextcliutilitiestoml_part_06 import (
     FlextCliUtilitiesToml as _TomlRead,
 )
 from .json import FlextCliUtilitiesJson
-from .yaml import FlextCliUtilitiesYaml
 
 
 class FlextCliUtilitiesConfig:
@@ -36,7 +35,7 @@ class FlextCliUtilitiesConfig:
         """Dispatch to the reader matching ``path`` suffix; reuse core cli readers."""
         suffix = path.suffix.lower()
         if suffix in {c.CONFIG_YAML_SUFFIX, ".yml"}:
-            return FlextCliUtilitiesYaml.yaml_safe_load(path)
+            return u.Yaml.yaml_safe_load(path)
         if suffix == c.CONFIG_JSON_SUFFIX:
             return FlextCliUtilitiesJson.json_read(path)
         if suffix == c.CONFIG_TOML_SUFFIX:

@@ -16,7 +16,7 @@ class TestsFlextCliConstantsRulesOptions:
 
     # ── RULES (services/rules.py) ──────────────────────────────────
     RULES_SCOPE_CASES: Final[
-        tuple[tuple[t.JsonValue, str, t.StrSequence, int], ...]
+        t.VariadicTuple[t.Quad[t.JsonValue, str, t.StrSequence, int]]
     ] = (
         ({"lint": {"rule_a": True, "rule_b": False}}, "lint", ("rule_a", "rule_b"), 2),
         ({}, "lint", ("rule_a",), 0),
@@ -24,7 +24,9 @@ class TestsFlextCliConstantsRulesOptions:
         ({"lint": {"rule_a": 99, "unrelated": "x"}}, "lint", ("rule_a",), 1),
     )
 
-    RULES_MATCH_FILTER_CASES: Final[tuple[tuple[str, t.StrSequence, bool], ...]] = (
+    RULES_MATCH_FILTER_CASES: Final[
+        t.VariadicTuple[t.Triple[str, t.StrSequence, bool]]
+    ] = (
         ("my-rule", (), True),
         ("my-rule", ("my-*",), True),
         ("my-rule", ("other-*",), False),

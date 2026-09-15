@@ -10,4 +10,4 @@ EMPTY_JSON_MAPPING: t.JsonMapping = MappingProxyType({})
 EMPTY_STR_MAPPING: t.StrMapping = MappingProxyType({})
 
 
-__all__: tuple[str, ...] = ()
+__all__: t.VariadicTuple[str] = ()

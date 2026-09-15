@@ -328,7 +328,7 @@ class FlextCliUtilitiesDocxRenderer:
 
     @classmethod
     def _apply_sections(
-        cls, document: DocumentType, sections: tuple[m.Cli.DocxSectionPlan, ...]
+        cls, document: DocumentType, sections: t.VariadicTuple[m.Cli.DocxSectionPlan]
     ) -> None:
         for section_plan in sections:
             section = document.add_section()
@@ -363,4 +363,4 @@ class FlextCliUtilitiesDocxRenderer:
         return RGBColor(0x00, 0x00, 0x00)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesDocxRenderer",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesDocxRenderer",)

@@ -12,7 +12,6 @@ from flext_cli import c, m, p, r, t
 from flext_core import u
 
 from ..json import FlextCliUtilitiesJson as uj
-from ..yaml import FlextCliUtilitiesYaml as uy
 from .flextcliutilitiesfiles_part_01 import (
     FlextCliUtilitiesFiles as FlextCliUtilitiesFilesPart01,
 )
@@ -86,7 +85,7 @@ class FlextCliUtilitiesFiles:
         if path.suffix.lower() == ".json":
             read_result = uj.json_read(path)
         elif path.suffix.lower() in {".yaml", ".yml"}:
-            read_result = uy.yaml_safe_load(path)
+            read_result = u.Yaml.yaml_safe_load(path)
         else:
             return r[t.JsonMapping].fail(
                 f"Unsupported format: {path.suffix or '<none>'}"

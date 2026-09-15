@@ -9,6 +9,8 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_path as file_path,
     atomic_parent_descriptor as parent_path,
@@ -23,7 +25,7 @@ class ParentDescriptor:
     path: Path
     descriptor: int
     state: os.stat_result
-    ancestry: tuple[tuple[int, int], ...]
+    ancestry: t.VariadicTuple[t.Pair[int, int]]
 
 
 @contextmanager

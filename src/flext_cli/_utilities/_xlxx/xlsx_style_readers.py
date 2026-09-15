@@ -9,7 +9,7 @@ from openpyxl.styles.borders import Side
 from openpyxl.styles.fills import Fill, PatternFill, Stop
 from openpyxl.styles.styleable import StyleableObject
 
-from flext_cli import m, p, r
+from flext_cli import m, p, r, t
 
 
 class FlextCliUtilitiesXlsxStyleReaders:
@@ -161,4 +161,4 @@ class FlextCliUtilitiesXlsxStyleReaders:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxStyleReaders",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxStyleReaders",)

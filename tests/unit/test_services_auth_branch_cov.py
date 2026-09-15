@@ -21,6 +21,8 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
     from pathlib import Path
 
+    from tests import t
+
 
 class TestsFlextCliServicesAuth:
     """Public authentication behavior of the FlextCli facade."""
@@ -86,7 +88,7 @@ class TestsFlextCliServicesAuth:
         ],
     )
     def test_authenticate_rejects_malformed_credentials_payload(
-        self, service: FlextCli, tmp_path: Path, credentials: dict[str, str]
+        self, service: FlextCli, tmp_path: Path, credentials: t.MappingKV[str, str]
     ) -> None:
         # Arrange
         """Verify that authenticate rejects malformed credentials payload."""
@@ -116,7 +118,7 @@ class TestsFlextCliServicesAuth:
         self,
         service: FlextCli,
         tmp_path: Path,
-        credentials: dict[str, str],
+        credentials: t.MappingKV[str, str],
         missing_field: str,
     ) -> None:
         # Arrange
@@ -142,7 +144,7 @@ class TestsFlextCliServicesAuth:
         ],
     )
     def test_authenticate_fails_when_token_cannot_be_persisted(
-        self, service: FlextCli, tmp_path: Path, credentials: dict[str, str]
+        self, service: FlextCli, tmp_path: Path, credentials: t.MappingKV[str, str]
     ) -> None:
         # Arrange: point token_file at a directory so the write cannot succeed.
         """Verify that authenticate fails when token cannot be persisted."""

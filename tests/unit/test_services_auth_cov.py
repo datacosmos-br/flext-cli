@@ -25,7 +25,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
     from pathlib import Path
 
-    from tests import p
+    from tests import p, t
 
 
 class TestsFlextCliServicesAuthCov:
@@ -184,7 +184,7 @@ class TestsFlextCliServicesAuthCov:
         ],
     )
     def test_authenticate_rejects_incomplete_credentials(
-        self, auth: p.Cli.AuthService, credentials: dict[str, str]
+        self, auth: p.Cli.AuthService, credentials: t.MappingKV[str, str]
     ) -> None:
         """Verify that authenticate rejects incomplete credentials."""
         result = auth.authenticate(credentials)

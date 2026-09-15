@@ -19,6 +19,8 @@ from tests import m, p, u
 if TYPE_CHECKING:
     from pathlib import Path
 
+    from tests import t
+
 
 def _deadline(*, seconds: float, grace: float) -> m.Cli.ProcessDeadline:
     return m.Cli.ProcessDeadline(
@@ -47,7 +49,7 @@ def _assert_owned_descendant_stopped(
 
 def _assert_timeout_empties_descendants[
     Output: (p.Cli.CommandOutput | p.Cli.CommandBytesOutput)
-](tmp_path: Path, execute: Callable[[tuple[str, ...]], p.Result[Output]]) -> None:
+](tmp_path: Path, execute: Callable[[t.VariadicTuple[str]], p.Result[Output]]) -> None:
     process_info = tmp_path / "captured-process-info"
     survivor_probe = tmp_path / "captured-survivor-probe"
     survivor_ack = tmp_path / "captured-survivor-ack"

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
+from flext_cli import t
 from flext_core import m
 
 from .xlsx_style_primitives import FlextCliModelsXlsxStylePrimitives
@@ -66,7 +67,7 @@ class FlextCliModelsXlsxStyleFills:
         right: float = m.Field(default=0, description="Path right extent.")
         top: float = m.Field(default=0, description="Path top extent.")
         bottom: float = m.Field(default=0, description="Path bottom extent.")
-        stops: tuple[FlextCliModelsXlsxStyleFills.XlsxGradientStop, ...] = m.Field(
+        stops: t.VariadicTuple[FlextCliModelsXlsxStyleFills.XlsxGradientStop] = m.Field(
             min_length=1, strict=False, description="Ordered gradient stops."
         )
 
@@ -75,4 +76,4 @@ class FlextCliModelsXlsxStyleFills:
     ]
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxStyleFills",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxStyleFills",)

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from flext_cli import t
+
 from .xlsx_style_builders import FlextCliUtilitiesXlsxStyleBuilders
 from .xlsx_style_readers import FlextCliUtilitiesXlsxStyleReaders
 
@@ -12,4 +14,4 @@ class FlextCliUtilitiesXlsxStyleCodec(
     """Compose vendor-to-model and model-to-vendor style translation once."""
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxStyleCodec",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxStyleCodec",)

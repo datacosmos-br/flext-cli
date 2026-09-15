@@ -19,9 +19,9 @@ from __future__ import annotations
 
 import pytest
 from flext_tests import tm
-from pydantic import BaseModel
 
 from flext_cli import FlextCli, cli, settings
+from flext_cli.models import m
 from tests import p
 from tests.base import s
 
@@ -110,4 +110,4 @@ class TestsFlextCliBase:
         """The test service base settings compose the Tests settings namespace."""
         test_settings = s.fetch_settings()
         section = test_settings.Tests
-        tm.that(section, is_=BaseModel)
+        tm.that(section, is_=m.BaseModel)

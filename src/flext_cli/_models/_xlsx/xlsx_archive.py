@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Annotated
 
-# mro-j47u (kimi): models consume the local t facade; m -> t is forward at runtime.
 from flext_cli import t
 from flext_core import m
+
+# mro-j47u (kimi): models consume the local t facade; m -> t is forward at runtime.
 
 
 class FlextCliModelsXlsxArchive:
@@ -28,7 +29,7 @@ class FlextCliModelsXlsxArchive:
             default_factory=frozenset,
             description="Exact archive members that are forbidden.",
         )
-        forbidden_prefixes: tuple[str, ...] = m.Field(
+        forbidden_prefixes: t.VariadicTuple[str] = m.Field(
             default=(), strict=False, description="Forbidden member prefixes."
         )
         forbidden_worksheet_tags: frozenset[str] = m.Field(
@@ -59,7 +60,7 @@ class FlextCliModelsXlsxArchive:
         detail: Annotated[str, m.Field(min_length=1, description="Violation evidence.")]
 
     class XlsxArchiveInventory(m.FrozenModel):
-        members: tuple[str, ...] = m.Field(
+        members: t.VariadicTuple[str] = m.Field(
             default=(), strict=False, description="Ordered archive members."
         )
         blocked_members: frozenset[str] = m.Field(
@@ -69,7 +70,7 @@ class FlextCliModelsXlsxArchive:
         total_uncompressed_bytes: Annotated[
             int, m.Field(ge=0, description="Declared total uncompressed bytes.")
         ]
-        violations: tuple[FlextCliModelsXlsxArchive.XlsxArchiveViolation, ...] = (
+        violations: t.VariadicTuple[FlextCliModelsXlsxArchive.XlsxArchiveViolation] = (
             m.Field(default=(), strict=False, description="Inventory violations.")
         )
 
@@ -83,7 +84,7 @@ class FlextCliModelsXlsxArchive:
         total_uncompressed_bytes: Annotated[
             int, m.Field(ge=0, description="Declared total uncompressed bytes.")
         ]
-        violations: tuple[FlextCliModelsXlsxArchive.XlsxArchiveViolation, ...] = (
+        violations: t.VariadicTuple[FlextCliModelsXlsxArchive.XlsxArchiveViolation] = (
             m.Field(default=(), strict=False, description="Policy violations.")
         )
         clean: bool = m.Field(description="Whether no violation was found.")
@@ -97,4 +98,4 @@ class FlextCliModelsXlsxArchive:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxArchive",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxArchive",)

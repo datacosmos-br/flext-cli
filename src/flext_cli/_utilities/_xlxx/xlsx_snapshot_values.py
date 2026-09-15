@@ -161,7 +161,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @classmethod
     def _snapshot_cells(
         cls, formula_sheet: Worksheet, value_sheet: Worksheet, *, data_only: bool
-    ) -> r[tuple[m.Cli.XlsxCellSnapshot, ...]]:
+    ) -> r[t.VariadicTuple[m.Cli.XlsxCellSnapshot]]:
         try:
             cells = cls._snapshot_cells_unchecked(
                 formula_sheet, value_sheet, data_only=data_only
@@ -173,8 +173,8 @@ class FlextCliUtilitiesXlsxSnapshotValues:
     @classmethod
     def _snapshot_cells_unchecked(
         cls, formula_sheet: Worksheet, value_sheet: Worksheet, *, data_only: bool
-    ) -> tuple[m.Cli.XlsxCellSnapshot, ...]:
-        cells: tuple[m.Cli.XlsxCellSnapshot, ...] = ()
+    ) -> t.VariadicTuple[m.Cli.XlsxCellSnapshot]:
+        cells: t.VariadicTuple[m.Cli.XlsxCellSnapshot] = ()
         for row in formula_sheet.iter_rows():
             for formula_cell in row:
                 if isinstance(formula_cell, MergedCell):
@@ -188,4 +188,4 @@ class FlextCliUtilitiesXlsxSnapshotValues:
         return cells
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxSnapshotValues",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxSnapshotValues",)

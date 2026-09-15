@@ -48,7 +48,7 @@ class FlextCliCli:
     @classmethod
     def _build_model_parameter(
         cls, field_name: str, field_info: m.FieldInfo, settings: t.Cli.ModelLike | None
-    ) -> tuple[Parameter, type | GenericAlias]:
+    ) -> t.Pair[Parameter, type | GenericAlias]:
         """Build a keyword-only Typer option from a Pydantic field."""
         alias = getattr(field_info, "alias", None)
         cli_name = alias or field_name

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, override
 from flext_cli import s
 
 if TYPE_CHECKING:
-    from flext_cli import m, p
+    from flext_cli import m, p, t
 
 
 class FlextCliXlsx(s):
@@ -35,4 +35,4 @@ class FlextCliXlsx(s):
     # customer rules; consumers provide immutable plans and receive bytes/models.
 
 
-__all__: tuple[str, ...] = ("FlextCliXlsx",)
+__all__: t.VariadicTuple[str] = ("FlextCliXlsx",)

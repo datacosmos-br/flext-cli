@@ -118,7 +118,7 @@ class FlextCliUtilitiesYamlEditingMixin(FlextCliUtilitiesYamlEngineMixin):
 
     @staticmethod
     def yaml_add_pre_key_comment(
-        node: CommentedMap, key: str, text: str, path: tuple[str, ...] = ()
+        node: CommentedMap, key: str, text: str, path: t.VariadicTuple[str] = ()
     ) -> None:
         """Insert one pre-key comment for a key. Idempotent for any input form."""
         if FlextCliUtilitiesYamlEditingMixin.yaml_has_key_comment(node, key, text):

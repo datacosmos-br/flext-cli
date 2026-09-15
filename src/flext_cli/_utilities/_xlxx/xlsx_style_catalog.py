@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 
-from flext_cli import m, p, r
+from flext_cli import m, p, r, t
 
 from .xlsx_style_codec import FlextCliUtilitiesXlsxStyleCodec
 from .xlsx_workbook_io import FlextCliUtilitiesXlsxWorkbookIo
@@ -30,14 +30,14 @@ class FlextCliUtilitiesXlsxStyleCatalog(
     @classmethod
     def _source_visuals(
         cls, source: bytes
-    ) -> p.Result[tuple[m.Cli.XlsxSourceVisualStyle, ...]]:
+    ) -> p.Result[t.VariadicTuple[m.Cli.XlsxSourceVisualStyle]]:
         workbook_result = cls._load_workbook(source)
         if workbook_result.failure:
             return r[tuple[m.Cli.XlsxSourceVisualStyle, ...]].from_failure(
                 workbook_result
             )
         seen: frozenset[int] = frozenset()
-        source_styles: tuple[m.Cli.XlsxSourceVisualStyle, ...] = ()
+        source_styles: t.VariadicTuple[m.Cli.XlsxSourceVisualStyle] = ()
         for worksheet in workbook_result.value.worksheets:
             for row in worksheet.iter_rows():
                 for cell in row:
@@ -74,8 +74,8 @@ class FlextCliUtilitiesXlsxStyleCatalog(
         source_result = cls._source_visuals(request.source)
         if source_result.failure:
             return r[m.Cli.XlsxStyleCatalog].from_failure(source_result)
-        styles: tuple[m.Cli.XlsxNamedStyleSpec, ...] = ()
-        style_map: tuple[m.Cli.XlsxStyleMapEntry, ...] = ()
+        styles: t.VariadicTuple[m.Cli.XlsxNamedStyleSpec] = ()
+        style_map: t.VariadicTuple[m.Cli.XlsxStyleMapEntry] = ()
         for source in source_result.value:
             existing = next(
                 (style for style in styles if style.visual == source.visual), None
@@ -126,4 +126,4 @@ class FlextCliUtilitiesXlsxStyleCatalog(
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxStyleCatalog",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxStyleCatalog",)

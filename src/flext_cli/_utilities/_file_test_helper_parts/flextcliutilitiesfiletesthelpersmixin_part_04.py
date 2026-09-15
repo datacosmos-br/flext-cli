@@ -11,10 +11,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from flext_cli import c, p, r, t
+from flext_core import u
 
 from ..json import FlextCliUtilitiesJson as uj
 from ..toml import FlextCliUtilitiesToml as ut
-from ..yaml import FlextCliUtilitiesYaml as uy
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -32,7 +32,7 @@ class FlextCliUtilitiesFileTestHelpersMixin:
                 return r[t.JsonMapping].from_failure(result)
             return r[t.JsonMapping].ok(result.value)
         if fmt == c.Cli.FILE_FORMAT_YAML:
-            result = uy.yaml_safe_load(path)
+            result = u.Yaml.yaml_safe_load(path)
             if result.failure:
                 return r[t.JsonMapping].from_failure(result)
             return r[t.JsonMapping].ok(result.value)

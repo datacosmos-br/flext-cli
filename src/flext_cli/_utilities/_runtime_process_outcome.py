@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 
 class FlextCliUtilitiesRuntimeProcessOutcomeMixin:
@@ -20,8 +20,8 @@ class FlextCliUtilitiesRuntimeProcessOutcomeMixin:
     @staticmethod
     def _process_exit_result(
         return_code: int | None,
-        received_signals: list[int],
-        diagnostics: tuple[str, ...],
+        received_signals: t.SequenceOf[int],
+        diagnostics: t.VariadicTuple[str],
         *,
         timed_out: bool,
     ) -> p.Result[m.Cli.ProcessOutcome]:
@@ -50,8 +50,8 @@ class FlextCliUtilitiesRuntimeProcessOutcomeMixin:
     def _captured_process_result(
         cls,
         return_code: int | None,
-        received_signals: list[int],
-        diagnostics: tuple[str, ...],
+        received_signals: t.SequenceOf[int],
+        diagnostics: t.VariadicTuple[str],
         stdout_output: bytearray,
         stderr_output: bytearray,
         duration: float,

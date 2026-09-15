@@ -6,11 +6,12 @@ from openpyxl import Workbook
 from openpyxl.workbook.properties import CalcProperties
 from openpyxl.worksheet.worksheet import Worksheet
 
-# mro-j47u (kimi): utilities consume local facades only, never private modules.
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 from .xlsx_style_codec import FlextCliUtilitiesXlsxStyleCodec
 from .xlsx_workbook_io import FlextCliUtilitiesXlsxWorkbookIo
+
+# mro-j47u (kimi): utilities consume local facades only, never private modules.
 
 
 class FlextCliUtilitiesXlsxWorkbookPlan(
@@ -94,4 +95,4 @@ class FlextCliUtilitiesXlsxWorkbookPlan(
         return r[Workbook].ok(workbook)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxWorkbookPlan",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxWorkbookPlan",)

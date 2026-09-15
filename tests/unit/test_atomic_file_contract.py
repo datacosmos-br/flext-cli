@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 from flext_tests import tm
 
-from tests import u
+from tests import t, u
 
 
 class TestsAtomicFileContract:
@@ -148,7 +148,7 @@ raise SystemExit(0 if result.failure else 2)
         tm.fail(result)
 
     @staticmethod
-    def _linked_destination(tmp_path: Path, link_kind: str) -> tuple[Path, Path]:
+    def _linked_destination(tmp_path: Path, link_kind: str) -> t.Pair[Path, Path]:
         """Create one real linked pathname for public behavior tests."""
         owner = tmp_path / "owner.txt"
         owner.write_text("owner", encoding="utf-8")

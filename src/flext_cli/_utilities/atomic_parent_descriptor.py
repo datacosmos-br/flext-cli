@@ -9,6 +9,8 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
+from flext_cli import t
+
 from . import atomic_file_path as file_path
 
 type DirectoryChainInspection = tuple[
@@ -22,7 +24,7 @@ class PhysicalDirectory:
 
     descriptor: int
     state: os.stat_result
-    ancestry: tuple[tuple[int, int], ...]
+    ancestry: t.VariadicTuple[t.Pair[int, int]]
 
 
 @contextmanager
@@ -100,7 +102,7 @@ def require_traversal_capabilities(path: Path) -> None:
 
 def _open_components(
     path: Path, descriptors: list[int], *, stop_at_missing: bool
-) -> tuple[int, os.stat_result, tuple[tuple[int, int], ...], int]:
+) -> t.Quad[int, os.stat_result, t.VariadicTuple[t.Pair[int, int]], int]:
     flags = (
         os.O_RDONLY
         | getattr(os, "O_DIRECTORY", 0)
@@ -138,7 +140,7 @@ def _open_components(
     return descriptor, state, tuple(ancestry), len(parts)
 
 
-def _missing_paths(anchor: Path, parts: tuple[str, ...]) -> tuple[Path, ...]:
+def _missing_paths(anchor: Path, parts: t.VariadicTuple[str]) -> t.VariadicTuple[Path]:
     missing: list[Path] = []
     current = anchor
     for component in parts:

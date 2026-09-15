@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 from typing import Never
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_path as file_path,
@@ -31,7 +33,7 @@ def measure_authenticated_file(
     expected: os.stat_result,
     *,
     required_mount_id: int,
-) -> tuple[int, str]:
+) -> t.Pair[int, str]:
     """Hash one stable regular file without materializing it in memory."""
     digest = hashlib.sha256()
     size = 0

@@ -14,9 +14,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from flext_cli import c, m, p, r, t
+from flext_core import u
 
 from ..json import FlextCliUtilitiesJson as uj
-from ..yaml import FlextCliUtilitiesYaml as uy
 from ._matchers import FlextCliUtilitiesRulesMatchersMixin
 
 if TYPE_CHECKING:
@@ -44,7 +44,7 @@ class FlextCliUtilitiesRulesLoadersMixin(FlextCliUtilitiesRulesMatchersMixin):
     ) -> p.Result[t.JsonMapping]:
         """Load one YAML config file and normalize a scoped rule section."""
         normalized = t.Cli.JSON_MAPPING_ADAPTER.validate_python(
-            uy.yaml_load_mapping(config_path)
+            u.Yaml.safe_load_file(config_path)
         )
         normalized_scope = FlextCliUtilitiesRulesLoadersMixin.rules_resolve_scope(
             dict(normalized), scope_key=scope_key, allowed_keys=allowed_keys
@@ -77,7 +77,7 @@ class FlextCliUtilitiesRulesLoadersMixin(FlextCliUtilitiesRulesMatchersMixin):
             if not registry_path.is_file():
                 continue
             normalized = t.Cli.JSON_MAPPING_ADAPTER.validate_python(
-                uy.yaml_load_mapping(registry_path)
+                u.Yaml.safe_load_file(registry_path)
             )
             return r[t.JsonMapping].ok(normalized)
         return r[t.JsonMapping].fail(
@@ -118,7 +118,7 @@ class FlextCliUtilitiesRulesLoadersMixin(FlextCliUtilitiesRulesMatchersMixin):
             if rule_file.name == options.registry_filename:
                 continue
             rule_config = t.Cli.JSON_MAPPING_ADAPTER.validate_python(
-                uy.yaml_load_mapping(rule_file)
+                u.Yaml.safe_load_file(rule_file)
             )
             typed_rules = uj.json_as_mapping_list(rule_config.get(options.rules_key))
             for typed_rule_def in typed_rules:

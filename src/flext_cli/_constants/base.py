@@ -93,3 +93,6 @@ class FlextCliConstantsBase:
         re.compile(pattern, flags=re.IGNORECASE)
         for pattern in CLI_USAGE_ERROR_PATTERN_ORDER
     )
+
+
+__all__: list[str] = ["FlextCliConstantsBase"]

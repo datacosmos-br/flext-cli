@@ -7,7 +7,7 @@ from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.worksheet import Worksheet
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 from .xlsx_addresses import FlextCliUtilitiesXlsxAddresses
 from .xlsx_formula_codec import FlextCliUtilitiesXlsxFormulaCodec
@@ -22,7 +22,7 @@ class FlextCliUtilitiesXlsxTables(FlextCliUtilitiesXlsxAddresses):
     def _apply_tables(
         cls,
         worksheet: Worksheet,
-        plans: tuple[m.Cli.XlsxTablePlan, ...],
+        plans: t.VariadicTuple[m.Cli.XlsxTablePlan],
         used_names: frozenset[str],
     ) -> p.Result[frozenset[str]]:
         try:
@@ -35,7 +35,7 @@ class FlextCliUtilitiesXlsxTables(FlextCliUtilitiesXlsxAddresses):
     def _apply_tables_unchecked(
         cls,
         worksheet: Worksheet,
-        plans: tuple[m.Cli.XlsxTablePlan, ...],
+        plans: t.VariadicTuple[m.Cli.XlsxTablePlan],
         used_names: frozenset[str],
     ) -> p.Result[frozenset[str]]:
         names = used_names
@@ -64,7 +64,7 @@ class FlextCliUtilitiesXlsxTables(FlextCliUtilitiesXlsxAddresses):
 
     @classmethod
     def _apply_defined_names(
-        cls, workbook: Workbook, plans: tuple[m.Cli.XlsxDefinedNamePlan, ...]
+        cls, workbook: Workbook, plans: t.VariadicTuple[m.Cli.XlsxDefinedNamePlan]
     ) -> p.Result[bool]:
         names: frozenset[str] = frozenset()
         for plan in plans:
@@ -91,4 +91,4 @@ class FlextCliUtilitiesXlsxTables(FlextCliUtilitiesXlsxAddresses):
         return r[bool].ok(True)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxTables",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxTables",)

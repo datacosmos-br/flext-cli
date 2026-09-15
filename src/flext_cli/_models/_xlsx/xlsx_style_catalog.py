@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
+from flext_cli import t
 from flext_core import m
 
 from .xlsx_styles import FlextCliModelsXlsxStyles
@@ -31,10 +32,10 @@ class FlextCliModelsXlsxStyleCatalog:
         )
 
     class XlsxStyleCatalog(m.FrozenModel):
-        style_map: tuple[FlextCliModelsXlsxStyleCatalog.XlsxStyleMapEntry, ...] = (
+        style_map: t.VariadicTuple[FlextCliModelsXlsxStyleCatalog.XlsxStyleMapEntry] = (
             m.Field(default=(), strict=False, description="Source style assignments.")
         )
-        styles: tuple[FlextCliModelsXlsxStyles.XlsxNamedStyleSpec, ...] = m.Field(
+        styles: t.VariadicTuple[FlextCliModelsXlsxStyles.XlsxNamedStyleSpec] = m.Field(
             default=(), strict=False, description="Unique visual styles."
         )
 
@@ -70,9 +71,9 @@ class FlextCliModelsXlsxStyleCatalog:
         content: Annotated[
             bytes, m.Field(min_length=1, description="Format-only workbook bytes.")
         ]
-        style_map: tuple[FlextCliModelsXlsxStyleCatalog.XlsxStyleMapEntry, ...] = (
+        style_map: t.VariadicTuple[FlextCliModelsXlsxStyleCatalog.XlsxStyleMapEntry] = (
             m.Field(default=(), strict=False, description="Source style assignments.")
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxStyleCatalog",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxStyleCatalog",)

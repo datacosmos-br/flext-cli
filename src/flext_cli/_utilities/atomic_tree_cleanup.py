@@ -8,7 +8,7 @@ import stat
 from pathlib import Path
 from typing import Never
 
-from flext_cli import m
+from flext_cli import m, t
 
 from . import (
     atomic_directory_delete as directory_delete,
@@ -206,11 +206,11 @@ def _require_parent(
         _raise_changed(entry.path.parent)
 
 
-def _deletion_key(entry: m.Cli.AtomicPhysicalTreeEntry) -> tuple[int, str]:
+def _deletion_key(entry: m.Cli.AtomicPhysicalTreeEntry) -> t.Pair[int, str]:
     return (len(entry.path.parts), entry.path.as_posix())
 
 
-def _binding_path_key(item: tuple[Path, tuple[int, int, int]]) -> str:
+def _binding_path_key(item: t.Pair[Path, t.Triple[int, int, int]]) -> str:
     """Return the lexical key for one authenticated parent binding."""
     return item[0].as_posix()
 

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import ctypes
 import os
+from ctypes import wintypes
 
 from flext_cli import p, r
 
@@ -22,8 +24,6 @@ class FlextCliUtilitiesRuntimeWindowsJobStateMixin:
 
     @staticmethod
     def _windows_job_active_count_native(job_handle: int) -> p.Result[int]:
-        import ctypes
-        from ctypes import wintypes
 
         class _BasicAccountingInformation(ctypes.Structure):
             _fields_ = [
@@ -69,8 +69,6 @@ class FlextCliUtilitiesRuntimeWindowsJobStateMixin:
 
     @staticmethod
     def _windows_job_terminate_native(job_handle: int, exit_code: int) -> str | None:
-        import ctypes
-        from ctypes import wintypes
 
         kernel32 = getattr(ctypes, "WinDLL", ctypes.CDLL)(
             "kernel32", use_last_error=True
@@ -97,8 +95,6 @@ class FlextCliUtilitiesRuntimeWindowsJobStateMixin:
 
     @staticmethod
     def _windows_job_close_native(job_handle: int) -> str | None:
-        import ctypes
-        from ctypes import wintypes
 
         kernel32 = getattr(ctypes, "WinDLL", ctypes.CDLL)(
             "kernel32", use_last_error=True

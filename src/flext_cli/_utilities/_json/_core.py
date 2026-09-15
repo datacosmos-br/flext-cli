@@ -74,7 +74,7 @@ class FlextCliUtilitiesJsonCoreMixin:
         violations: list[tuple[int, str]] = []
 
         def _object_pairs_hook(
-            pairs: list[tuple[str, t.JsonValue]],
+            pairs: t.SequenceOf[t.Pair[str, t.JsonValue]],
         ) -> dict[str, t.JsonValue]:
             obj = dict(pairs)
             seen: set[str] = set()

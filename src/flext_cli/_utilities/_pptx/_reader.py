@@ -10,7 +10,7 @@ from pptx import Presentation
 from pptx.exc import PackageNotFoundError
 from pptx.presentation import Presentation as PresentationType
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 
 class FlextCliUtilitiesPptxReader:
@@ -59,4 +59,4 @@ class FlextCliUtilitiesPptxReader:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesPptxReader",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesPptxReader",)

@@ -118,7 +118,7 @@ class TestsFlextCliOptionsUtilsCov:
         )
 
     _ANNOTATION_CASES: ClassVar[
-        tuple[tuple[type[t.Cli.ModelLike], t.Cli.RuntimeAnnotation], ...]
+        t.VariadicTuple[t.Pair[type[t.Cli.ModelLike], t.Cli.RuntimeAnnotation]]
     ] = (
         (StringAnnotationModel, str),
         (OptionalStringAnnotationModel, str),

@@ -8,7 +8,7 @@ import stat
 from pathlib import Path
 from typing import Literal, Never
 
-from flext_cli import m
+from flext_cli import m, t
 
 from . import (
     atomic_directory_descriptor as directory_descriptor,
@@ -75,7 +75,7 @@ def _inventory_directory(
     parent: file_descriptor.ParentDescriptor,
     parent_mount_id: int,
     entries: list[m.Cli.AtomicPhysicalTreeEntry],
-    directory_identities: set[tuple[int, int]],
+    directory_identities: set[t.Pair[int, int]],
 ) -> None:
     tree_descriptor.require_directory_state(
         parent.descriptor, parent.path, parent.state
@@ -203,7 +203,7 @@ def _entry(
     )
 
 
-def _directory_names(descriptor: int) -> tuple[str, ...]:
+def _directory_names(descriptor: int) -> t.VariadicTuple[str]:
     """Enumerate names through the authenticated directory descriptor."""
     with os.scandir(descriptor) as entries:
         return tuple(sorted(entry.name for entry in entries))

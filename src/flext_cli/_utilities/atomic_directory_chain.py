@@ -71,14 +71,14 @@ def _require_anchor(plan: m.Cli.AtomicDirectoryChainPlan) -> None:
 
 
 def _require_planned_parent(
-    path: Path, state: m.Cli.AtomicDirectoryState, expected: tuple[int, int]
+    path: Path, state: m.Cli.AtomicDirectoryState, expected: t.Pair[int, int]
 ) -> None:
     if (state.parent_device, state.parent_inode) != expected:
         message = f"atomic directory-chain parent changed: {path}"
         raise OSError(errno.ESTALE, message, path)
 
 
-def _require_created_identity(state: m.Cli.AtomicDirectoryState) -> tuple[int, int]:
+def _require_created_identity(state: m.Cli.AtomicDirectoryState) -> t.Pair[int, int]:
     if state.device is None or state.inode is None:
         message = f"created directory has no physical identity: {state.path}"
         raise OSError(errno.EINVAL, message, state.path)

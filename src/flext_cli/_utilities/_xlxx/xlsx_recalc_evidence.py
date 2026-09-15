@@ -5,7 +5,7 @@ from __future__ import annotations
 from io import BytesIO
 from zipfile import BadZipFile, LargeZipFile, ZipFile
 
-from flext_cli import c, p, r
+from flext_cli import c, p, r, t
 
 from .xlsx_archive_checks import FlextCliUtilitiesXlsxArchiveChecks
 
@@ -29,8 +29,8 @@ class FlextCliUtilitiesXlsxRecalcEvidence(FlextCliUtilitiesXlsxArchiveChecks):
     @classmethod
     def _worksheet_targets(
         cls, workbook_root: p.Cli.XlsxXmlElement, rels_root: p.Cli.XlsxXmlElement
-    ) -> tuple[tuple[str, str], ...]:
-        relationships: tuple[tuple[str, str], ...] = ()
+    ) -> t.VariadicTuple[t.Pair[str, str]]:
+        relationships: t.VariadicTuple[t.Pair[str, str]] = ()
         for relationship in rels_root.iter():
             if cls._local_name(relationship.tag) != "Relationship":
                 continue
@@ -39,7 +39,7 @@ class FlextCliUtilitiesXlsxRecalcEvidence(FlextCliUtilitiesXlsxArchiveChecks):
             if rel_id is None or target is None:
                 continue
             relationships = (*relationships, (rel_id, target))
-        targets: tuple[tuple[str, str], ...] = ()
+        targets: t.VariadicTuple[t.Pair[str, str]] = ()
         for sheet in workbook_root.iter():
             if cls._local_name(sheet.tag) != "sheet":
                 continue
@@ -66,7 +66,7 @@ class FlextCliUtilitiesXlsxRecalcEvidence(FlextCliUtilitiesXlsxArchiveChecks):
     @classmethod
     def _formula_cache_evidence(
         cls, source: bytes
-    ) -> p.Result[tuple[tuple[str, ...], tuple[str, ...]]]:
+    ) -> p.Result[t.Pair[t.VariadicTuple[str], t.VariadicTuple[str]]]:
         """Classify formula cells as uncached or empty-string cached."""
         try:
             evidence = cls._formula_cache_evidence_unchecked(source)
@@ -80,12 +80,12 @@ class FlextCliUtilitiesXlsxRecalcEvidence(FlextCliUtilitiesXlsxArchiveChecks):
     @classmethod
     def _formula_cache_evidence_unchecked(
         cls, source: bytes
-    ) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    ) -> t.Pair[t.VariadicTuple[str], t.VariadicTuple[str]]:
         with ZipFile(BytesIO(source)) as archive:
             workbook_root = cls._require_xml(archive, c.Cli.XLSX_WORKBOOK_MEMBER)
             rels_root = cls._require_xml(archive, c.Cli.XLSX_WORKBOOK_RELS_MEMBER)
-            uncached: tuple[str, ...] = ()
-            empty: tuple[str, ...] = ()
+            uncached: t.VariadicTuple[str] = ()
+            empty: t.VariadicTuple[str] = ()
             for sheet_name, member in cls._worksheet_targets(workbook_root, rels_root):
                 root = cls._require_xml(archive, member)
                 for element in root.iter():
@@ -112,4 +112,4 @@ class FlextCliUtilitiesXlsxRecalcEvidence(FlextCliUtilitiesXlsxArchiveChecks):
         return uncached, empty
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxRecalcEvidence",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxRecalcEvidence",)

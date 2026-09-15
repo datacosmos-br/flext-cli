@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Annotated, ClassVar, Literal, Self
 
+from flext_cli import t
 from flext_core import m, u
 
 from .. import atomic_state
@@ -133,7 +134,7 @@ class FlextCliModelsBase:
             m.Field(description="Physical tree root"),
         ]
         entries: Annotated[
-            tuple[FlextCliModelsBase.AtomicPhysicalTreeEntry, ...],
+            t.VariadicTuple[FlextCliModelsBase.AtomicPhysicalTreeEntry],
             m.Field(description="Lexically ordered descendants"),
         ] = ()
 

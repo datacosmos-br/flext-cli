@@ -17,7 +17,7 @@ class FlextCliUtilitiesRuntimeProcessStartMixin:
         def _spawn_streamed_process(
             cmd: t.StrSequence,
             cwd: t.Cli.TextPath | None,
-            env: dict[str, str] | None,
+            env: t.MappingKV[str, str] | None,
             stdin_handle: BinaryIO | None,
             *,
             capture_output: bool,
@@ -52,12 +52,12 @@ class FlextCliUtilitiesRuntimeProcessStartMixin:
         cls,
         cmd: t.StrSequence,
         cwd: t.Cli.TextPath | None,
-        env: dict[str, str] | None,
+        env: t.MappingKV[str, str] | None,
         stdin_handle: BinaryIO | None,
         *,
         capture_output: bool,
         combine_output: bool,
-    ) -> p.Result[tuple[p.Cli.ProcessHandle, int]]:
+    ) -> p.Result[t.Pair[p.Cli.ProcessHandle, int]]:
         process = cls._spawn_streamed_process(
             cmd,
             cwd,

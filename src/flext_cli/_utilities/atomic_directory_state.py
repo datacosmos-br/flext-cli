@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_mode as file_mode,
@@ -77,7 +79,7 @@ def initialize_empty_state(
 
 
 def require_identity(
-    path: Path, state: os.stat_result, expected: tuple[int, int]
+    path: Path, state: os.stat_result, expected: t.Pair[int, int]
 ) -> None:
     """Require one directory entry to retain a caller-owned inode."""
     if file_path.identity(state) != expected:

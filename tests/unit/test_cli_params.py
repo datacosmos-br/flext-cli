@@ -14,7 +14,7 @@ import pytest
 from flext_tests import tm
 
 from flext_cli import cli
-from tests import c, p, u
+from tests import c, p, t, u
 
 
 class TestsFlextCliCliParams:
@@ -106,7 +106,7 @@ class TestsFlextCliCliParams:
         self,
         settings: p.Cli.Settings,
         field_name: str,
-        expected_fragments: tuple[str, str],
+        expected_fragments: t.Pair[str, str],
     ) -> None:
         """Each choice-bound field rejects an out-of-domain value with a clear error."""
         match field_name:

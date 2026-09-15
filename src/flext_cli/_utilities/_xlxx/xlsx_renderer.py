@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from openpyxl import Workbook
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 from .xlsx_cells import FlextCliUtilitiesXlsxCells
 from .xlsx_layout import FlextCliUtilitiesXlsxLayout
@@ -78,4 +78,4 @@ class FlextCliUtilitiesXlsxRenderer(
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxRenderer",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxRenderer",)

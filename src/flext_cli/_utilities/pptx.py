@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import m, p
+from flext_cli import m, p, t
 
 
 class FlextCliUtilitiesPptx:
@@ -25,4 +25,4 @@ class FlextCliUtilitiesPptx:
         return FlextCliUtilitiesPptxRenderer.pptx_render(request)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesPptx",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesPptx",)

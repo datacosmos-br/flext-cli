@@ -5,8 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from flext_cli import c, p, r, t
-
-from .yaml import FlextCliUtilitiesYaml
+from flext_core import u
 
 
 class FlextCliUtilitiesYamlModel:
@@ -18,7 +17,7 @@ class FlextCliUtilitiesYamlModel:
     def write_yaml_model(file_path: t.Cli.TextPath, model: p.Model) -> p.Result[bool]:
         """Write one protocol-backed model as YAML and propagate failures."""
         try:
-            return FlextCliUtilitiesYaml.yaml_dump(
+            return u.Yaml.yaml_dump(
                 Path(file_path),
                 t.Cli.JSON_MAPPING_ADAPTER.validate_python(
                     model.model_dump(mode="json")
@@ -28,4 +27,4 @@ class FlextCliUtilitiesYamlModel:
             return r[bool].fail(f"YAML model write error: {exc}", exception=exc)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesYamlModel",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesYamlModel",)

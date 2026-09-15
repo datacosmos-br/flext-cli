@@ -91,7 +91,7 @@ class FlextCliUtilitiesDocxReader:
 
     @classmethod
     def _snapshot_table(cls, table: Table) -> m.Cli.DocxTablePlan:
-        rows: tuple[m.Cli.DocxTableRowPlan, ...] = ()
+        rows: t.VariadicTuple[m.Cli.DocxTableRowPlan] = ()
         for row in table.rows:
             cells = tuple(
                 m.Cli.DocxTableCellPlan(
@@ -142,4 +142,4 @@ class FlextCliUtilitiesDocxReader:
         return mapping.get(underline)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesDocxReader",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesDocxReader",)

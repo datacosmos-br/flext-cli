@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from flext_cli import c, t
+
 # mro-j47u (kimi): utilities consume local facades only, never private modules.
-from flext_cli import c
 
 
 class FlextCliUtilitiesXlsxFormulaCodec:
@@ -55,4 +56,4 @@ class FlextCliUtilitiesXlsxFormulaCodec:
         return "".join(parts)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxFormulaCodec",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxFormulaCodec",)

@@ -86,7 +86,7 @@ class TestsFlextCliFormattersCov:
         self,
         capsys: pytest.CaptureFixture[str],
         columns: t.StrSequence,
-        rows: tuple[t.StrSequence, ...],
+        rows: t.VariadicTuple[t.StrSequence],
         title: str,
     ) -> None:
         """Verify that render table renders columns and cells."""

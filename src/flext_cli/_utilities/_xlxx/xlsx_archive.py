@@ -5,7 +5,7 @@ from __future__ import annotations
 from io import BytesIO
 from zipfile import BadZipFile, LargeZipFile, ZipFile
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 from .xlsx_archive_checks import FlextCliUtilitiesXlsxArchiveChecks
 
@@ -19,11 +19,11 @@ class FlextCliUtilitiesXlsxArchive(FlextCliUtilitiesXlsxArchiveChecks):
     def _inventory(
         cls, archive: p.Cli.XlsxArchiveReader, policy: m.Cli.XlsxArchivePolicy
     ) -> m.Cli.XlsxArchiveInventory:
-        members: tuple[str, ...] = ()
+        members: t.VariadicTuple[str] = ()
         blocked: frozenset[str] = frozenset()
         seen: frozenset[str] = frozenset()
         total_size = 0
-        violations: tuple[m.Cli.XlsxArchiveViolation, ...] = ()
+        violations: t.VariadicTuple[m.Cli.XlsxArchiveViolation] = ()
         for info in archive.infolist():
             member = info.filename
             members = (*members, member)
@@ -148,4 +148,4 @@ class FlextCliUtilitiesXlsxArchive(FlextCliUtilitiesXlsxArchiveChecks):
             )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxArchive",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxArchive",)

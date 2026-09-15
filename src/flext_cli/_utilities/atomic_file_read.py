@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import atomic_file_descriptor as file_descriptor
 
 
@@ -26,7 +28,7 @@ def read_descriptor_bytes(
     return content
 
 
-def state_key(state: os.stat_result) -> tuple[int, ...]:
+def state_key(state: os.stat_result) -> t.VariadicTuple[int]:
     """Return fields that identify one authorized regular-file version."""
     return (
         state.st_dev,

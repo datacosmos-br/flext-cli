@@ -6,7 +6,7 @@ import errno
 import os
 from pathlib import Path
 
-from flext_cli import m
+from flext_cli import m, t
 
 from . import (
     atomic_directory_cleanup as directory_cleanup,
@@ -36,7 +36,7 @@ def create_guarded_empty_directory(
         observed = directory_state.destination_state(path, parent=parent)
         directory_model.require_observed(before, observed)
         created = False
-        identity: tuple[int, int] | None = None
+        identity: t.Pair[int, int] | None = None
         try:
             directory_descriptor.create_entry(parent, path)
             created = True
@@ -66,7 +66,7 @@ def _initialize_created(
     parent: file_descriptor.ParentDescriptor,
     path: Path,
     initial: os.stat_result,
-    identity: tuple[int, int],
+    identity: t.Pair[int, int],
     mode: int,
 ) -> os.stat_result:
     final = directory_state.initialize_empty_state(parent, path, initial, mode)

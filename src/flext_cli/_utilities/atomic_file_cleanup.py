@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_durability as file_durability,
@@ -16,7 +18,7 @@ from . import (
 def remove_failed_temporary(
     parent: file_descriptor.ParentDescriptor,
     temporary: Path,
-    identity: tuple[int, int] | None,
+    identity: t.Pair[int, int] | None,
     descriptor: int | None,
     operation_error: BaseException,
 ) -> None:

@@ -8,7 +8,7 @@ from zipfile import BadZipFile
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 
-from flext_cli import c, m, p, r
+from flext_cli import c, m, p, r, t
 
 from .xlsx_archive import FlextCliUtilitiesXlsxArchive
 
@@ -68,4 +68,4 @@ class FlextCliUtilitiesXlsxWorkbookIo(FlextCliUtilitiesXlsxArchive):
         return r[bytes].ok(content)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxWorkbookIo",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxWorkbookIo",)

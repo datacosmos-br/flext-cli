@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
+from flext_cli import t
 from flext_core import m
 
 
@@ -47,17 +48,17 @@ class FlextCliModelsXlsxRecalc:
         formula_count: Annotated[
             int, m.Field(ge=0, description="Source workbook formula cell count.")
         ]
-        error_cells: tuple[str, ...] = m.Field(
+        error_cells: t.VariadicTuple[str] = m.Field(
             default=(),
             strict=False,
             description="Formula cells whose cached value is an error literal.",
         )
-        uncached_cells: tuple[str, ...] = m.Field(
+        uncached_cells: t.VariadicTuple[str] = m.Field(
             default=(),
             strict=False,
             description="Formula cells without any cached value element.",
         )
-        empty_result_cells: tuple[str, ...] = m.Field(
+        empty_result_cells: t.VariadicTuple[str] = m.Field(
             default=(),
             strict=False,
             description="Formula cells cached as an empty string result.",
@@ -67,4 +68,4 @@ class FlextCliModelsXlsxRecalc:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxRecalc",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxRecalc",)

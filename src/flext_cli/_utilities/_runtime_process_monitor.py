@@ -7,7 +7,7 @@ import signal
 import threading
 import time
 
-from flext_cli import c, p
+from flext_cli import c, p, t
 
 from ._runtime_process_group import FlextCliUtilitiesRuntimeProcessGroupMixin
 
@@ -24,13 +24,13 @@ class FlextCliUtilitiesRuntimeProcessMonitorMixin(
         process_done: threading.Event,
         wake: threading.Event,
         failures: list[str],
-        received_signals: list[int],
+        received_signals: t.SequenceOf[int],
         job_handle: int,
         absolute_deadline: float | None,
         grace_seconds: float,
         progress_fd: int | None,
         heartbeat_seconds: float | None,
-    ) -> tuple[bool, float | None]:
+    ) -> t.Pair[bool, float | None]:
         """Forward signals and advance TERM/KILL phases without polling."""
         lifecycle_deadline = absolute_deadline
         soft_at = cls._soft_boundary(absolute_deadline, grace_seconds)
@@ -177,14 +177,14 @@ class FlextCliUtilitiesRuntimeProcessMonitorMixin(
     def _forward_received(
         cls,
         process: p.Cli.ProcessHandle,
-        received: list[int],
+        received: t.SequenceOf[int],
         forwarded_count: int,
         job_handle: int,
         failures: list[str],
         *,
         term_sent: bool,
         kill_sent: bool,
-    ) -> tuple[int, bool, bool]:
+    ) -> t.Triple[int, bool, bool]:
         force_after_signals = 2
         while forwarded_count < len(received):
             signal_number = received[forwarded_count]

@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Annotated, ClassVar, Self
 
+from flext_cli import t
 from flext_core import m, u
 
 from .. import atomic_state
@@ -30,11 +31,11 @@ class FlextCliModelsBase:
             int, m.Field(ge=0, strict=True, description="Anchor inode")
         ]
         anchor_ancestry: Annotated[
-            tuple[tuple[int, int], ...],
+            t.VariadicTuple[t.Pair[int, int]],
             m.Field(min_length=1, description="Root-to-anchor physical identities"),
         ]
         directories: Annotated[
-            tuple[Path, ...],
+            t.VariadicTuple[Path],
             m.Field(description="Ordered contiguous paths observed absent"),
         ] = ()
 
@@ -47,7 +48,9 @@ class FlextCliModelsBase:
 
         @u.field_validator("directories")
         @classmethod
-        def _validate_directories(cls, value: tuple[Path, ...]) -> tuple[Path, ...]:
+        def _validate_directories(
+            cls, value: t.VariadicTuple[Path]
+        ) -> t.VariadicTuple[Path]:
             return tuple(
                 atomic_state.validate_atomic_state_path(
                     path, label="atomic directory-chain entry"

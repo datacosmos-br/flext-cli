@@ -83,4 +83,4 @@ class FlextCliUtilitiesPptxRenderer:
             new_slide.shapes.title.text = plan.title
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesPptxRenderer",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesPptxRenderer",)

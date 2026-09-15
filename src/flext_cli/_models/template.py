@@ -13,6 +13,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Annotated
 
+from flext_cli import t
 from flext_core import m
 
 from .base import FlextCliModelsBase
@@ -57,18 +58,18 @@ class FlextCliModelsTemplate:
         # NOTE (multi-agent, mro-wkii.17 / agent: make_ssot_audit): callers
         # consume the declared failure field directly; models remain behavior-free.
         created: Annotated[
-            tuple[Path, ...],
+            t.VariadicTuple[Path],
             m.Field(default_factory=tuple, description="Destination paths written"),
         ]
         skipped: Annotated[
-            tuple[Path, ...],
+            t.VariadicTuple[Path],
             m.Field(
                 default_factory=tuple,
                 description="Destinations skipped (exists or disabled)",
             ),
         ]
         failed: Annotated[
-            tuple[tuple[Path, str], ...],
+            t.VariadicTuple[t.Pair[Path, str]],
             m.Field(
                 default_factory=tuple,
                 description="(destination, error) pairs that failed to render",
@@ -82,7 +83,7 @@ class FlextCliModelsTemplate:
             str, m.Field(description="Text rendered from authenticated template bytes")
         ]
         source_states: Annotated[
-            tuple[FlextCliModelsBase.AtomicFileState, ...],
+            t.VariadicTuple[FlextCliModelsBase.AtomicFileState],
             m.Field(
                 min_length=1,
                 description="Ordered physical states of the template and its imports",

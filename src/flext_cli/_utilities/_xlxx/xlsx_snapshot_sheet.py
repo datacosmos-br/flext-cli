@@ -6,7 +6,7 @@ from typing import Literal
 
 from openpyxl.worksheet.worksheet import Worksheet
 
-from flext_cli import m, r
+from flext_cli import m, r, t
 
 from .xlsx_snapshot_structure import FlextCliUtilitiesXlsxSnapshotStructure
 from .xlsx_snapshot_values import FlextCliUtilitiesXlsxSnapshotValues
@@ -108,4 +108,4 @@ class FlextCliUtilitiesXlsxSnapshotSheet(
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxSnapshotSheet",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxSnapshotSheet",)

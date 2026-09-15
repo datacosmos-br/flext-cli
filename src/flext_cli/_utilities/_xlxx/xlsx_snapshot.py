@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import m, p, r
+from flext_cli import m, p, r, t
 
 from .xlsx_snapshot_sheet import FlextCliUtilitiesXlsxSnapshotSheet
 from .xlsx_workbook_io import FlextCliUtilitiesXlsxWorkbookIo
@@ -44,7 +44,7 @@ class FlextCliUtilitiesXlsxSnapshot(
         if len(formula_workbook.worksheets) != len(value_workbook.worksheets):
             msg = "Formula and value workbook views have different sheet counts"
             raise ValueError(msg)
-        sheets: tuple[m.Cli.XlsxSheetSnapshot, ...] = ()
+        sheets: t.VariadicTuple[m.Cli.XlsxSheetSnapshot] = ()
         for position, (formula_sheet, value_sheet) in enumerate(
             zip(formula_workbook.worksheets, value_workbook.worksheets, strict=True),
             start=1,
@@ -64,4 +64,4 @@ class FlextCliUtilitiesXlsxSnapshot(
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxSnapshot",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxSnapshot",)

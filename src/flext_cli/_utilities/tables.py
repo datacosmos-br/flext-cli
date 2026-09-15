@@ -96,7 +96,7 @@ class FlextCliUtilitiesTables:
     @staticmethod
     def tables_tabulate_payload(
         rows: t.SequenceOf[t.Cli.TableRow], headers: str | t.StrSequence
-    ) -> tuple[
+    ) -> t.Pair[
         t.SequenceOf[t.Cli.TableRow] | t.SequenceOf[t.Cli.TableSequenceRow],
         str | t.StrSequence,
     ]:

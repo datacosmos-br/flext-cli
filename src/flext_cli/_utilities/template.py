@@ -37,7 +37,7 @@ class FlextCliUtilitiesTemplate:
         @override
         def get_source(
             self, environment: Environment, template: str
-        ) -> tuple[str, str, Callable[[], bool]]:
+        ) -> t.Triple[str, str, Callable[[], bool]]:
             content, filename, _ = super().get_source(environment, template)
             # Timestamp precision (or preserved mtimes) cannot prove freshness.
             return (
@@ -57,7 +57,7 @@ class FlextCliUtilitiesTemplate:
         @override
         def get_source(
             self, environment: Environment, template: str
-        ) -> tuple[str, str, None]:
+        ) -> t.Triple[str, str, None]:
             """Return immutable captured text for one root-contained template."""
             del environment
             relative = Path(template)

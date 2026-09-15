@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import s
+from flext_cli import s, t
 
 
 class FlextCliDocx(s):
@@ -12,4 +12,4 @@ class FlextCliDocx(s):
     # customer rules; consumers provide immutable plans and receive bytes/models.
 
 
-__all__: tuple[str, ...] = ("FlextCliDocx",)
+__all__: t.VariadicTuple[str] = ("FlextCliDocx",)

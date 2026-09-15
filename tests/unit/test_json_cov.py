@@ -176,7 +176,7 @@ class TestsFlextCliJsonCov:
         ("value", "expected"), [(None, []), ([1, 2, 3], [1, 2, 3]), ({"a": 1}, [])]
     )
     def test_json_as_sequence_coerces_to_list_or_empty(
-        self, value: t.JsonValue | None, expected: list[t.JsonValue]
+        self, value: t.JsonValue | None, expected: t.SequenceOf[t.JsonValue]
     ) -> None:
         """Verify that json as sequence coerces to list or empty."""
         tm.that(list(u.Cli.json_as_sequence(value)), eq=expected)
@@ -201,7 +201,7 @@ class TestsFlextCliJsonCov:
         ("keys", "raw"), [(("a", "missing", "c"), '{"a": {}}'), ((), '{"a": 1}')]
     )
     def test_json_walk_path_returns_none_when_unreachable(
-        self, keys: tuple[str, ...], raw: str
+        self, keys: t.VariadicTuple[str], raw: str
     ) -> None:
         """Verify that json walk path returns none when unreachable."""
         data = u.Cli.json_as_mapping(u.Cli.json_loads(raw).value)

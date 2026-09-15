@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from openpyxl.worksheet.worksheet import Worksheet
 
-from flext_cli import m, p, r
+from flext_cli import m, p, r, t
 
 from .xlsx_conditional import FlextCliUtilitiesXlsxConditional
 from .xlsx_protection import FlextCliUtilitiesXlsxProtection
@@ -38,4 +38,4 @@ class FlextCliUtilitiesXlsxRules(
         return r[bool].ok(True)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxRules",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxRules",)

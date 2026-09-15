@@ -10,8 +10,8 @@ from typing import ClassVar
 
 import flext_core
 from flext_cli import c, p, r, t
+from flext_core import u
 
-from ..yaml import FlextCliUtilitiesYaml as uy
 from .flextcliutilitiesfiles_part_02 import (
     FlextCliUtilitiesFiles as FlextCliUtilitiesFilesPart02,
 )
@@ -119,10 +119,10 @@ class FlextCliUtilitiesFiles:
     @staticmethod
     def files_read_json_lines_model[M: t.Cli.ModelLike](
         file_path: t.Cli.TextPath, model_type: t.ModelClass[M]
-    ) -> p.Result[tuple[M, ...]]:
+    ) -> p.Result[t.VariadicTuple[M]]:
         """Stream every non-empty JSON line and validate each into one model."""
 
-        def _load() -> tuple[M, ...]:
+        def _load() -> t.VariadicTuple[M]:
             with Path(file_path).open(
                 mode="r", encoding=c.Cli.ENCODING_DEFAULT
             ) as handle:
@@ -139,7 +139,7 @@ class FlextCliUtilitiesFiles:
     @staticmethod
     def files_read_yaml(file_path: t.Cli.TextPath) -> p.Result[t.JsonValue]:
         """Read one YAML file and validate to canonical JSON value."""
-        return uy.yaml_safe_load(Path(file_path)).map(
+        return u.Yaml.yaml_safe_load(Path(file_path)).map(
             t.Cli.JSON_VALUE_ADAPTER.validate_python
         )
 
@@ -148,7 +148,7 @@ class FlextCliUtilitiesFiles:
         file_path: t.Cli.TextPath, model_type: t.ModelClass[M]
     ) -> p.Result[M]:
         """Read YAML directly into one caller-supplied validated model."""
-        return uy.yaml_safe_load(Path(file_path)).map(model_type.model_validate)
+        return u.Yaml.yaml_safe_load(Path(file_path)).map(model_type.model_validate)
 
     @staticmethod
     def files_read_yaml_model_chain[M: t.Cli.ModelLike](
@@ -158,12 +158,12 @@ class FlextCliUtilitiesFiles:
         sources = tuple(Path(file_path) for file_path in file_paths)
         if not sources:
             return r[M].fail(c.Cli.ERR_FILE_PATH_EMPTY)
-        first = uy.yaml_safe_load(sources[0])
+        first = u.Yaml.yaml_safe_load(sources[0])
         if first.failure:
             return first.map(model_type.model_validate)
         merged: t.JsonMapping = first.value
         for source in sources[1:]:
-            loaded = uy.yaml_safe_load(source)
+            loaded = u.Yaml.yaml_safe_load(source)
             if loaded.failure:
                 return loaded.map(model_type.model_validate)
             merged = flext_core.u.config_merge(merged, loaded.value)

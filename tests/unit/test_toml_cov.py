@@ -148,7 +148,7 @@ class TestsFlextCliTomlCov:
         [(["x", "y"], ["x", "y"]), ([], []), (["solo"], ["solo"])],
     )
     def test_as_string_list_preserves_array_contents(
-        self, items: list[str], expected: list[str]
+        self, items: t.SequenceOf[str], expected: t.SequenceOf[str]
     ) -> None:
         """Verify that as string list preserves array contents."""
         arr = u.Cli.toml_array(items)
@@ -170,7 +170,7 @@ class TestsFlextCliTomlCov:
         ],
     )
     def test_dot_path_joins_non_empty_segments(
-        self, parts: tuple[str, ...], expected: str
+        self, parts: t.VariadicTuple[str], expected: str
     ) -> None:
         """Verify that dot path joins non empty segments."""
         tm.that(u.Cli.toml_dot_path(*parts), eq=expected)

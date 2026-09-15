@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_directory_descriptor as directory_descriptor,
     atomic_directory_state as directory_state,
@@ -18,7 +20,7 @@ from . import (
 def remove_created_directory(
     parent: file_descriptor.ParentDescriptor,
     path: Path,
-    identity: tuple[int, int] | None,
+    identity: t.Pair[int, int] | None,
     operation_error: BaseException,
 ) -> None:
     """Remove only the still-empty inode created by the failed operation."""
@@ -34,7 +36,7 @@ def remove_created_directory(
 def _remove_created_directory(
     parent: file_descriptor.ParentDescriptor,
     path: Path,
-    identity: tuple[int, int] | None,
+    identity: t.Pair[int, int] | None,
 ) -> None:
     state = directory_state.destination_state(path, parent=parent)
     if state is None:
@@ -50,8 +52,8 @@ def _remove_created_directory(
 
 
 def _require_cleanup_identity(
-    path: Path, state: os.stat_result, identity: tuple[int, int] | None
-) -> tuple[int, int]:
+    path: Path, state: os.stat_result, identity: t.Pair[int, int] | None
+) -> t.Pair[int, int]:
     if identity is None:
         message = f"refusing unauthenticated directory cleanup: {path}"
         raise OSError(errno.ESTALE, message, path)

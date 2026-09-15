@@ -36,7 +36,7 @@ class FlextCliUtilitiesRuntimeProcessExecutionMixin(
         cmd: t.StrSequence,
         output_path: Path | None,
         cwd: t.Cli.TextPath | None,
-        env: dict[str, str] | None,
+        env: t.MappingKV[str, str] | None,
         input_data: str | bytes | None,
         *,
         capture_output: bool,
@@ -74,7 +74,7 @@ class FlextCliUtilitiesRuntimeProcessExecutionMixin(
         stdout_output = bytearray()
         stderr_output = bytearray()
         pump_streams: list[tuple[threading.Thread, IO[bytes]]] = []
-        input_pump: tuple[threading.Thread, BinaryIO] | None = None
+        input_pump: t.Pair[threading.Thread, BinaryIO] | None = None
         pump_stop = threading.Event()
         process_done = threading.Event()
         wake = threading.Event()

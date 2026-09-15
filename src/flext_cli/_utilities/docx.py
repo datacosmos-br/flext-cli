@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import m, p
+from flext_cli import m, p, t
 
 
 class FlextCliUtilitiesDocx:
@@ -25,4 +25,4 @@ class FlextCliUtilitiesDocx:
         return FlextCliUtilitiesDocxRenderer.docx_render(request)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesDocx",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesDocx",)

@@ -10,7 +10,7 @@ from collections.abc import Callable
 from types import FrameType
 from typing import IO, BinaryIO
 
-from flext_cli import p, r
+from flext_cli import p, r, t
 
 from ._runtime_process_monitor import FlextCliUtilitiesRuntimeProcessMonitorMixin
 from ._runtime_process_threads import FlextCliUtilitiesRuntimeProcessThreadsMixin
@@ -58,7 +58,7 @@ class FlextCliUtilitiesRuntimeProcessCleanupMixin(
     @staticmethod
     def _restore_forwarding_handlers(
         restore_handlers: list[Callable[[], object]],
-    ) -> tuple[str, ...]:
+    ) -> t.VariadicTuple[str]:
         """Restore parent handlers after child lifecycle completion."""
         failures: list[str] = []
         for restore in reversed(restore_handlers):
@@ -84,12 +84,12 @@ class FlextCliUtilitiesRuntimeProcessCleanupMixin(
         process_done: threading.Event,
         wake: threading.Event,
         stop: threading.Event,
-        pump_streams: tuple[tuple[threading.Thread, IO[bytes]], ...],
-        input_pump: tuple[threading.Thread, BinaryIO] | None,
+        pump_streams: t.VariadicTuple[t.Pair[threading.Thread, IO[bytes]]],
+        input_pump: t.Pair[threading.Thread, BinaryIO] | None,
         cleanup_errors: list[str],
         job_handle: int,
         absolute_deadline: float | None,
-        return_codes: list[int],
+        return_codes: t.SequenceOf[int],
     ) -> int | None:
         """Kill the owned boundary, reap root, drain output, and prove empty."""
         cleanup_deadline = (

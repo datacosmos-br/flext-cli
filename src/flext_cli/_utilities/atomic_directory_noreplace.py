@@ -10,6 +10,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import cast
 
+from flext_cli import t
+
 type RenameAt2 = Callable[[int, bytes, int, bytes, int], int]
 
 _RENAME_NOREPLACE = 1
@@ -75,7 +77,7 @@ def rename_noreplace(
     raise OSError(errno.ENOTSUP, message, path)
 
 
-def _runtime_platform() -> tuple[str, str]:
+def _runtime_platform() -> t.Pair[str, str]:
     """Read host selectors at invocation time for portable typed dispatch."""
     return sys.platform, os.name
 

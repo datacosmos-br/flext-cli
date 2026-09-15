@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_path as file_path,
@@ -15,7 +17,7 @@ from . import (
 
 def read_authenticated_state(
     path: Path, *, required: bool
-) -> tuple[os.stat_result | None, os.stat_result | None, bytes | None]:
+) -> t.Triple[os.stat_result | None, os.stat_result | None, bytes | None]:
     """Return one physical regular-file state or exact absence.
 
     An optional read of a path whose directory chain is not materialized is

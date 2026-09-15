@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-TESTS_FLEXT_CLI_PUBLIC_EXPORTS: tuple[str, ...] = (
+from tests import t
+
+TESTS_FLEXT_CLI_PUBLIC_EXPORTS: t.VariadicTuple[str] = (
     "TestsFlextCliAuthUtilsCov",
     "TestsFlextCliCaptureLogPrompts",
     "TestsFlextCliCmd",

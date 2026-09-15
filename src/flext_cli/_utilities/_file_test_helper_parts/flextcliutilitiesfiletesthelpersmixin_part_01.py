@@ -16,10 +16,10 @@ from pathlib import Path
 from typing import cast
 
 from flext_cli import c, p, r, t
+from flext_core import u
 
 from ..files import FlextCliUtilitiesFiles
 from ..json import FlextCliUtilitiesJson as uj
-from ..yaml import FlextCliUtilitiesYaml as uy
 
 
 class FlextCliUtilitiesFileTestHelpersMixin:
@@ -91,7 +91,7 @@ class FlextCliUtilitiesFileTestHelpersMixin:
         """Write a structured payload as JSON or YAML."""
         validated = t.Cli.JSON_VALUE_ADAPTER.validate_python(data)
         if fmt == c.Cli.FILE_FORMAT_YAML:
-            dumped = uy.yaml_dump_str(validated)
+            dumped = u.Yaml.safe_dump(validated)
             return FlextCliUtilitiesFiles.files_write_text(path, dumped)
         dumped_result = uj.json_dumps(validated)
         if dumped_result.failure:

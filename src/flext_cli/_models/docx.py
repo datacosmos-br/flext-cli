@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from flext_cli import t
+
 from .docx_document import FlextCliModelsDocxDocument
 from .docx_styles import FlextCliModelsDocxStyles
 
@@ -10,4 +12,4 @@ class FlextCliModelsDocx(FlextCliModelsDocxDocument, FlextCliModelsDocxStyles):
     """Canonical private DOCX model namespace."""
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsDocx",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsDocx",)

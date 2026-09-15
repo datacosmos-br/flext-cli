@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
+from flext_cli import t
 from flext_core import m
 
 
@@ -121,4 +122,4 @@ class FlextCliModelsDocxStyles:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsDocxStyles",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsDocxStyles",)

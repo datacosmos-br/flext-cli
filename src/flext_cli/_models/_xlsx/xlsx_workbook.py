@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
+from flext_cli import t
 from flext_core import m
 
 from .xlsx_cells import FlextCliModelsXlsxCells
@@ -20,10 +21,10 @@ class FlextCliModelsXlsxWorkbook:
     # and bytes; workbook implementation objects never cross this boundary.
     class XlsxSheetPlan(m.FrozenModel):
         name: Annotated[str, m.Field(min_length=1, description="Worksheet name.")]
-        cells: tuple[FlextCliModelsXlsxCells.XlsxCellPlan, ...] = m.Field(
+        cells: t.VariadicTuple[FlextCliModelsXlsxCells.XlsxCellPlan] = m.Field(
             default=(), strict=False, description="Concrete cell writes."
         )
-        tables: tuple[FlextCliModelsXlsxTables.XlsxTablePlan, ...] = m.Field(
+        tables: t.VariadicTuple[FlextCliModelsXlsxTables.XlsxTablePlan] = m.Field(
             default=(), strict=False, description="Concrete worksheet tables."
         )
         layout: FlextCliModelsXlsxLayout.XlsxSheetLayoutPlan = m.Field(
@@ -34,14 +35,14 @@ class FlextCliModelsXlsxWorkbook:
         )
 
     class XlsxWorkbookPlan(m.FrozenModel):
-        sheets: tuple[FlextCliModelsXlsxWorkbook.XlsxSheetPlan, ...] = m.Field(
+        sheets: t.VariadicTuple[FlextCliModelsXlsxWorkbook.XlsxSheetPlan] = m.Field(
             min_length=1, strict=False, description="Exact worksheet order."
         )
-        defined_names: tuple[FlextCliModelsXlsxTables.XlsxDefinedNamePlan, ...] = (
+        defined_names: t.VariadicTuple[FlextCliModelsXlsxTables.XlsxDefinedNamePlan] = (
             m.Field(default=(), strict=False, description="Workbook defined names.")
         )
-        named_styles: tuple[FlextCliModelsXlsxStyles.XlsxNamedStyleSpec, ...] = m.Field(
-            default=(), strict=False, description="Visual styles to register."
+        named_styles: t.VariadicTuple[FlextCliModelsXlsxStyles.XlsxNamedStyleSpec] = (
+            m.Field(default=(), strict=False, description="Visual styles to register.")
         )
         full_calculation_on_load: bool = m.Field(
             default=True, description="Require complete formula recalculation."
@@ -67,4 +68,4 @@ class FlextCliModelsXlsxWorkbook:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsXlsxWorkbook",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsXlsxWorkbook",)

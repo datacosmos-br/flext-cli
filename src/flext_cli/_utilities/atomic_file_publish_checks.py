@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_file_descriptor as file_descriptor,
     atomic_file_mode as file_mode,
@@ -15,7 +17,7 @@ from . import (
 IDENTITY_COMPONENT_COUNT = 2
 
 
-def validate_identity(path: Path, value: tuple[int, int], *, label: str) -> None:
+def validate_identity(path: Path, value: t.Pair[int, int], *, label: str) -> None:
     """Require one strict non-negative device and inode pair."""
     if (
         len(value) != IDENTITY_COMPONENT_COUNT
@@ -27,7 +29,7 @@ def validate_identity(path: Path, value: tuple[int, int], *, label: str) -> None
 
 
 def require_identity(
-    path: Path, state: os.stat_result | None, expected: tuple[int, int] | None
+    path: Path, state: os.stat_result | None, expected: t.Pair[int, int] | None
 ) -> None:
     """Require an observed physical identity to match its caller snapshot."""
     observed = None if state is None else file_state.identity(state)
@@ -39,7 +41,7 @@ def require_identity(
 def require_distinct_inode(
     destination: Path,
     destination_state: os.stat_result | None,
-    staged_identity: tuple[int, int],
+    staged_identity: t.Pair[int, int],
 ) -> None:
     """Reject lexical aliases that identify the same physical file."""
     if (
@@ -76,7 +78,7 @@ def validate_publication(
     staged: Path,
     staged_bytes: bytes,
     staged_mode: int,
-    staged_identity: tuple[int, int],
+    staged_identity: t.Pair[int, int],
 ) -> os.stat_result:
     """Prove replacement consumed the staged name and retained its exact state."""
     if file_state.destination_state(staged, parent=staged_parent) is not None:

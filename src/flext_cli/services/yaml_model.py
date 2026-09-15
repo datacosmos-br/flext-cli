@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import s
+from flext_cli import s, t
 
 
 class FlextCliYamlModel(s):
@@ -12,4 +12,4 @@ class FlextCliYamlModel(s):
     # until the private implementation and real round trip are independently green.
 
 
-__all__: tuple[str, ...] = ("FlextCliYamlModel",)
+__all__: t.VariadicTuple[str] = ("FlextCliYamlModel",)

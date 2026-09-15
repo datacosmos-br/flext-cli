@@ -29,7 +29,7 @@ class TestsFlextCliTypings:
         [(["alpha", "beta"], ["alpha", "beta"]), ([], []), (("x", "y"), ["x", "y"])],
     )
     def test_str_sequence_adapter_accepts_string_sequences(
-        self, payload: Sequence[str], expected: list[str]
+        self, payload: Sequence[str], expected: t.SequenceOf[str]
     ) -> None:
         """STR_SEQUENCE_ADAPTER validates string sequences to a list."""
         result = t.Cli.STR_SEQUENCE_ADAPTER.validate_python(payload)
@@ -50,7 +50,7 @@ class TestsFlextCliTypings:
         [{"id": 1}, {"nested": {"a": [1, 2]}}, {}, {"flag": True, "name": "x"}],
     )
     def test_json_mapping_adapter_accepts_json_objects(
-        self, payload: dict[str, object]
+        self, payload: t.MappingKV[str, t.JsonValue]
     ) -> None:
         """JSON_MAPPING_ADAPTER validates JSON object mappings unchanged."""
         result = t.Cli.JSON_MAPPING_ADAPTER.validate_python(payload)
@@ -65,7 +65,9 @@ class TestsFlextCliTypings:
     @pytest.mark.parametrize(
         "payload", [[1, 2, 3], ["a", "b"], [], [{"k": "v"}, [1, 2]]]
     )
-    def test_json_list_adapter_accepts_json_arrays(self, payload: list[object]) -> None:
+    def test_json_list_adapter_accepts_json_arrays(
+        self, payload: t.SequenceOf[t.JsonValue]
+    ) -> None:
         """JSON_LIST_ADAPTER validates JSON arrays unchanged."""
         result = t.Cli.JSON_LIST_ADAPTER.validate_python(payload)
         tm.that(result == payload, eq=True)

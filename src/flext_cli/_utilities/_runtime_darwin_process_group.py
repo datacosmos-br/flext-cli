@@ -6,12 +6,14 @@ import ctypes
 import errno
 import os
 
+from flext_cli import t
+
 
 class FlextCliUtilitiesRuntimeDarwinProcessGroupMixin:
     """Read libproc rather than treating killpg permission as membership."""
 
     @staticmethod
-    def _darwin_process_group_members(process_group_id: int) -> tuple[int, ...]:
+    def _darwin_process_group_members(process_group_id: int) -> t.VariadicTuple[int]:
         library = ctypes.CDLL("/usr/lib/libproc.dylib", use_errno=True)
         list_pids = library.proc_listpgrppids
         list_pids.argtypes = (ctypes.c_int, ctypes.c_void_p, ctypes.c_int)

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flext_cli import m, p
+from flext_cli import m, p, t
 
 
 class FlextCliUtilitiesXlsx:
@@ -101,4 +101,4 @@ class FlextCliUtilitiesXlsx:
         return FlextCliUtilitiesXlsxAddresses.xlsx_format_reference(request)
 
 
-__all__: tuple[str, ...] = ("FlextCliUtilitiesXlsx",)
+__all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsx",)

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import ctypes
 import os
+from ctypes import wintypes
 
 from flext_cli import p, r
 
@@ -22,8 +24,6 @@ class FlextCliUtilitiesRuntimeWindowsJobStartMixin:
 
     @staticmethod
     def _windows_job_create_native(process_id: int) -> p.Result[int]:
-        import ctypes
-        from ctypes import wintypes
 
         class _IoCounters(ctypes.Structure):
             _fields_ = [
@@ -118,8 +118,6 @@ class FlextCliUtilitiesRuntimeWindowsJobStartMixin:
 
     @staticmethod
     def _windows_process_resume_native(process_id: int) -> str | None:
-        import ctypes
-        from ctypes import wintypes
 
         class _ThreadEntry32(ctypes.Structure):
             _fields_ = [

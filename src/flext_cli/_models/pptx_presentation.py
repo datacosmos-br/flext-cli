@@ -20,7 +20,7 @@ class FlextCliModelsPptxPresentation:
         title: str = m.Field(default="", description="Slide title.")
 
     class PptxPresentationPlan(m.FrozenModel):
-        slides: tuple[FlextCliModelsPptxPresentation.PptxSlidePlan, ...] = m.Field(
+        slides: t.VariadicTuple[FlextCliModelsPptxPresentation.PptxSlidePlan] = m.Field(
             default=(), strict=False, description="Presentation slides."
         )
         core_properties: t.JsonMapping = m.Field(
@@ -48,4 +48,4 @@ class FlextCliModelsPptxPresentation:
         )
 
 
-__all__: tuple[str, ...] = ("FlextCliModelsPptxPresentation",)
+__all__: t.VariadicTuple[str] = ("FlextCliModelsPptxPresentation",)

@@ -6,6 +6,8 @@ import errno
 import os
 from pathlib import Path
 
+from flext_cli import t
+
 from . import (
     atomic_directory_noreplace as directory_noreplace,
     atomic_file_descriptor as file_descriptor,
@@ -82,7 +84,9 @@ def rename_entry_noreplace(
     )
 
 
-def _require_dir_fd(path: Path, operations: tuple[tuple[str, object], ...]) -> None:
+def _require_dir_fd(
+    path: Path, operations: t.VariadicTuple[t.Pair[str, t.JsonValue]]
+) -> None:
     missing = [
         name for name, operation in operations if operation not in os.supports_dir_fd
     ]
