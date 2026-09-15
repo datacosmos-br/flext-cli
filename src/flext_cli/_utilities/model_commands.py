@@ -32,6 +32,7 @@ class FlextCliUtilitiesModelCommands:
 
         __signature__: inspect.Signature
         __annotations__: dict[str, object]
+
     class FlextCliUtilitiesModelCommands:
         """Model command methods exposed directly on ``u.Cli``."""
 
@@ -50,7 +51,9 @@ class FlextCliUtilitiesModelCommands:
                 self.handler = handler
                 self.settings = settings
 
-            def _resolve_default(self, field_info: m.FieldInfo) -> t.Cli.CliValue | type:
+            def _resolve_default(
+                self, field_info: m.FieldInfo
+            ) -> t.Cli.CliValue | type:
                 if field_info.is_required():
                     return inspect.Parameter.empty
                 # NOTE (multi-agent): ``FieldInfo.get_default`` is typed ``Any``
@@ -156,4 +159,6 @@ __all__: t.MutableSequenceOf[str] = ["FlextCliUtilitiesModelCommands"]
 
 
 _SignatureCarrier = FlextCliUtilitiesModelCommands._SignatureCarrier
-FlextCliUtilitiesModelCommands = FlextCliUtilitiesModelCommands.FlextCliUtilitiesModelCommands
+FlextCliUtilitiesModelCommands = (
+    FlextCliUtilitiesModelCommands.FlextCliUtilitiesModelCommands
+)

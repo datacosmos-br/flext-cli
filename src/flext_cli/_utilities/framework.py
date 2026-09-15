@@ -69,6 +69,7 @@ class FlextCliUtilitiesFramework:
                 msg = "CLI group was not created by flext_cli"
                 raise TypeError(msg)
             self._app.add_typer(group.backend, name=name)
+
     class _ClickCommand:
         """Private command implementation satisfying ``p.Cli.ExternalCommand``."""
 
@@ -89,6 +90,7 @@ class FlextCliUtilitiesFramework:
                 args=args, prog_name=prog_name, standalone_mode=standalone_mode
             )
             return t.Cli.JSON_VALUE_ADAPTER.validate_python(result)
+
     class FlextCliUtilitiesFramework:
         """Single adapter owning all Click/Typer runtime interaction."""
 
@@ -281,7 +283,9 @@ class FlextCliUtilitiesFramework:
             cls, application: p.Cli.Application
         ) -> p.Cli.ExternalCommand:
             """Expose an adapter-owned application through the command protocol."""
-            return _ClickCommand(typer.main.get_command(cls._unwrap(application).backend))
+            return _ClickCommand(
+                typer.main.get_command(cls._unwrap(application).backend)
+            )
 
         @classmethod
         def framework_invoke(
@@ -313,14 +317,17 @@ class FlextCliUtilitiesFramework:
             runner = CliRunner(charset=charset, env=runner_env)
             private_application = cls._unwrap(application)
             result = runner.invoke(
-                private_application.backend, args=list(args) if args is not None else None
+                private_application.backend,
+                args=list(args) if args is not None else None,
             )
             return m.Cli.InvocationResult(
                 exit_code=result.exit_code,
                 stdout=result.stdout,
                 stderr=result.stderr,
                 outcome=m.Cli.ProcessOutcome(
-                    raw_return_code=result.exit_code, timed_out=False, forwarded_signal=None
+                    raw_return_code=result.exit_code,
+                    timed_out=False,
+                    forwarded_signal=None,
                 ),
             )
 
