@@ -9,7 +9,7 @@ from typing import TypeVar
 from openpyxl.cell.cell import Cell, MergedCell
 from openpyxl.worksheet.worksheet import Worksheet
 
-from flext_cli import c, m, r, t
+from flext_cli import c, m, p, r, t
 
 T = TypeVar("T")
 

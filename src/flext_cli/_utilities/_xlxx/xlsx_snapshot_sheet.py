@@ -6,7 +6,7 @@ from typing import Literal
 
 from openpyxl.worksheet.worksheet import Worksheet
 
-from flext_cli import m, r, t
+from flext_cli import m, p, r, t
 
 from .xlsx_snapshot_structure import FlextCliUtilitiesXlsxSnapshotStructure
 from .xlsx_snapshot_values import FlextCliUtilitiesXlsxSnapshotValues
