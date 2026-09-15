@@ -32,7 +32,7 @@ _TYPER_CLICK_EXCEPTION: type[Exception] = next(
 class FlextCliUtilitiesFramework:
     """Module owner namespace."""
 
-    class _TyperApplication:
+    class TyperApplication:
         """Private application implementation hidden behind ``p.Cli.Application``."""
 
         __slots__ = ("_app", "_name")
@@ -65,12 +65,12 @@ class FlextCliUtilitiesFramework:
 
         def add_typer(self, group: p.Cli.Application, *, name: str) -> None:
             """Attach another adapter-owned application as a child group."""
-            if not isinstance(group, _TyperApplication):
+            if not isinstance(group, _FlextCliUtilitiesFrameworkOuter.TyperApplication):
                 msg = "CLI group was not created by flext_cli"
                 raise TypeError(msg)
             self._app.add_typer(group.backend, name=name)
 
-    class _ClickCommand:
+    class ClickCommand:
         """Private command implementation satisfying ``p.Cli.ExternalCommand``."""
 
         __slots__ = ("_command",)
@@ -119,9 +119,13 @@ class FlextCliUtilitiesFramework:
             return cls.framework_exit(code=c.Cli.EXIT_CODE_FAILURE)
 
         @staticmethod
-        def _unwrap(application: p.Cli.Application) -> _TyperApplication:
+        def _unwrap(
+            application: p.Cli.Application,
+        ) -> _FlextCliUtilitiesFrameworkOuter.TyperApplication:
             """Return the private application or fail on a foreign implementation."""
-            if not isinstance(application, _TyperApplication):
+            if not isinstance(
+                application, _FlextCliUtilitiesFrameworkOuter.TyperApplication
+            ):
                 msg = "CLI application was not created by flext_cli"
                 raise TypeError(msg)
             return application
@@ -142,7 +146,7 @@ class FlextCliUtilitiesFramework:
             cls, *, name: str | None, help_text: str, add_completion: bool = True
         ) -> p.Cli.Application:
             """Create one private Typer application behind the neutral protocol."""
-            return _TyperApplication(
+            return _FlextCliUtilitiesFrameworkOuter.TyperApplication(
                 typer.Typer(name=name, help=help_text, add_completion=add_completion),
                 name=name,
             )
@@ -283,7 +287,7 @@ class FlextCliUtilitiesFramework:
             cls, application: p.Cli.Application
         ) -> p.Cli.ExternalCommand:
             """Expose an adapter-owned application through the command protocol."""
-            return _ClickCommand(
+            return _FlextCliUtilitiesFrameworkOuter.ClickCommand(
                 typer.main.get_command(cls._unwrap(application).backend)
             )
 
@@ -342,6 +346,5 @@ class FlextCliUtilitiesFramework:
 __all__: list[str] = ["FlextCliUtilitiesFramework"]
 
 
-_TyperApplication = FlextCliUtilitiesFramework._TyperApplication
-_ClickCommand = FlextCliUtilitiesFramework._ClickCommand
+_FlextCliUtilitiesFrameworkOuter = FlextCliUtilitiesFramework
 FlextCliUtilitiesFramework = FlextCliUtilitiesFramework.FlextCliUtilitiesFramework

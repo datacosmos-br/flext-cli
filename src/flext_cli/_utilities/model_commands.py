@@ -21,7 +21,7 @@ from flext_core import m
 class FlextCliUtilitiesModelCommands:
     """Module owner namespace."""
 
-    class _SignatureCarrier(Protocol):
+    class SignatureCarrier(Protocol):
         """A callable whose CLI parameters typer/click read from `__signature__`.
 
         `__signature__` is a documented runtime attribute of function objects, but
@@ -101,7 +101,9 @@ class FlextCliUtilitiesModelCommands:
 
                 # typer/click read the CLI parameters off `__signature__`; the
                 # protocol above declares that contract so no cast is suppressed.
-                typed_command = cast("_SignatureCarrier", command)
+                typed_command = cast(
+                    "FlextCliUtilitiesModelCommands.SignatureCarrier", command
+                )
                 typed_command.__signature__ = signature
                 typed_command.__annotations__ = {
                     parameter.name: parameter.annotation for parameter in parameters
@@ -158,7 +160,6 @@ class FlextCliUtilitiesModelCommands:
 __all__: t.MutableSequenceOf[str] = ["FlextCliUtilitiesModelCommands"]
 
 
-_SignatureCarrier = FlextCliUtilitiesModelCommands._SignatureCarrier
 FlextCliUtilitiesModelCommands = (
     FlextCliUtilitiesModelCommands.FlextCliUtilitiesModelCommands
 )
