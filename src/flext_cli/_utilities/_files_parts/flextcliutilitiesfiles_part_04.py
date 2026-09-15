@@ -41,6 +41,7 @@ class FlextCliUtilitiesFiles:
         | bytes
         | m.ConfigMap
         | m.Dict
+        | p.Model
         | Mapping[str, object]
         | t.SequenceOf[t.StrSequence],
         name: str,
@@ -55,7 +56,7 @@ class FlextCliUtilitiesFiles:
             return fmt
         if isinstance(content, bytes):
             return str(c.Cli.FILE_FORMAT_BIN)
-        if isinstance(content, (m.ConfigMap, m.Dict, Mapping)):
+        if isinstance(content, (m.BaseModel, Mapping)):
             ext = Path(name).suffix.lower()
             return (
                 str(c.Cli.FILE_FORMAT_YAML)
