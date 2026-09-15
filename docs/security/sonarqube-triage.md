@@ -530,13 +530,13 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ```bash
       100  grep -q 'BD_ALLOW_AGENT_COMMIT_TRAILERS' "${hook_path}" \
-      101  	|| fail "guard token missing after injection"
+      101   || fail "guard token missing after injection"
       102  grep -q 'bd hooks run prepare-commit-msg' "${hook_path}" \
-      103  	|| fail "bd delegation missing; refusing to leave hook without beads integration"
+      103   || fail "bd delegation missing; refusing to leave hook without beads integration"
 >>>   104  [ -f "$(git rev-parse --git-path hooks/pre-commit)" ] \
-      105  	|| fail "pre-commit hook missing after provisioning"
+      105   || fail "pre-commit hook missing after provisioning"
       106  [ -f "$(git rev-parse --git-path hooks/pre-push)" ] \
-      107  	|| fail "pre-push hook missing after provisioning"
+      107   || fail "pre-push hook missing after provisioning"
       108  
 ```
 
@@ -549,11 +549,11 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ```bash
       102  grep -q 'bd hooks run prepare-commit-msg' "${hook_path}" \
-      103  	|| fail "bd delegation missing; refusing to leave hook without beads integration"
+      103   || fail "bd delegation missing; refusing to leave hook without beads integration"
       104  [ -f "$(git rev-parse --git-path hooks/pre-commit)" ] \
-      105  	|| fail "pre-commit hook missing after provisioning"
+      105   || fail "pre-commit hook missing after provisioning"
 >>>   106  [ -f "$(git rev-parse --git-path hooks/pre-push)" ] \
-      107  	|| fail "pre-push hook missing after provisioning"
+      107   || fail "pre-push hook missing after provisioning"
       108  
       109  echo "install-git-hooks: prepare-commit-msg guarded (BD_ALLOW_AGENT_COMMIT_TRAILERS opt-in)"
 ```
@@ -628,10 +628,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        10  # Step 4: Delete validator.py (empty stub)
        11  echo "Step 4: Deleting validator.py..."
 >>>    12  if [ -f "src/flext_cli/validator.py" ]; then
-       13  	rm src/flext_cli/validator.py
-       14  	echo "✓ Deleted src/flext_cli/validator.py"
+       13   rm src/flext_cli/validator.py
+       14   echo "✓ Deleted src/flext_cli/validator.py"
        15  else
-       16  	echo "⊘ File already deleted: src/flext_cli/validator.py"
+       16   echo "⊘ File already deleted: src/flext_cli/validator.py"
 ```
 
 **Decisão**:
@@ -647,10 +647,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        20  echo ""
        21  echo "Step 5: Deleting auth.py..."
 >>>    22  if [ -f "src/flext_cli/auth.py" ]; then
-       23  	rm src/flext_cli/auth.py
-       24  	echo "✓ Deleted src/flext_cli/auth.py"
+       23   rm src/flext_cli/auth.py
+       24   echo "✓ Deleted src/flext_cli/auth.py"
        25  else
-       26  	echo "⊘ File already deleted: src/flext_cli/auth.py"
+       26   echo "⊘ File already deleted: src/flext_cli/auth.py"
 ```
 
 **Decisão**:
@@ -666,8 +666,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        15  
        16  # Verify we're in the right directory
 >>>    17  if [ ! -f "src/flext_cli/__init__.py" ]; then
-       18  	echo "❌ Error: Not in flext-cli project root"
-       19  	exit 1
+       18   echo "❌ Error: Not in flext-cli project root"
+       19   exit 1
        20  fi
        21  
 ```
@@ -684,8 +684,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        15  
        16  # Verify we're in the right directory
        17  if [ ! -f "src/flext_cli/__init__.py" ]; then
->>>    18  	echo "❌ Error: Not in flext-cli project root"
-       19  	exit 1
+>>>    18   echo "❌ Error: Not in flext-cli project root"
+       19   exit 1
        20  fi
        21  
        22  echo "📍 Working Directory: ${PWD}"
@@ -704,10 +704,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        25  # Step 1: Delete validator.py
        26  echo "Step 1/4: Deleting validator.py..."
 >>>    27  if [ -f "src/flext_cli/validator.py" ]; then
-       28  	rm -v src/flext_cli/validator.py
-       29  	echo "✅ validator.py deleted"
+       28   rm -v src/flext_cli/validator.py
+       29   echo "✅ validator.py deleted"
        30  else
-       31  	echo "⊘ validator.py already deleted"
+       31   echo "⊘ validator.py already deleted"
 ```
 
 **Decisão**:
@@ -723,10 +723,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        35  # Step 2: Delete auth.py
        36  echo "Step 2/4: Deleting auth.py..."
 >>>    37  if [ -f "src/flext_cli/auth.py" ]; then
-       38  	rm -v src/flext_cli/auth.py
-       39  	echo "✅ auth.py deleted"
+       38   rm -v src/flext_cli/auth.py
+       39   echo "✅ auth.py deleted"
        40  else
-       41  	echo "⊘ auth.py already deleted"
+       41   echo "⊘ auth.py already deleted"
 ```
 
 **Decisão**:
@@ -742,10 +742,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        46  echo "Step 3/4: Moving testing.py to tests/fixtures/..."
        47  mkdir -p tests/fixtures
 >>>    48  if [ -f "src/flext_cli/testing.py" ]; then
-       49  	mv -v src/flext_cli/testing.py tests/fixtures/testing_utilities.py
-       50  	echo "✅ testing.py moved to tests/fixtures/testing_utilities.py"
+       49   mv -v src/flext_cli/testing.py tests/fixtures/testing_utilities.py
+       50   echo "✅ testing.py moved to tests/fixtures/testing_utilities.py"
        51  else
-       52  	echo "⊘ testing.py already moved"
+       52   echo "⊘ testing.py already moved"
 ```
 
 **Decisão**:
@@ -761,10 +761,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        60  affected_files=$(find tests -name "*.py" -type f -exec grep -l "from flext_cli import.*Test\|from flext_cli.testing" {} \; 2>/dev/null | wc -l) || true
        61  
 >>>    62  if [ "${affected_files}" -gt 0 ]; then
-       63  	echo "Found ${affected_files} test files with imports to update"
+       63   echo "Found ${affected_files} test files with imports to update"
        64  
-       65  	# Update FlextCliTesting imports
-       66  	find tests -name "*.py" -type f -exec sed -i \
+       65   # Update FlextCliTesting imports
+       66   find tests -name "*.py" -type f -exec sed -i \
 ```
 
 **Decisão**:
@@ -780,10 +780,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
        98  echo "Checking for remaining references..."
        99  remaining_references=$(grep -r "from flext_cli.validator\|from flext_cli.auth\|from flext_cli.testing" src/ tests/ 2>/dev/null | grep -v "tests/fixtures/testing_utilities") || true
 >>>   100  if [ -n "${remaining_references}" ]; then
-      101  	echo "⚠️  WARNING: Found remaining references (review above)"
-      102  	echo "${remaining_references}"
+      101   echo "⚠️  WARNING: Found remaining references (review above)"
+      102   echo "${remaining_references}"
       103  else
-      104  	echo "✅ No problematic references found"
+      104   echo "✅ No problematic references found"
 ```
 
 **Decisão**:
@@ -799,10 +799,10 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
       111  validation_status=${validation_status:-0}
       112  echo "${validation_output}" | tail -20
 >>>   113  if [ "${validation_status}" -eq 0 ]; then
-      114  	echo ""
-      115  	echo "✅ Validation passed"
+      114   echo ""
+      115   echo "✅ Validation passed"
       116  else
-      117  	echo ""
+      117   echo ""
 ```
 
 **Decisão**:

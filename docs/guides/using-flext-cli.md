@@ -159,21 +159,6 @@ def greet_handler(model: GreetInput) -> str:
 assert greet_handler(GreetInput(name="Ada")) == "Hello, Ada!"
 ```
 
-## Process completion and deadlines
-
-The public `u.Cli().run_to_file` runtime owns child waiting, output draining and
-process-tree cleanup. Completion must wake the monitor immediately; the timeout
-is a bound for an unfinished process, not a delay after a successful exit.
-
-The monitor clears its wake event before observing the durable completion event.
-Reversing that order loses a notification when the child exits between the two
-operations, which can hold a caller's resource lock until the deadline. The
-regression in `tests/unit/test_runtime_process_completion.py` schedules that
-boundary with a real child and waiter through the public runtime. It does not
-increase timeouts or replace event-driven waiting with polling. The
-[Python Event contract](https://docs.python.org/3/library/threading.html#event-objects)
-defines the flag cleared by `clear()` and the signal observed by `wait()`.
-
 ## Related
 
 - `.agents/skills/using-flext-cli/SKILL.md`
