@@ -14,11 +14,7 @@ if TYPE_CHECKING:
     from .docx import FlextCliConstantsDocx
     from .enums import FlextCliConstantsEnums
     from .errors import FlextCliConstantsErrors
-    from .exceptions import (
-        CliDefinitionError,
-        CliValidationError,
-        FlextCliConstantsExceptions,
-    )
+    from .exceptions import FlextCliConstantsExceptions
     from .files import FlextCliConstantsFiles
     from .output import FlextCliConstantsOutput
     from .pptx import FlextCliConstantsPptx
@@ -26,8 +22,6 @@ if TYPE_CHECKING:
     from .xlsx import FlextCliConstantsXlsx
     from .xlsx_future_functions import FlextCliConstantsXlsxFutureFunctions
 __all__: tuple[str, ...] = (
-    "CliDefinitionError",
-    "CliValidationError",
     "FlextCliConstantsBase",
     "FlextCliConstantsConfig",
     "FlextCliConstantsDocx",
@@ -50,11 +44,7 @@ _LAZY_IMPORTS = MappingProxyType(
             ".docx": ("FlextCliConstantsDocx",),
             ".enums": ("FlextCliConstantsEnums",),
             ".errors": ("FlextCliConstantsErrors",),
-            ".exceptions": (
-                "CliDefinitionError",
-                "CliValidationError",
-                "FlextCliConstantsExceptions",
-            ),
+            ".exceptions": ("FlextCliConstantsExceptions",),
             ".files": ("FlextCliConstantsFiles",),
             ".output": ("FlextCliConstantsOutput",),
             ".pptx": ("FlextCliConstantsPptx",),
