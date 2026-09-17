@@ -3,9 +3,9 @@
     "preCompact": [
       {
 <<<<<<< HEAD
-        "bash": "python3 /home/marlonsc/flext/flext-cli/.github/hooks/aihub-hooks/copilot-precompact.py",
+        "bash": "python3 ~/flext/flext-cli/.github/hooks/aihub-hooks/copilot-precompact.py",
 =======
-        "bash": "python3 /home/marlonsc/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-precompact.py",
+        "bash": "python3 ~/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-precompact.py",
 >>>>>>> origin/integration/sweep-20260830
         "timeoutSec": 10,
         "type": "command"
@@ -14,9 +14,9 @@
     "sessionStart": [
       {
 <<<<<<< HEAD
-        "bash": "python3 /home/marlonsc/flext/flext-cli/.github/hooks/aihub-hooks/copilot-sessionstart.py",
+        "bash": "python3 ~/flext/flext-cli/.github/hooks/aihub-hooks/copilot-sessionstart.py",
 =======
-        "bash": "python3 /home/marlonsc/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-sessionstart.py",
+        "bash": "python3 ~/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-sessionstart.py",
 >>>>>>> origin/integration/sweep-20260830
         "timeoutSec": 10,
         "type": "command"
@@ -25,9 +25,9 @@
     "subagentStart": [
       {
 <<<<<<< HEAD
-        "bash": "python3 /home/marlonsc/flext/flext-cli/.github/hooks/aihub-hooks/copilot-subagentstart.py",
+        "bash": "python3 ~/flext/flext-cli/.github/hooks/aihub-hooks/copilot-subagentstart.py",
 =======
-        "bash": "python3 /home/marlonsc/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-subagentstart.py",
+        "bash": "python3 ~/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-subagentstart.py",
 >>>>>>> origin/integration/sweep-20260830
         "timeoutSec": 10,
         "type": "command"
@@ -36,9 +36,9 @@
     "userPromptSubmitted": [
       {
 <<<<<<< HEAD
-        "bash": "python3 /home/marlonsc/flext/flext-cli/.github/hooks/aihub-hooks/copilot-userpromptsubmitted.py",
+        "bash": "python3 ~/flext/flext-cli/.github/hooks/aihub-hooks/copilot-userpromptsubmitted.py",
 =======
-        "bash": "python3 /home/marlonsc/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-userpromptsubmitted.py",
+        "bash": "python3 ~/workspaces/agents-skill-sync/flext/flext-cli/.github/hooks/aihub-hooks/copilot-userpromptsubmitted.py",
 >>>>>>> origin/integration/sweep-20260830
         "timeoutSec": 10,
         "type": "command"
