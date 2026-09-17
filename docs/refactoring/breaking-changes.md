@@ -1,6 +1,7 @@
 # Breaking Changes: v0.9.0 → v0.10.0
 
 <!-- TOC START -->
+
 - [Summary](#summary)
 - [1. API Wrapper Methods Removed](#1-api-wrapper-methods-removed)
   - [Removed Methods](#removed-methods)
@@ -21,7 +22,7 @@
   - [What Changed](#what-changed_2)
   - [Migration](#migration_2)
 - [7. Import Changes](#7-import-changes)
-  - [Removed from __init__.py](#removed-from-__init__py)
+  - [Removed from **init**.py](#removed-from-__init__py)
   - [Still Available](#still-available)
 - [Migration Checklist](#migration-checklist)
   - [\[ \] 1. Update API Calls](#1-update-api-calls)
@@ -35,13 +36,14 @@
   - [If Migration Fails](#if-migration-fails)
   - [Support Resources](#support-resources)
 - [FAQ](#faq)
+
 <!-- TOC END -->
 
 **Complete list of all breaking changes with fixes**
 
 > ⚠️ **Important**: v0.10.0 contains multiple breaking changes. Review this document carefully before upgrading.
 
-______________________________________________________________________
+---
 
 ## Summary
 
@@ -55,7 +57,7 @@ ______________________________________________________________________
 
 **Estimated Migration Time**: 30-60 minutes
 
-______________________________________________________________________
+---
 
 ## 1. API Wrapper Methods Removed
 
@@ -154,7 +156,7 @@ find . -name "*.py" -type f -exec sed -i \
 echo "Migration complete! Review changes with: git diff"
 ```
 
-______________________________________________________________________
+---
 
 ## 2. Modules Removed/Moved
 
@@ -205,7 +207,7 @@ from tests import (
 
 **Reason**: Test utilities don't belong in production library
 
-______________________________________________________________________
+---
 
 ## 3. FlextCliContext Removed
 
@@ -213,7 +215,7 @@ ______________________________________________________________________
 
 `FlextCliContext` was removed from the library. Remove any imports and usages. Use `m.Cli.CliContext` (Pydantic Value with `cwd`, `env`, `args`, `output_format`) if you need a simple context data model, or pass command/arguments directly where needed.
 
-______________________________________________________________________
+---
 
 ## 4. Service Class Instantiation Changes
 
@@ -247,7 +249,7 @@ result = cli.file_tools.read_json_file("settings.json")
 
 **Note**: Most users access through `cli` instance, so no changes needed
 
-______________________________________________________________________
+---
 
 ## 5. Async/Threading Removed
 
@@ -276,7 +278,7 @@ await cli.some_async_method()  # Never existed
 result = cli.print("message")  # Sync
 ```
 
-______________________________________________________________________
+---
 
 ## 6. Test Structure Changes
 
@@ -314,7 +316,7 @@ from tests import SomeTestHelper
 from tests import SomeTestHelper
 ```
 
-______________________________________________________________________
+---
 
 ## 7. Import Changes
 
@@ -358,7 +360,7 @@ from flext_cli import (
 )
 ```
 
-______________________________________________________________________
+---
 
 ## Migration Checklist
 
@@ -396,7 +398,7 @@ Use this checklist to ensure complete migration:
 - [ ] Check any explicit type hints for removed methods
 - [ ] Update protocol implementations if needed
 
-______________________________________________________________________
+---
 
 ## Compatibility Table
 
@@ -404,7 +406,7 @@ ______________________________________________________________________
 | ------------------ | ----------- | ----------- | --------------- |
 | Python 3.13+       | ✅ Required | ✅ Required | ✅ Yes          |
 | flext-core         | ✅ v0.9.x   | ✅ v0.9.x+  | ✅ Yes          |
-| r[T]     | ✅          | ✅          | ✅ Yes          |
+| r[T]               | ✅          | ✅          | ✅ Yes          |
 | Railway Pattern    | ✅          | ✅          | ✅ Yes          |
 | Type Safety        | ✅          | ✅          | ✅ Yes          |
 | API Wrappers       | ✅          | ❌ Removed  | ❌ No           |
@@ -413,7 +415,7 @@ ______________________________________________________________________
 | Testing in prod    | ✅          | ❌ Moved    | ❌ No           |
 | Async/Threading    | ⚠️ Imported | ❌ Removed  | ⚠️ N/A (unused) |
 
-______________________________________________________________________
+---
 
 ## Deprecation Timeline
 
@@ -425,7 +427,7 @@ ______________________________________________________________________
 
 **Recommendation**: Migrate to v0.10.0 within 3 months
 
-______________________________________________________________________
+---
 
 ## Getting Help
 
@@ -443,7 +445,7 @@ ______________________________________________________________________
 - **[API Reference](../api-reference/README.md)** - Complete v0.10.0 API
 - **[Examples](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)** - Updated code examples
 
-______________________________________________________________________
+---
 
 ## FAQ
 
@@ -462,7 +464,7 @@ A: Stay on v0.9.0 temporarily, but plan migration within 3 months.
 **Q: Can I stage the migration?**
 A: No, changes must be made together (imports, API calls, context usage).
 
-______________________________________________________________________
+---
 
 **Document Version**: 1.0
 **Last Updated**: 2025-01-24

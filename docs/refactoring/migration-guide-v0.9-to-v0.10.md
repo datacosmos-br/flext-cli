@@ -1,6 +1,7 @@
 # Migration Guide: v0.9.0 → v0.10.0
 
 <!-- TOC START -->
+
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
   - [What Changed](#what-changed)
@@ -43,13 +44,14 @@
   - [Migration Assistance](#migration-assistance)
   - [Reporting Problems](#reporting-problems)
 - [Summary](#summary)
+
 <!-- TOC END -->
 
 **Estimated Migration Time**: 30-60 minutes for typical projects
 
 > **📘 Quick Summary**: the supported output endpoint is `cli.print()`. Internal utility and formatter-service routes are not consumer APIs.
 
-______________________________________________________________________
+---
 
 ## Table of Contents
 
@@ -60,7 +62,7 @@ ______________________________________________________________________
 1. [FAQ](#faq)
 1. [Getting Help](#getting-help)
 
-______________________________________________________________________
+---
 
 ## Overview
 
@@ -88,7 +90,7 @@ v0.10.0 simplifies FLEXT-CLI by:
 - ✅ **Railway Pattern**: p.Result[T] still used throughout
 - ✅ **Type Safety**: Still 100% type-safe
 
-______________________________________________________________________
+---
 
 ## Breaking Changes
 
@@ -206,7 +208,7 @@ from flext_cli import FlextCliAuthService
 result = cli.authenticate({"token": "abc123"})
 ```
 
-______________________________________________________________________
+---
 
 ## Step-by-Step Migration
 
@@ -310,43 +312,43 @@ def process_cli(cli: cli) -> None:
 
 Type hints for cli don't change - only method calls do.
 
-______________________________________________________________________
+---
 
 ## Quick Reference
 
 ### Complete Method Mapping
 
-| v0.9.0 (OLD)                      | v0.10.0 (NEW)                                       |
-| --------------------------------- | --------------------------------------------------- |
-| removed nested/private print route | `cli.print(msg)`                                  |
-| `cli.create_table(data)`          | `cli.output.format_data(data, format_type="table")` |
-| `cli.print_table(table)`          | `cli.print(table)`                                  |
-| `cli.create_tree(label)`          | current public formatter API                       |
-| `cli.format_output(data, fmt)`    | `cli.output.format_data(data, format_type=fmt)`     |
-| `cli.read_json_file(path)`        | `cli.file_tools.read_json_file(path)`               |
-| `cli.write_json_file(path, data)` | `cli.file_tools.write_json_file(path, data)`        |
-| `cli.read_yaml_file(path)`        | `cli.file_tools.read_yaml_file(path)`               |
-| `cli.write_yaml_file(path, data)` | `cli.file_tools.write_yaml_file(path, data)`        |
-| `cli.read_csv_file(path)`         | `cli.file_tools.read_csv_file(path)`                |
-| `cli.write_csv_file(path, data)`  | `cli.file_tools.write_csv_file(path, data)`         |
-| `cli.prompt_user(msg)`            | `cli.prompts.prompt(msg)`                           |
-| `cli.confirm(msg)`                | `cli.prompts.confirm(msg)`                          |
-| `cli.select(msg, choices)`        | `cli.prompts.select(msg, choices)`                  |
+| v0.9.0 (OLD)                       | v0.10.0 (NEW)                                       |
+| ---------------------------------- | --------------------------------------------------- |
+| removed nested/private print route | `cli.print(msg)`                                    |
+| `cli.create_table(data)`           | `cli.output.format_data(data, format_type="table")` |
+| `cli.print_table(table)`           | `cli.print(table)`                                  |
+| `cli.create_tree(label)`           | current public formatter API                        |
+| `cli.format_output(data, fmt)`     | `cli.output.format_data(data, format_type=fmt)`     |
+| `cli.read_json_file(path)`         | `cli.file_tools.read_json_file(path)`               |
+| `cli.write_json_file(path, data)`  | `cli.file_tools.write_json_file(path, data)`        |
+| `cli.read_yaml_file(path)`         | `cli.file_tools.read_yaml_file(path)`               |
+| `cli.write_yaml_file(path, data)`  | `cli.file_tools.write_yaml_file(path, data)`        |
+| `cli.read_csv_file(path)`          | `cli.file_tools.read_csv_file(path)`                |
+| `cli.write_csv_file(path, data)`   | `cli.file_tools.write_csv_file(path, data)`         |
+| `cli.prompt_user(msg)`             | `cli.prompts.prompt(msg)`                           |
+| `cli.confirm(msg)`                 | `cli.prompts.confirm(msg)`                          |
+| `cli.select(msg, choices)`         | `cli.prompts.select(msg, choices)`                  |
 
 ### Services Reference
 
 Access these through cli instance:
 
-| Service          | Methods                                       | Purpose                  |
-| ---------------- | --------------------------------------------- | ------------------------ |
+| Service           | Methods                                       | Purpose                  |
+| ----------------- | --------------------------------------------- | ------------------------ |
 | public CLI facade | `print()`, `render_panel()`, `render_table()` | Rich terminal formatting |
-| `cli.output`     | `format_data()`, etc.                         | Output management        |
-| `cli.file_tools` | `read_json_file()`, `write_yaml_file()`, etc. | File I/O                 |
-| `cli.prompts`    | `prompt()`, `confirm()`, `select()`           | User input               |
-| `cli.core`       | `execute_command()`, etc.                     | Command management       |
-| `cli.cmd`        | `execute()`                                   | Command execution        |
+| `cli.output`      | `format_data()`, etc.                         | Output management        |
+| `cli.file_tools`  | `read_json_file()`, `write_yaml_file()`, etc. | File I/O                 |
+| `cli.prompts`     | `prompt()`, `confirm()`, `select()`           | User input               |
+| `cli.core`        | `execute_command()`, etc.                     | Command management       |
+| `cli.cmd`         | `execute()`                                   | Command execution        |
 
-______________________________________________________________________
+---
 
 ## FAQ
 
@@ -398,7 +400,7 @@ ______________________________________________________________________
 
 **A**: See [CHANGELOG.md](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/CHANGELOG.md) for complete details.
 
-______________________________________________________________________
+---
 
 ## Examples
 
@@ -445,7 +447,7 @@ from flext_cli import cli
 
 
 def process_data():
-    
+
     # Read input
     data = cli.read_csv_file("input.csv").unwrap()
     cli.print(f"Loaded {len(data)} records")
@@ -467,7 +469,7 @@ from flext_cli import cli
 
 
 def process_data():
-    
+
     # Read input
     data = cli.file_tools.read_csv_file("input.csv").unwrap()
         cli.print(f"Loaded {len(data)} records")
@@ -490,7 +492,7 @@ def process_data():
 
 `FlextCliContext` was removed. Use `m.Cli.CliContext` (cwd, env, args, output_format) from `flext_cli.models` for context data, or pass command/arguments directly.
 
-______________________________________________________________________
+---
 
 ## Getting Help
 
@@ -526,7 +528,7 @@ Found a bug after migrating?
    - v0.10.0 code (after)
    - Error message and stack trace
 
-______________________________________________________________________
+---
 
 ## Summary
 
@@ -544,7 +546,7 @@ v0.10.0 brings significant improvements through simplification:
 
 We're confident you'll appreciate the simpler, cleaner API once migrated!
 
-______________________________________________________________________
+---
 
 **Document Version**: 1.0
 **Last Updated**: 2025-01-24

@@ -217,7 +217,9 @@ class FlextCliUtilitiesJsonCoreMixin:
         return t.Cli.JSON_MAPPING_ADAPTER.validate_python(normalized)
 
     @staticmethod
-    def json_as_sequence(value: t.JsonValue | t.JsonPayload | None) -> t.SequenceOf[t.JsonValue]:
+    def json_as_sequence(
+        value: t.JsonValue | t.JsonPayload | None,
+    ) -> t.SequenceOf[t.JsonValue]:
         """Normalize any JSON-compatible value into a JSON sequence."""
         if value is None:
             return _EMPTY_JSON_SEQUENCE

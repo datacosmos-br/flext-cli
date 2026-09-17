@@ -1,12 +1,14 @@
 # Direct Typing Refactor Plan — flext-cli
 
 <!-- TOC START -->
-- [Phase 1 — Tests: _helpers.py + conftest.py](#phase-1-tests-_helperspy-conftestpy)
-- [Phase 2 — Tests: helpers/_impl.py + integration_test_complete_workflow.py](#phase-2-tests-helpers_implpy-integration_test_complete_workflowpy)
+
+- [Phase 1 — Tests: \_helpers.py + conftest.py](#phase-1-tests-_helperspy-conftestpy)
+- [Phase 2 — Tests: helpers/\_impl.py + integration_test_complete_workflow.py](#phase-2-tests-helpers_implpy-integration_test_complete_workflowpy)
 - [Phase 3 — flext-cli src: model boundaries and conversions](#phase-3-flext-cli-src-model-boundaries-and-conversions)
 - [Phase 4 — Bypasses and silent errors](#phase-4-bypasses-and-silent-errors)
   - [Phase 4 audit (agents)](#phase-4-audit-agents)
 - [Success criteria](#success-criteria)
+
 <!-- TOC END -->
 
 **Goal**: Use direct typing in tests and modules; remove conversions, `isinstance`, `cast`, type narrowings, dicts in favor of centralized Pydantic v2 models; remove bypasses and silent errors.
@@ -15,7 +17,7 @@
 
 **Scope**: flext-cli (tests + src). Align with AGENTS.md §3, flext-strict-typing, flext-patterns.
 
-______________________________________________________________________
+---
 
 ## Phase 1 — Tests: \_helpers.py + conftest.py
 
@@ -82,7 +84,7 @@ ______________________________________________________________________
 - **Done (polymorphic → Pydantic)**: cli.\_extract_typed_value delegates to m.Cli.TypedExtract(type_kind, value, default).result(); dict result normalized with \_to_json_value in cli. cli.\_build_execution_context uses m.Cli.ExecutionContextInput(raw=context).to_mapping(list_processor=...). Removed polymorphic branches from cli in favor of centralized models.
 - **Done (output ensure\_\* / get_map_val)**: models.Cli.EnsureTypeRequest(kind=str|bool, value, default).result() and MapGetValue(map, key, default).result(). output.ensure_str, ensure_bool delegate to EnsureTypeRequest; output.get_map_val delegates to MapGetValue. norm_json kept as isinstance/u.dict_like/u.list_like (no JsonNormalizeInput to avoid circular deps).
 
-______________________________________________________________________
+---
 
 ## Success criteria
 
