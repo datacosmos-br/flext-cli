@@ -326,9 +326,9 @@ Key phases:
 
     1. **Quality Gates (MANDATORY)**:
 
-    ```bash
-    make check  # Must pass 100%
-    ```
+       ```bash
+       make check  # Must pass 100%
+       ```
 
 1. **Test Organization**:
 
