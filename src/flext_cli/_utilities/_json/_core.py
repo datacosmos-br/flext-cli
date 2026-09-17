@@ -124,13 +124,13 @@ class FlextCliUtilitiesJsonCoreMixin:
         return data
 
     @staticmethod
-    def normalize_json_value(item: t.JsonPayload) -> t.JsonValue:
+    def normalize_json_value(item: t.JsonValue | t.JsonPayload) -> t.JsonValue:
         """Normalize any runtime value to JSON-compatible output (Pydantic-native)."""
         return u.normalize_to_json_value(item)
 
     @staticmethod
     def _json_write_content(
-        payload: t.JsonPayload, options: m.Cli.JsonWriteOptions
+        payload: t.JsonValue | t.JsonPayload, options: m.Cli.JsonWriteOptions
     ) -> str:
         """Serialize a JSON payload using canonical write options."""
         validated = FlextCliUtilitiesJsonCoreMixin.normalize_json_value(payload)
@@ -170,7 +170,7 @@ class FlextCliUtilitiesJsonCoreMixin:
     @staticmethod
     def json_write(
         path: Path,
-        payload: t.JsonPayload,
+        payload: t.JsonValue | t.JsonPayload,
         options: m.Cli.JsonWriteOptions | None = None,
     ) -> p.Result[bool]:
         """Write any Pydantic-serializable payload to a JSON file."""
@@ -207,7 +207,7 @@ class FlextCliUtilitiesJsonCoreMixin:
         return u.try_(_parse, catch=c.EXC_VALIDATION_VALUE, op_name="json_parse")
 
     @staticmethod
-    def json_as_mapping(value: t.JsonPayload | None) -> t.JsonMapping:
+    def json_as_mapping(value: t.JsonValue | t.JsonPayload | None) -> t.JsonMapping:
         """Normalize any JSON-compatible value into a mapping."""
         if value is None:
             return _EMPTY_JSON_MAPPING
@@ -217,7 +217,7 @@ class FlextCliUtilitiesJsonCoreMixin:
         return t.Cli.JSON_MAPPING_ADAPTER.validate_python(normalized)
 
     @staticmethod
-    def json_as_sequence(value: t.JsonPayload | None) -> t.SequenceOf[t.JsonValue]:
+    def json_as_sequence(value: t.JsonValue | t.JsonPayload | None) -> t.SequenceOf[t.JsonValue]:
         """Normalize any JSON-compatible value into a JSON sequence."""
         if value is None:
             return _EMPTY_JSON_SEQUENCE
