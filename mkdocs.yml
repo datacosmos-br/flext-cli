@@ -2,7 +2,7 @@
 site_name: flext-cli Documentation
 site_description: Generated documentation for flext-cli
 site_url: https://github.com/flext-sh/flext-cli/blob/main/README.md
-repo_name: flext-sh/flext
+repo_name: flext-sh/flext-cli
 repo_url: https://github.com/flext-sh/flext-cli
 edit_uri: edit/main/flext-cli/
 docs_dir: docs
