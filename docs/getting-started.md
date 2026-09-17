@@ -74,7 +74,6 @@ ______________________________________________________________________
 ### System Requirements
 
 - **Python**: 3.13+ (required for advanced type features)
-- **uv**: Latest version (dependency management)
 - **Make**: Build automation
 - **FLEXT Ecosystem**: flext-core v0.12.0-dev+
 
@@ -117,8 +116,6 @@ dev = ["flext-cli>=0.12.0", "flext-core>=0.12.0"]
 Then:
 
 ```bash
-uv add flext-cli
-# or
 pip install flext-cli
 ```
 
@@ -391,9 +388,7 @@ ______________________________________________________________________
 ### Validation Commands
 
 ```bash
-# Development workflow - these work correctly
-make check                    # Ruff linting (passes for src/)
-make check                    # Type checking (passes for src/)
+make check                    # Complete validation: lint + type + test
 make fmt                     # Auto-format code
 make test                    # Run comprehensive test suite
 ```
@@ -401,12 +396,8 @@ make test                    # Run comprehensive test suite
 ### Implementation Verification
 
 ```bash
-# Verify substantial implementation metrics
-find src/ -name "*.py" -exec wc -l {} + | tail -1
-# Expected: 10,000+ lines across 32 modules
-
-# Verify core services load
-python -c "from flext_cli import FlextCli, cli; print('✅ All core services import successfully')"
+# Verify core facade loads correctly
+python -c "from flext_cli import FlextCli, cli; print('✅ Core facade loads')"
 ```
 
 ______________________________________________________________________

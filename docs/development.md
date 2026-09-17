@@ -346,7 +346,6 @@ ______________________________________________________________________
 ### Prerequisites
 
 - Python 3.13+
-- Poetry for dependency management
 - Make for build automation
 - Git for version control
 
@@ -359,9 +358,6 @@ cd flext-cli
 
 # Complete development setup
 make setup
-
-# Install pre-commit hooks
-poetry run pre-commit install
 ```
 
 ______________________________________________________________________
@@ -602,22 +598,19 @@ and [CPython statvfs conversion](https://github.com/python/cpython/blob/main/Mod
 1. **Import Errors**: Ensure proper module structure
 1. **Type Errors**: Run `make check` for detailed analysis
 1. **Test Failures**: Use `pytest -v` for verbose output
-1. **Dependency Issues**: Try `uv sync`
+1. **Dependency Issues**: Try `make setup`
 
 ### Debug Commands
 
 ```bash
-# Verbose test output
-pytest tests/ -v -s
+# Run tests
+make test PROJECT=flext-cli
 
-# Type checking with details
-poetry run mypy src/ --show-error-codes
+# Type checking and linting
+make check PROJECT=flext-cli
 
-# Dependency tree analysis
-poetry show --tree
-
-# Development environment info
-flext debug info
+# Dependency versions (pinned in flext-infra/config/tooling.yaml)
+# Run from workspace root: make deps
 ```
 
 ______________________________________________________________________
