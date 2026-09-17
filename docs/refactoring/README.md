@@ -15,6 +15,7 @@
   - [For Contributors](#for-contributors)
   - [For Maintainers](#for-maintainers)
 - [🚀 Quick Links](#quick-links)
+
 <!-- TOC END -->
 
 This directory contains comprehensive documentation for the v0.12.0-dev refactoring, which simplifies the architecture and removes over-engineering.

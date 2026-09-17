@@ -44,6 +44,7 @@
   - [Migration Assistance](#migration-assistance)
   - [Reporting Problems](#reporting-problems)
 - [Summary](#summary)
+
 <!-- TOC END -->
 
 **Estimated Migration Time**: 30-60 minutes for typical projects

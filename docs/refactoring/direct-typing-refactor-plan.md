@@ -8,6 +8,7 @@
 - [Phase 4 — Bypasses and silent errors](#phase-4-bypasses-and-silent-errors)
   - [Phase 4 audit (agents)](#phase-4-audit-agents)
 - [Success criteria](#success-criteria)
+
 <!-- TOC END -->
 
 **Goal**: Use direct typing in tests and modules; remove conversions, `isinstance`, `cast`, type narrowings, dicts in favor of centralized Pydantic v2 models; remove bypasses and silent errors.

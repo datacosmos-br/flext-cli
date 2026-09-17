@@ -324,7 +324,6 @@ Key phases:
 
    - No wrapper methods
    - Clear ownership
-
    1. **Quality Gates (MANDATORY)**:
 
       ```bash

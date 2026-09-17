@@ -28,6 +28,7 @@
   - [If you need to rollback](#if-you-need-to-rollback)
 - [Summary](#summary)
 - [Next Phase](#next-phase)
+
 <!-- TOC END -->
 
 ## v0.10.0 Refactoring - Remove Duplication & Dead Code

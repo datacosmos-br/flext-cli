@@ -36,6 +36,7 @@
   - [If Migration Fails](#if-migration-fails)
   - [Support Resources](#support-resources)
 - [FAQ](#faq)
+
 <!-- TOC END -->
 
 **Complete list of all breaking changes with fixes**
