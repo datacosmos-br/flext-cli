@@ -795,7 +795,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ```bash
       109  echo "Running validation suite..."
-      110  validation_output=$(make val 2>&1) || validation_status=$?
+      110  validation_output=$(make check 2>&1) || validation_status=$?
       111  validation_status=${validation_status:-0}
       112  echo "${validation_output}" | tail -20
 >>>   113  if [ "${validation_status}" -eq 0 ]; then
@@ -848,7 +848,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 ### 44 · 🟡 MAJOR · VULNERABILITY · `text:S8565`
 **Local**: `pyproject.toml:-` · **Effort**: 5min
 
-> Dependency versions are not predictable if the lock file (uv.lock, poetry.lock, pdm.lock or pylock.toml) is missing.
+> Dependency versions are not predictable if the lock file (uv.lock, uv.lock, pdm.lock or pylock.toml) is missing.
 
 **Decisão**:
 
