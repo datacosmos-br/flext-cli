@@ -46,7 +46,7 @@
 
 **Contributing guidelines and development workflow for flext-cli.**
 
-**Last Updated**: 2025-01-24 | **Version**: 0.10.0
+**Last Updated**: 2026-09-17 | **Version**: 0.12.0
 
 ______________________________________________________________________
 
@@ -59,7 +59,7 @@ ______________________________________________________________________
 
 ## v0.12.0-dev Development Guidelines (Current)
 
-**Status**: 📝 Planned | **Release**: Q1 2025 | **Breaking Changes**: Yes
+**Status**: 🔄 Active Development | **Release**: 0.12.0 | **Breaking Changes**: Yes
 
 ### Overview
 
@@ -214,14 +214,14 @@ src/flext_cli/
 **Always use direct access** (no wrapper methods):
 
 ```text
-# ✅ CORRECT - Public facade
+# ✅ CORRECT - Public facade (methods are MRO-injected via FlextCli)
 cli.print("Hello", style="green")
-cli.file_tools.read_json_file("settings.json")
-cli.prompts.confirm("Continue?")
+cli.read_json_file("settings.json")
+cli.confirm("Continue?")
 
 # ❌ WRONG - Internal utility/service chains are not public APIs.
-# cli.read_json_file("settings.json")  # REMOVED
-# cli.confirm("Continue?")           # REMOVED
+# cli.file_tools.read_json_file("settings.json")  # NO sub-facade
+# cli.prompts.confirm("Continue?")           # NO sub-facade
 ```
 
 ______________________________________________________________________
@@ -308,11 +308,11 @@ Key phases:
    - No wrapper methods
    - Clear ownership
 
-1. **Quality Gates (MANDATORY)**:
+    1. **Quality Gates (MANDATORY)**:
 
-   ```bash
-   make val  # Must pass 100%
-   ```
+    ```bash
+    make check  # Must pass 100%
+    ```
 
 1. **Test Organization**:
 
@@ -357,12 +357,10 @@ ______________________________________________________________________
 
 ```bash
 make setup          # Complete development environment setup
-make val       # All quality checks (lint + type + test)
-make test          # Run test suite
-make lint          # Code linting with Ruff
-make type-check    # MyPy type checking
-make format        # Auto-format code
-make clean         # Clean build artifacts
+make check          # All quality checks (lint + type + test)
+make test           # Run test suite
+make fmt            # Auto-format code
+make clean          # Clean build artifacts
 ```
 
 ### Code Quality Standards
@@ -587,9 +585,9 @@ and [CPython statvfs conversion](https://github.com/python/cpython/blob/main/Mod
 ### Common Issues
 
 1. **Import Errors**: Ensure proper module structure
-1. **Type Errors**: Run `make type-check` for detailed analysis
+1. **Type Errors**: Run `make check` for detailed analysis
 1. **Test Failures**: Use `pytest -v` for verbose output
-1. **Dependency Issues**: Try `poetry install --sync`
+1. **Dependency Issues**: Try `uv sync`
 
 ### Debug Commands
 

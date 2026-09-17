@@ -79,8 +79,7 @@ rm src/flext_cli/validator.py
 
 ```bash
 # Should complete with no errors
-make lint
-make type-check
+make check
 ```
 
 **Commit**: `refactor: remove empty validator.py stub`
@@ -169,8 +168,7 @@ __all__: list[str] = [
 
 ```bash
 # Should complete with no errors
-make lint
-make type-check
+make check
 make test  # Verify tests still pass
 ```
 
@@ -348,8 +346,7 @@ grep -n "asyncio\|ThreadPoolExecutor\|pluggy\|LRUCache\|TTLCache" src/flext_cli/
 ### Validation
 
 ```bash
-make lint
-make type-check
+make check
 make test
 ```
 
@@ -369,14 +366,14 @@ After completing all steps, verify:
 - [ ] **init**.py updated (3 imports removed, 4 exports removed)
 - [ ] Test imports updated to use tests.fixtures
 - [ ] Unused imports removed from core.py
-- [ ] `make val` passes completely
+- [ ] `make check` passes completely
 - [ ] All tests passing
 
 ### Final Validation
 
 ```bash
 # Full validation suite
-make val
+make check
 
 # Verify file counts
 ls src/flext_cli/*.py | wc -l  # Should be 2 fewer (validator, auth deleted)

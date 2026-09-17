@@ -88,4 +88,4 @@ ______________________________________________________________________
 
 - More Pydantic models at boundaries; fewer dict-based contracts; no new test-only duplicates of src models.
 - No new cast(); no new type: ignore; no silent bypasses.
-- isinstance only where necessary (e.g. test assertions); prefer model_validate for input validation. All changes pass make val and tests.
+- isinstance only where necessary (e.g. test assertions); prefer model_validate for input validation. All changes pass `make check` and tests.
