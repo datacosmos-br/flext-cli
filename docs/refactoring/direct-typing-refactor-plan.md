@@ -1,8 +1,8 @@
 # Direct Typing Refactor Plan — flext-cli
 
 <!-- TOC START -->
-- [Phase 1 — Tests: \_helpers.py + conftest.py](#phase-1-tests-_helperspy-conftestpy)
-- [Phase 2 — Tests: helpers/\_impl.py + integration_test_complete_workflow.py](#phase-2-tests-helpers_implpy-integration_test_complete_workflowpy)
+- [Phase 1 — Tests: _helpers.py + conftest.py](#phase-1-tests-_helperspy-conftestpy)
+- [Phase 2 — Tests: helpers/_impl.py + integration_test_complete_workflow.py](#phase-2-tests-helpers_implpy-integration_test_complete_workflowpy)
 - [Phase 3 — flext-cli src: model boundaries and conversions](#phase-3-flext-cli-src-model-boundaries-and-conversions)
 - [Phase 4 — Bypasses and silent errors](#phase-4-bypasses-and-silent-errors)
   - [Phase 4 audit (agents)](#phase-4-audit-agents)
@@ -59,7 +59,7 @@ ______________________________________________________________________
   - \_coerce_to_list, \_is_mapping_value, \_is_sequence_value, \_is_custom_iterable_value, \_iterate_mapping, \_iterate_sequence, \_iterate_model, \_normalize_iterable_item, \_convert_iterable_to_list: match/case → isinstance
   - \_format_csv_dict, \_replace_none_for_csv: match → isinstance
 - **Done**: utilities.py — CliValidation.to_str, v_empty, v_step: match → isinstance/if; TypeNormalizer.normalize_union_type: match arg → isinstance(arg, type) / isinstance(arg, types.UnionType); parse_kwargs: match value → isinstance(value, str).
-- **Done**: core.py — \_build_execution_context: match context → isinstance(context, dict); execute_command: `except Exception` → `except (ValueError, TypeError, OSError)`; list_commands extract_command_names: `except Exception` → `except (ValueError, TypeError, OSError)`; profile creation: match profiles_value → isinstance(profiles_value, dict).
+- **Done**: `services/cli.py` (`FlextCliCli`, formerly `core.py`) — `_build_execution_context`: match context → isinstance(context, dict); execute_command: `except Exception` → `except (ValueError, TypeError, OSError)`; list_commands extract_command_names: `except Exception` → `except (ValueError, TypeError, OSError)`; profile creation: match profiles_value → isinstance(profiles_value, dict).
 - **Done**: cmd.py — get_config_value: match config_data → isinstance(config_data, Mapping).
 - **Done (batch)**: settings.py — refactor:
   - \_propagate_to_context / \_register_in_container: `except Exception` → `except (AttributeError, TypeError)`
@@ -71,7 +71,7 @@ ______________________________________________________________________
   - save_config: `except Exception` → `except (ValidationError, TypeError, AttributeError)`
 - **Done**: file_tools.py — \_execute_file_operation: `except Exception` → `except (OSError, ValueError, TypeError, ValidationError)`.
 - **Done**: cmd.py — show_config_paths, validate_config, get_config_info: `except Exception` → `except (OSError, ValueError, TypeError)` / `(OSError, ValueError, TypeError, KeyError)`.
-- **Done**: core.py — register_command: `except Exception` → `except (ValueError, TypeError, AttributeError)`.
+- **Done**: `services/cli.py` (`FlextCliCli`, formerly `core.py`) — register_command: `except Exception` → `except (ValueError, TypeError, AttributeError)`.
 
 ### Phase 4 audit (agents)
 
@@ -79,7 +79,7 @@ ______________________________________________________________________
 - **Src**: file_tools `_load_structured_file`, cli `_to_json_value`/prompt normalization, models `convert_field_value`, cmd `edit_config`, utilities `process`/`process_mapping` skip path — all have debug logging where they fall back or skip; no silent swallow.
 - **Boundaries**: Optional — prefer existing `m.Cli.*` / `FlextCliSettings` at API boundaries (e.g. authenticate, save_config) where shape matches; no new models.
 - **Done**: settings.save_config accepts `FlextCliSettings | Mapping`, uses `to_save` from model_dump() or settings; api.get_auth_token uses TokenData(data) as primary path, extract only on ValidationError; protocol save_config left as Mapping to avoid circular import (protocols → settings → utilities → models → protocols).
-- **Done (polymorphic → Pydantic)**: cli.\_extract_typed_value delegates to m.Cli.TypedExtract(type_kind, value, default).result(); dict result normalized with \_to_json_value in cli. core.\_build_execution_context uses m.Cli.ExecutionContextInput(raw=context).to_mapping(list_processor=...). Removed polymorphic branches from cli and core in favor of centralized models.
+- **Done (polymorphic → Pydantic)**: cli.\_extract_typed_value delegates to m.Cli.TypedExtract(type_kind, value, default).result(); dict result normalized with \_to_json_value in cli. cli.\_build_execution_context uses m.Cli.ExecutionContextInput(raw=context).to_mapping(list_processor=...). Removed polymorphic branches from cli in favor of centralized models.
 - **Done (output ensure\_\* / get_map_val)**: models.Cli.EnsureTypeRequest(kind=str|bool, value, default).result() and MapGetValue(map, key, default).result(). output.ensure_str, ensure_bool delegate to EnsureTypeRequest; output.get_map_val delegates to MapGetValue. norm_json kept as isinstance/u.dict_like/u.list_like (no JsonNormalizeInput to avoid circular deps).
 
 ______________________________________________________________________
@@ -88,4 +88,4 @@ ______________________________________________________________________
 
 - More Pydantic models at boundaries; fewer dict-based contracts; no new test-only duplicates of src models.
 - No new cast(); no new type: ignore; no silent bypasses.
-- isinstance only where necessary (e.g. test assertions); prefer model_validate for input validation. All changes pass make val and tests.
+- isinstance only where necessary (e.g. test assertions); prefer model_validate for input validation. All changes pass `make check` and tests.

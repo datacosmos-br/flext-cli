@@ -40,13 +40,14 @@
   - [Adding New Commands](#adding-new-commands)
   - [Custom Formatters](#custom-formatters)
 - [Debug and Troubleshooting](#debug-and-troubleshooting)
+  - [Atomic directory publication on macOS](#atomic-directory-publication-on-macos)
   - [Common Issues](#common-issues)
   - [Debug Commands](#debug-commands)
 <!-- TOC END -->
 
 **Contributing guidelines and development workflow for flext-cli.**
 
-**Last Updated**: 2025-01-24 | **Version**: 0.10.0
+**Last Updated**: 2026-09-17 | **Version**: 0.12.0
 
 ______________________________________________________________________
 
@@ -59,7 +60,7 @@ ______________________________________________________________________
 
 ## v0.12.0-dev Development Guidelines (Current)
 
-**Status**: 📝 Planned | **Release**: Q1 2025 | **Breaking Changes**: Yes
+**Status**: 🔄 Active Development | **Release**: 0.12.0 | **Breaking Changes**: Yes
 
 ### Overview
 
@@ -78,12 +79,12 @@ ______________________________________________________________________
 - ✅ Class needs **lifecycle management** (startup, shutdown, cleanup)
 - ✅ Class has **complex initialization** with external dependencies
 
-**Example - FlextCliCore (Stateful Service)**:
+**Example - FlextCliCmd (Stateful Service)**:
 
 ```text
 from flext_core import s
 
-class FlextCliCore(s[CliDataDict]):
+class FlextCliCmd(s[CliDataDict]):
     """Core service managing commands and sessions."""
 
     def __init__(self):
@@ -168,7 +169,7 @@ ______________________________________________________________________
 ```
 Does the class manage mutable state?
 ├─ YES → Use s
-│        Examples: FlextCliCore, cli
+│        Examples: FlextCliCmd, cli
 │
 └─ NO → Does it have behavior (business logic)?
     ├─ YES → Is it stateless utility functions?
@@ -191,22 +192,37 @@ Follow the v0.12.0-dev module organization:
 
 ```
 src/flext_cli/
-├── Services (3-4 only)
-│   ├── core.py              # FlextCliCore - stateful
-│   ├── api.py               # cli - facade
-│   └── cmd.py               # FlextCliCmd - command execution
-│
-├── Simple Classes (utilities)
-│   ├── file_tools.py        # File I/O
-│   ├── formatters.py        # Rich formatting
-│   ├── tables.py            # Table generation
-│   ├── output.py            # Output management
-│   ├── prompts.py           # User input
-│   └── debug.py             # Debug utilities
-│
-└── Data Models (value objects)
-    ├── models.py            # All Pydantic models
-    └── _settings.py           # FlextCliSettings
+├── api.py                # FlextCli facade (MRO composition) + singleton `cli`
+├── base.py               # FlextCliServiceBase
+├── services/             # 16 services composed via MRO
+│   ├── cli.py            # FlextCliCli — Typer/Click boundary
+│   ├── cmd.py            # FlextCliCmd — stateful command/config management
+│   ├── auth.py           # FlextCliAuth — keyring auth
+│   ├── file_tools.py     # FlextCliFileTools — file I/O
+│   ├── formatters.py     # FlextCliFormatters — Rich/text rendering
+│   ├── output.py         # FlextCliOutput — JSON/YAML/CSV output
+│   ├── prompts.py        # FlextCliPrompts — user interaction
+│   ├── tables.py         # FlextCliTables — ASCII table generation
+│   ├── pipeline.py       # FlextCliPipeline — workflow orchestration
+│   ├── rules.py          # FlextCliRules — business rule validation
+│   ├── runtime.py        # FlextCliRuntime — runtime status
+│   ├── docx.py           # FlextCliDocx — Word document operations
+│   ├── pptx.py           # FlextCliPptx — PowerPoint operations
+│   ├── xlsx.py           # FlextCliXlsx — Excel operations
+│   ├── yaml_model.py     # FlextCliYamlModel — YAML schema validation
+│   └── cli_params.py     # FlextCliCommonParams — shared CLI params
+├── _utilities/           # Domain engines (toml/yaml/template/…)
+├── _constants/           # Validated constants (c.Cli.*)
+├── _models/              # Pydantic models (m.Cli.*)
+├── _config.py            # Config singleton
+├── _settings.py          # Settings singleton
+├── config.py             # Config validation (ADR-005)
+├── constants.py          # Constant facade (c.Cli.*)
+├── typings.py            # Typing aliases (t.Cli.*)
+├── protocols.py          # Structural protocols (p.Cli.*)
+├── models.py             # Model facade (m.Cli.*)
+├── utilities.py          # Utility facade (u.Cli.*)
+└── __init__.py           # Exports api.py, enforces isolation
 ```
 
 ### Direct Access Pattern
@@ -214,14 +230,14 @@ src/flext_cli/
 **Always use direct access** (no wrapper methods):
 
 ```text
-# ✅ CORRECT - Public facade
+# ✅ CORRECT - Public facade (methods are MRO-injected via FlextCli)
 cli.print("Hello", style="green")
-cli.file_tools.read_json_file("settings.json")
-cli.prompts.confirm("Continue?")
+cli.read_json_file("settings.json")
+cli.confirm("Continue?")
 
 # ❌ WRONG - Internal utility/service chains are not public APIs.
-# cli.read_json_file("settings.json")  # REMOVED
-# cli.confirm("Continue?")           # REMOVED
+# cli.file_tools.read_json_file("settings.json")  # NO sub-facade
+# cli.prompts.confirm("Continue?")           # NO sub-facade
 ```
 
 ______________________________________________________________________
@@ -308,11 +324,11 @@ Key phases:
    - No wrapper methods
    - Clear ownership
 
-1. **Quality Gates (MANDATORY)**:
+    1. **Quality Gates (MANDATORY)**:
 
-   ```bash
-   make val  # Must pass 100%
-   ```
+    ```bash
+    make check  # Must pass 100%
+    ```
 
 1. **Test Organization**:
 
@@ -331,7 +347,6 @@ ______________________________________________________________________
 ### Prerequisites
 
 - Python 3.13+
-- Poetry for dependency management
 - Make for build automation
 - Git for version control
 
@@ -344,9 +359,6 @@ cd flext-cli
 
 # Complete development setup
 make setup
-
-# Install pre-commit hooks
-poetry run pre-commit install
 ```
 
 ______________________________________________________________________
@@ -357,12 +369,10 @@ ______________________________________________________________________
 
 ```bash
 make setup          # Complete development environment setup
-make val       # All quality checks (lint + type + test)
-make test          # Run test suite
-make lint          # Code linting with Ruff
-make type-check    # MyPy type checking
-make format        # Auto-format code
-make clean         # Clean build artifacts
+make check          # All quality checks (lint + type + test)
+make test           # Run test suite
+make fmt            # Auto-format code
+make clean          # Clean build artifacts
 ```
 
 ### Code Quality Standards
@@ -484,7 +494,7 @@ ______________________________________________________________________
 
 1. Create feature branch from main
 1. Implement changes with tests
-1. Run `make val` to ensure quality
+1. Run `make check` to ensure quality
 1. Submit pull request with description
 1. Address review feedback
 1. Merge after approval
@@ -587,24 +597,21 @@ and [CPython statvfs conversion](https://github.com/python/cpython/blob/main/Mod
 ### Common Issues
 
 1. **Import Errors**: Ensure proper module structure
-1. **Type Errors**: Run `make type-check` for detailed analysis
+1. **Type Errors**: Run `make check` for detailed analysis
 1. **Test Failures**: Use `pytest -v` for verbose output
-1. **Dependency Issues**: Try `poetry install --sync`
+1. **Dependency Issues**: Try `make setup`
 
 ### Debug Commands
 
 ```bash
-# Verbose test output
-pytest tests/ -v -s
+# Run tests
+make test PROJECT=flext-cli
 
-# Type checking with details
-poetry run mypy src/ --show-error-codes
+# Type checking and linting
+make check PROJECT=flext-cli
 
-# Dependency tree analysis
-poetry show --tree
-
-# Development environment info
-flext debug info
+# Dependency versions (pinned in flext-infra/config/tooling.yaml)
+# Run from workspace root: make deps
 ```
 
 ______________________________________________________________________

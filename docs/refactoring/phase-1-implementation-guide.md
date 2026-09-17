@@ -8,19 +8,19 @@
   - [Actions](#actions)
   - [Validation](#validation)
 - [Step 5: Delete auth.py ✅](#step-5-delete-authpy)
-  - [Verification](#verification)
+  - [Verification](#verification_1)
   - [Actions Required](#actions-required)
-  - [Modified **init**.py Structure](#modified-initpy-structure)
-  - [Validation](#validation)
+  - [Modified init.py Structure](#modified-initpy-structure)
+  - [Validation](#validation_1)
 - [Step 6: Move testing.py to tests/fixtures/ ⏳](#step-6-move-testingpy-to-testsfixtures)
-  - [Verification](#verification)
-  - [Actions Required](#actions-required)
-  - [Modified **init**.py After This Step](#modified-initpy-after-this-step)
-  - [Validation](#validation)
-- [Step 7: Remove Unused Imports from core.py ⏳](#step-7-remove-unused-imports-from-corepy)
-  - [Verification](#verification)
-  - [Actions Required](#actions-required)
-  - [Validation](#validation)
+  - [Verification](#verification_2)
+  - [Actions Required](#actions-required_1)
+  - [Modified init.py After This Step](#modified-initpy-after-this-step)
+  - [Validation](#validation_2)
+- [Step 7: Remove Unused Imports (Completed — core.py refactored into services/)](#step-7-remove-unused-imports-completed-corepy-refactored-into-services)
+  - [Verification](#verification_3)
+  - [Actions Required](#actions-required_2)
+  - [Validation](#validation_3)
 - [Phase 1 Completion Checklist](#phase-1-completion-checklist)
   - [Final Validation](#final-validation)
 - [Rollback Plan (If Issues Occur)](#rollback-plan-if-issues-occur)
@@ -79,8 +79,7 @@ rm src/flext_cli/validator.py
 
 ```bash
 # Should complete with no errors
-make lint
-make type-check
+make check
 ```
 
 **Commit**: `refactor: remove empty validator.py stub`
@@ -169,8 +168,7 @@ __all__: list[str] = [
 
 ```bash
 # Should complete with no errors
-make lint
-make type-check
+make check
 make test  # Verify tests still pass
 ```
 
@@ -320,42 +318,36 @@ python -c "from tests import FlextCliTesting; print('✓ Import works')"
 
 ______________________________________________________________________
 
-## Step 7: Remove Unused Imports from core.py ⏳
+## Step 7: Remove Unused Imports (Completed — core.py refactored into services/)
 
 ### Verification
 
 ```bash
-# Check for unused imports in core.py
-grep -n "^import asyncio\|^from concurrent.futures\|^import pluggy\|^from cachetools" src/flext_cli/core.py
+# core.py was refactored into services/ modules; the old asyncio/pluggy/cachetools
+# imports were removed during the split. Check remaining services for unused imports:
+# concurrent.futures → now in _utilities/pipeline.py
+# asyncio/pluggy/cachetools → removed (no longer referenced)
 
-# Check if they're actually used
-grep -n "asyncio\|ThreadPoolExecutor\|pluggy\|LRUCache\|TTLCache" src/flext_cli/core.py | grep -v "^import\|^from"
+# Check for unused imports across services
+grep -rn "^import asyncio\|^from concurrent.futures\|^import pluggy\|^from cachetools" src/flext_cli/services/ src/flext_cli/_utilities/
 ```
 
-**Expected**: Import statements found, but possibly not used in code
+**Expected**: Import statements found in `_utilities/pipeline.py` (still used); `asyncio`, `pluggy`, `cachetools` removed entirely.
 
 ### Actions Required
 
-**If unused**, remove these imports from `src/flext_cli/core.py`:
-
-- `import asyncio` (if not used)
-- `from concurrent.futures import ThreadPoolExecutor` (if not used)
-- `import pluggy` (if not used)
-- `from cachetools import LRUCache, TTLCache` (if not used)
-
-**Manual review required**: Check each import's usage before removing
+No action needed — `core.py` was refactored into `services/cli.py`, `services/cmd.py`, etc. Unused imports (`asyncio`, `pluggy`, `cachetools`) were removed during the split. Only `concurrent.futures.ThreadPoolExecutor` in `_utilities/pipeline.py` remains (and is actively used).
 
 ### Validation
 
 ```bash
-make lint
-make type-check
+make check
 make test
 ```
 
 **Expected**: All checks pass
 
-**Commit**: `refactor: remove unused imports from core.py`
+**Commit**: N/A — already completed in `core.py → services/` refactor.
 
 ______________________________________________________________________
 
@@ -368,15 +360,15 @@ After completing all steps, verify:
 - [ ] testing.py moved to tests/fixtures/testing_utilities.py
 - [ ] **init**.py updated (3 imports removed, 4 exports removed)
 - [ ] Test imports updated to use tests.fixtures
-- [ ] Unused imports removed from core.py
-- [ ] `make val` passes completely
+- [x] Unused imports removed from core.py (refactored into services/)
+- [ ] `make check` passes completely
 - [ ] All tests passing
 
 ### Final Validation
 
 ```bash
 # Full validation suite
-make val
+make check
 
 # Verify file counts
 ls src/flext_cli/*.py | wc -l  # Should be 2 fewer (validator, auth deleted)
