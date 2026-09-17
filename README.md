@@ -1,6 +1,7 @@
 # flext-cli
 
 <!-- TOC START -->
+
 - [Purpose](#purpose)
 - [Module Map](#module-map)
 - [Collection Rules](#collection-rules)
@@ -25,11 +26,11 @@ FLEXT CLI - Developer Command Line Interface
 ## Module Map
 
 ::: flext_cli
-    options:
-      members: false
-      show_root_heading: false
-      show_root_toc_entry: false
-      show_source: false
+options:
+members: false
+show_root_heading: false
+show_root_toc_entry: false
+show_source: false
 
 ## Collection Rules
 

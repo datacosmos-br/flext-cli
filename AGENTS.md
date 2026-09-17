@@ -6,6 +6,7 @@
 > **Standalone / independent mode:** when `../AGENTS.md` does not resolve, pin the parent raw `AGENTS.md` URL to the same branch/release as this package (never `main`).
 
 <!-- AIHUB-AGENTS-SCOPE-LOCAL-BEGIN -->
+
 **Package:** `flext_cli` · ~17.3k src LOC · deps: `flext-core`
 
 ## Overview
@@ -27,11 +28,11 @@ Domains are nested MRO namespaces under `Cli` (`m.Cli.*`, `u.Cli.*`, …), not 1
 
 ## Code Map
 
-| Symbol | Kind | Location | Role |
-| --- | --- | --- | --- |
-| `FlextCli` | class | `api.py` | public facade (`.execute`) |
-| `FlextCliModels` | class | `models.py` | nested `Cli` model facade |
-| `template_render` | func | `_utilities/template.py` | jinja render (typed context → `r`) |
+| Symbol            | Kind  | Location                 | Role                               |
+| ----------------- | ----- | ------------------------ | ---------------------------------- |
+| `FlextCli`        | class | `api.py`                 | public facade (`.execute`)         |
+| `FlextCliModels`  | class | `models.py`              | nested `Cli` model facade          |
+| `template_render` | func  | `_utilities/template.py` | jinja render (typed context → `r`) |
 
 ## Conventions (specific to this package)
 
@@ -48,9 +49,11 @@ Domains are nested MRO namespaces under `Cli` (`m.Cli.*`, `u.Cli.*`, …), not 1
 make check PROJECT=flext-cli
 make test  PROJECT=flext-cli
 ```
+
 <!-- AIHUB-AGENTS-SCOPE-LOCAL-END -->
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:46cd31e7 -->
+
 ## Beads Issue Tracker
 
 This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
@@ -111,6 +114,7 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 <!-- AIHUB-GOVERNANCE-INSTRUCTIONS-BEGIN -->
 <!-- AIHUB-GOVERNANCE-CAPSULE v1 sha256:e1b7a9ae088643bf660b78ff1aea55d49076ec46518707976d77c78ed23db5db -->
+
 # Generated session governance capsule
 
 This projection is derived by `agentsctl sync`; edit canonical `AGENTS.md`, `rules/`, `skills/`, or `commands/`, never this output. The operator's newest request has precedence. Provider hooks are delivery mechanisms, not policy owners.
@@ -313,4 +317,5 @@ sufficient.
 
 Skills: caveman, context-canary, fix-forward-collaboration, governance-audit, operator-correction-learning, plan-focus-recovery, sprint-closure, strategic-compact, verification-loop
 Commands: add-language-rules, database-migration, feature-development, ghi-list, pr-list, ralph-loop, security-triage, synthesize-governance
+
 <!-- AIHUB-GOVERNANCE-INSTRUCTIONS-END -->

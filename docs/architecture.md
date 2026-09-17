@@ -1,6 +1,7 @@
 # CLI Architecture
 
 <!-- TOC START -->
+
 - [Princípios](#principios)
 - [Mapa dos módulos](#mapa-dos-modulos)
 - [Fluxo em tempo de execução](#fluxo-em-tempo-de-execucao)

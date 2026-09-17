@@ -1,6 +1,7 @@
 # Getting Started with flext-cli
 
 <!-- TOC START -->
+
 - [📌 Quick Navigation](#quick-navigation)
 - [v0.12.0-dev Getting Started (Current)](#v0120-dev-getting-started-current)
   - [Overview](#overview)
@@ -37,14 +38,14 @@
 
 **Last Updated**: 2026-09-17 | **Version**: 0.12.0
 
-______________________________________________________________________
+---
 
 ## 📌 Quick Navigation
 
 - [v0.12.0-dev Getting Started (Current)](#v0120-dev-getting-started-current) ← **Start Here**
 - [v0.9.0 Getting Started (Historical Reference)](#v090-getting-started-historical-reference)
 
-______________________________________________________________________
+---
 
 ## v0.12.0-dev Getting Started (Current)
 
@@ -67,7 +68,7 @@ flext-cli v0.12.0-dev is a simplified, streamlined CLI foundation library for th
 - 50% fewer API methods (~30 → ~15)
 - Clearer architecture and better performance
 
-______________________________________________________________________
+---
 
 ## Prerequisites
 
@@ -86,7 +87,7 @@ flext-cli integrates with:
 - **Rich 14.0+**: Terminal UI (abstracted)
 - **Pydantic 2.13.5+**: Data validation
 
-______________________________________________________________________
+---
 
 ## Installation
 
@@ -119,7 +120,7 @@ Then:
 pip install flext-cli
 ```
 
-______________________________________________________________________
+---
 
 ## Quick Start (v0.12.0-dev)
 
@@ -223,7 +224,7 @@ if result.failure:
     cli.print(f"Error: {result.error}", style="red")
 ```
 
-______________________________________________________________________
+---
 
 ## Development Workflow (v0.12.0-dev)
 
@@ -251,7 +252,7 @@ from flext_core import r, p
 
 def my_cli_application() -> p.Result[bool]:
     """Application using v0.12.0-dev patterns."""
-    
+
     # Direct access to all services
     cli.print("Starting...", style="cyan")
 
@@ -279,7 +280,7 @@ from flext_cli import cli
 
 def test_my_cli_operation():
     """Test using v0.12.0-dev patterns."""
-    
+
     # Test file operations (direct access)
     result = cli.read_json_file("test_config.json")
 
@@ -288,7 +289,7 @@ def test_my_cli_operation():
     assert "required_field" in settings
 ```
 
-______________________________________________________________________
+---
 
 ## Next Steps
 
@@ -335,7 +336,7 @@ Check `examples/` directory for complete application samples:
 - Table formatting
 - Configuration management
 
-______________________________________________________________________
+---
 
 ## v0.9.0 Getting Started (Historical Reference)
 
@@ -381,7 +382,7 @@ print(f"Available auth methods: {len(methods)}")  # 35+ methods
 settings = FlextCliSettings(profile="development", debug=True, output_format="table")
 ```
 
-______________________________________________________________________
+---
 
 ## Quality Validation
 
@@ -400,7 +401,7 @@ make test                    # Run comprehensive test suite
 python -c "from flext_cli import FlextCli, cli; print('✅ Core facade loads')"
 ```
 
-______________________________________________________________________
+---
 
 ## Next Steps (v0.9.0)
 
@@ -417,6 +418,6 @@ ______________________________________________________________________
 - Extension development (substantial foundation available)
 - Architecture evaluation (enterprise-grade patterns in place)
 
-______________________________________________________________________
+---
 
 **Development Status**: Enterprise-grade foundation with targeted CLI execution fix required.

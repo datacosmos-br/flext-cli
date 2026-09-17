@@ -1,6 +1,7 @@
 # FLEXT-CLI v0.12.0-dev Refactoring Documentation
 
 <!-- TOC START -->
+
 - [📚 Documentation Index](#documentation-index)
   - [Planning & Strategy](#planning-strategy)
   - [Implementation Guides](#implementation-guides)
@@ -98,7 +99,7 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 - [Development Guide](../development.md)
 - [Changelog](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/CHANGELOG.md)
 
-______________________________________________________________________
+---
 
 **Last Updated**: 2025-01-24
 **Version**: 0.12.0-dev

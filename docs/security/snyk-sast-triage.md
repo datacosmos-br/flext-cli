@@ -1,6 +1,7 @@
 # Triagem Snyk Code (SAST) — flext-sh/flext-cli
 
 <!-- TOC START -->
+
 - [Achados](#achados)
 - [Como triar](#como-triar)
 <!-- TOC END -->
@@ -9,21 +10,21 @@ Gerado do scan Snyk da org Datacosmos (dump 2026-08-06).
 
 **4 achados** — critical 0, high 0, medium 0, low 4
 
-| categoria | achados |
-|---|---|
-| Hardcoded Non-Cryptographic Secret | 3 |
-| Use of Hardcoded Passwords | 1 |
+| categoria                          | achados |
+| ---------------------------------- | ------- |
+| Hardcoded Non-Cryptographic Secret | 3       |
+| Use of Hardcoded Passwords         | 1       |
 
 ## Achados
 
 Coluna **Decisão**: `corrigir` / `falso-positivo` / `risco-aceito`.
 
-| # | sev | categoria | arquivo | linha | CWE | Decisão |
-|---|---|---|---|---|---|---|
-| 1 | low | Use of Hardcoded Passwords | `tests/unit/_cases/test_examples_smoke/testsflextcliexamplessmoke_part_05.py` | 78 | - | |
-| 2 | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py` | 153 | - | |
-| 3 | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py` | 169 | - | |
-| 4 | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py` | 243 | - | |
+| #   | sev | categoria                          | arquivo                                                                       | linha | CWE | Decisão |
+| --- | --- | ---------------------------------- | ----------------------------------------------------------------------------- | ----- | --- | ------- |
+| 1   | low | Use of Hardcoded Passwords         | `tests/unit/_cases/test_examples_smoke/testsflextcliexamplessmoke_part_05.py` | 78    | -   |         |
+| 2   | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py`                            | 153   | -   |         |
+| 3   | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py`                            | 169   | -   |         |
+| 4   | low | Hardcoded Non-Cryptographic Secret | `tests/unit/test_examples_models_utilities_cov.py`                            | 243   | -   |         |
 
 ## Como triar
 

@@ -1,6 +1,7 @@
 # Triagem Semgrep — flext-sh/flext-cli
 
 <!-- TOC START -->
+
 - [Resumo](#resumo)
 - [Como usar](#como-usar)
 - [Findings](#findings)
@@ -10,7 +11,7 @@
   - [4 · 🟡 MEDIUM · conf high · package_managers.uv.uv-missing-dependency-cooldown.uv-missing-dependency-cooldown](#4-medium-conf-high-package_managersuvuv-missing-dependency-cooldownuv-missing-dependency-cooldown)
   - [5 · 🟡 MEDIUM · conf low · python.django.security.audit.unvalidated-password.unvalidated-password](#5-medium-conf-low-pythondjangosecurityauditunvalidated-passwordunvalidated-password)
   - [6 · ⚪ LOW · conf low · python.lang.security.audit.dangerous-annotations-usage.dangerous-annotations-usage](#6-low-conf-low-pythonlangsecurityauditdangerous-annotations-usagedangerous-annotations-usage)
-<!-- TOC END -->
+  <!-- TOC END -->
 
 Gerado do dump da plataforma Semgrep (deployment `datacosmos`, 2026-08-06).
 
@@ -21,12 +22,12 @@ Bead: `mro-p57t.4`
 **6 findings** — high 0, medium 5, low 1
 Confiança: high 4, medium 0, low 2
 
-| regra | achados |
-|---|---|
-| `package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown` | 3 |
-| `package_managers.uv.uv-missing-dependency-cooldown.uv-missing-dependency-cooldown` | 1 |
-| `python.django.security.audit.unvalidated-password.unvalidated-password` | 1 |
-| `python.lang.security.audit.dangerous-annotations-usage.dangerous-annotations-usage` | 1 |
+| regra                                                                                 | achados |
+| ------------------------------------------------------------------------------------- | ------- |
+| `package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown` | 3       |
+| `package_managers.uv.uv-missing-dependency-cooldown.uv-missing-dependency-cooldown`   | 1       |
+| `python.django.security.audit.unvalidated-password.unvalidated-password`              | 1       |
+| `python.lang.security.audit.dangerous-annotations-usage.dangerous-annotations-usage`  | 1       |
 
 ## Como usar
 
@@ -36,6 +37,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 ## Findings
 
 ### 1 · 🟡 MEDIUM · conf high · `package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown`
+
 **Classe**: Insecure Configuration · **Local**: `.github/dependabot.yml:4`
 
 > This Dependabot configuration does not set a cooldown period. Newly published packages can be malicious or unstable. Add a `cooldown` block with `default-days: 7` to each `package-ecosystem` entry under `updates` to wait 7 days before proposing updates to newly published package versions. Reference: <https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-option>
@@ -54,6 +56,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 **Decisão**:
 
 ### 2 · 🟡 MEDIUM · conf high · `package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown`
+
 **Classe**: Insecure Configuration · **Local**: `.github/dependabot.yml:11`
 
 > This Dependabot configuration does not set a cooldown period. Newly published packages can be malicious or unstable. Add a `cooldown` block with `default-days: 7` to each `package-ecosystem` entry under `updates` to wait 7 days before proposing updates to newly published package versions. Reference: <https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-option>
@@ -62,7 +65,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
         7        interval: weekly
         8      open-pull-requests-limit: 5
         9      labels: [dependencies, github-actions]
-       10  
+       10
 >>>    11    - package-ecosystem: devcontainers
        12      directory: /
        13      schedule:
@@ -73,6 +76,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 **Decisão**:
 
 ### 3 · 🟡 MEDIUM · conf high · `package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown`
+
 **Classe**: Insecure Configuration · **Local**: `.github/dependabot.yml:18`
 
 > This Dependabot configuration does not set a cooldown period. Newly published packages can be malicious or unstable. Add a `cooldown` block with `default-days: 7` to each `package-ecosystem` entry under `updates` to wait 7 days before proposing updates to newly published package versions. Reference: <https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-option>
@@ -81,7 +85,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
        14        interval: weekly
        15      open-pull-requests-limit: 5
        16      labels: [dependencies, devcontainers]
-       17  
+       17
 >>>    18    - package-ecosystem: pip
        19      directory: /
        20      schedule:
@@ -92,6 +96,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 **Decisão**:
 
 ### 4 · 🟡 MEDIUM · conf high · `package_managers.uv.uv-missing-dependency-cooldown.uv-missing-dependency-cooldown`
+
 **Classe**: Insecure Configuration · **Local**: `pyproject.toml:586`
 
 > This pyproject.toml configures uv but does not set a dependency cooldown. Newly published packages can be malicious or unstable. Add `exclude-newer = "7 days"` under `[tool.uv]` to wait 7 days before resolving newly published package versions. Added in: 0.9.17 Reference: <https://docs.astral.sh/uv/concepts/resolution/#dependency-cooldowns>
@@ -100,17 +105,18 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
       582  all = true
       583  in_place = true
       584  sort_first = ["build-system", "dependency-groups", "project", "tool"]
-      585  
+      585
 >>>   586  [tool.uv]
       587  constraint-dependencies = ["gitpython>=3.1.55", "setuptools>=83"]
       588  link-mode = "copy"
-      589  
+      589
       590  [[tool.uv.exclude-dependencies]]
 ```
 
 **Decisão**:
 
 ### 5 · 🟡 MEDIUM · conf low · `python.django.security.audit.unvalidated-password.unvalidated-password`
+
 **Classe**: Improper Authentication · **Local**: `src/flext_cli/_utilities/_xlxx/xlsx_protection.py:65`
 
 > The password on 'protection' is being set without validating the password. Call django.contrib.auth.password_validation.validate_password() with validation functions before setting the password. See <https://docs.djangoproject.com/en/3.0/topics/auth/passwords/> for more information.
@@ -122,14 +128,15 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
        64              else:
 >>>    65                  protection.set_password(plan.credential.value)
        66          return r[bool].ok(True)
-       67  
-       68  
+       67
+       68
        69  __all__: tuple[str, ...] = ("FlextCliUtilitiesXlsxProtection",)
 ```
 
 **Decisão**:
 
 ### 6 · ⚪ LOW · conf low · `python.lang.security.audit.dangerous-annotations-usage.dangerous-annotations-usage`
+
 **Classe**: Code Injection · **Local**: `src/flext_cli/_utilities/model_commands.py:89`
 
 > Annotations passed to `typing.get_type_hints` are evaluated in `globals` and `locals` namespaces. Make sure that no arbitrary value can be written as the annotation and passed to `typing.get_type_hints` function.
@@ -141,7 +148,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
        88              }
 >>>    89              command.__annotations__["return"] = t.JsonValue
        90              return command
-       91  
+       91
        92      @staticmethod
        93      def model_source_data(
 ```

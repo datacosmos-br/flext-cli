@@ -1,6 +1,7 @@
 # Development Guide - flext-cli
 
 <!-- TOC START -->
+
 - [📌 Quick Navigation](#quick-navigation)
 - [v0.12.0-dev Development Guidelines (Current)](#v0120-dev-development-guidelines-current)
   - [Overview](#overview)
@@ -43,20 +44,20 @@
   - [Atomic directory publication on macOS](#atomic-directory-publication-on-macos)
   - [Common Issues](#common-issues)
   - [Debug Commands](#debug-commands)
-<!-- TOC END -->
+  <!-- TOC END -->
 
 **Contributing guidelines and development workflow for flext-cli.**
 
 **Last Updated**: 2026-09-17 | **Version**: 0.12.0
 
-______________________________________________________________________
+---
 
 ## 📌 Quick Navigation
 
 - [v0.12.0-dev Development Guidelines (Current)](#v0120-dev-development-guidelines-current) ← **Start Here**
 - [v0.9.0 Development Guidelines (Historical Reference)](#v090-development-guidelines-historical-reference)
 
-______________________________________________________________________
+---
 
 ## v0.12.0-dev Development Guidelines (Current)
 
@@ -66,7 +67,7 @@ ______________________________________________________________________
 
 FLEXT-CLI v0.12.0-dev follows a simplified architecture with clear guidelines for when to use services vs simple classes. This guide helps you make the right architectural decisions.
 
-______________________________________________________________________
+---
 
 ## When to Use Each Pattern
 
@@ -162,7 +163,7 @@ class FlextCliFileTools:
 - ✅ Just data **validation and structure**
 - ✅ Configuration or context data
 
-______________________________________________________________________
+---
 
 ## Architecture Decision Flowchart
 
@@ -182,7 +183,7 @@ Does the class manage mutable state?
                  Examples: FlextCliModels.*
 ```
 
-______________________________________________________________________
+---
 
 ## Code Organization Guidelines
 
@@ -240,7 +241,7 @@ cli.confirm("Continue?")
 # cli.prompts.confirm("Continue?")           # NO sub-facade
 ```
 
-______________________________________________________________________
+---
 
 ## Testing Guidelines (v0.12.0-dev)
 
@@ -292,7 +293,7 @@ def test_read_json_file():
 # No initialization needed - static methods
 ```
 
-______________________________________________________________________
+---
 
 ## Contributing to v0.12.0-dev
 
@@ -324,11 +325,11 @@ Key phases:
    - No wrapper methods
    - Clear ownership
 
-    1. **Quality Gates (MANDATORY)**:
+   1. **Quality Gates (MANDATORY)**:
 
-       ```bash
-       make check  # Must pass 100%
-       ```
+      ```bash
+      make check  # Must pass 100%
+      ```
 
 1. **Test Organization**:
 
@@ -336,7 +337,7 @@ Key phases:
    - No file > 30K lines
    - Feature-based organization
 
-______________________________________________________________________
+---
 
 ## v0.9.0 Development Guidelines (Historical Reference)
 
@@ -361,7 +362,7 @@ cd flext-cli
 make setup
 ```
 
-______________________________________________________________________
+---
 
 ## Development Workflow
 
@@ -382,7 +383,7 @@ make clean          # Clean build artifacts
 - **Testing**: Comprehensive test coverage
 - **Documentation**: All public APIs documented
 
-______________________________________________________________________
+---
 
 ## Architecture Guidelines
 
@@ -422,7 +423,7 @@ class ProjectCliService:
 # import rich   # Use FlextCliOutput instead
 ```
 
-______________________________________________________________________
+---
 
 ## Testing Guidelines
 
@@ -479,7 +480,7 @@ pytest tests/ --cov=src --cov-report=term-missing
 pytest tests/unit/test_api.py -v
 ```
 
-______________________________________________________________________
+---
 
 ## Contributing Guidelines
 
@@ -510,7 +511,7 @@ docs: update API documentation
 test: add integration tests for settings module
 ```
 
-______________________________________________________________________
+---
 
 ## Extension Development
 
@@ -569,7 +570,7 @@ class ProjectFormatters(FlextCliOutput):
         return r[str].ok("formatted_output")
 ```
 
-______________________________________________________________________
+---
 
 ## Debug and Troubleshooting
 
@@ -614,7 +615,7 @@ make check PROJECT=flext-cli
 # Run from workspace root: make deps
 ```
 
-______________________________________________________________________
+---
 
 For architectural details, see [architecture.md](architecture.md).
 For API usage, see [API Reference](api-reference/README.md).
