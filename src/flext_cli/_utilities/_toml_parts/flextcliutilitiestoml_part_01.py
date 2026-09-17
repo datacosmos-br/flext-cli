@@ -106,12 +106,7 @@ class FlextCliUtilitiesToml:
             loaded = None
         if loaded is None:
             return None
-        validated: t.JsonMapping | None
-        try:
-            validated = t.Cli.JSON_MAPPING_ADAPTER.validate_python(loaded)
-        except c.ValidationError:
-            validated = None
-        return validated
+        return t.Cli.JSON_MAPPING_ADAPTER.validate_python(loaded)
 
     @staticmethod
     def toml_document_from_mapping(mapping: t.JsonMapping) -> TOMLDocument:
