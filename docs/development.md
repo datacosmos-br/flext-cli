@@ -78,12 +78,12 @@ ______________________________________________________________________
 - ✅ Class needs **lifecycle management** (startup, shutdown, cleanup)
 - ✅ Class has **complex initialization** with external dependencies
 
-**Example - FlextCliCore (Stateful Service)**:
+**Example - FlextCliCmd (Stateful Service)**:
 
 ```text
 from flext_core import s
 
-class FlextCliCore(s[CliDataDict]):
+class FlextCliCmd(s[CliDataDict]):
     """Core service managing commands and sessions."""
 
     def __init__(self):
@@ -168,7 +168,7 @@ ______________________________________________________________________
 ```
 Does the class manage mutable state?
 ├─ YES → Use s
-│        Examples: FlextCliCore, cli
+│        Examples: FlextCliCmd, cli
 │
 └─ NO → Does it have behavior (business logic)?
     ├─ YES → Is it stateless utility functions?
@@ -191,22 +191,37 @@ Follow the v0.12.0-dev module organization:
 
 ```
 src/flext_cli/
-├── Services (3-4 only)
-│   ├── core.py              # FlextCliCore - stateful
-│   ├── api.py               # cli - facade
-│   └── cmd.py               # FlextCliCmd - command execution
-│
-├── Simple Classes (utilities)
-│   ├── file_tools.py        # File I/O
-│   ├── formatters.py        # Rich formatting
-│   ├── tables.py            # Table generation
-│   ├── output.py            # Output management
-│   ├── prompts.py           # User input
-│   └── debug.py             # Debug utilities
-│
-└── Data Models (value objects)
-    ├── models.py            # All Pydantic models
-    └── _settings.py           # FlextCliSettings
+├── api.py                # FlextCli facade (MRO composition) + singleton `cli`
+├── base.py               # FlextCliServiceBase
+├── services/             # 16 services composed via MRO
+│   ├── cli.py            # FlextCliCli — Typer/Click boundary
+│   ├── cmd.py            # FlextCliCmd — stateful command/config management
+│   ├── auth.py           # FlextCliAuth — keyring auth
+│   ├── file_tools.py     # FlextCliFileTools — file I/O
+│   ├── formatters.py     # FlextCliFormatters — Rich/text rendering
+│   ├── output.py         # FlextCliOutput — JSON/YAML/CSV output
+│   ├── prompts.py        # FlextCliPrompts — user interaction
+│   ├── tables.py         # FlextCliTables — ASCII table generation
+│   ├── pipeline.py       # FlextCliPipeline — workflow orchestration
+│   ├── rules.py          # FlextCliRules — business rule validation
+│   ├── runtime.py        # FlextCliRuntime — runtime status
+│   ├── docx.py           # FlextCliDocx — Word document operations
+│   ├── pptx.py           # FlextCliPptx — PowerPoint operations
+│   ├── xlsx.py           # FlextCliXlsx — Excel operations
+│   ├── yaml_model.py     # FlextCliYamlModel — YAML schema validation
+│   └── cli_params.py     # FlextCliCommonParams — shared CLI params
+├── _utilities/           # Domain engines (toml/yaml/template/…)
+├── _constants/           # Validated constants (c.Cli.*)
+├── _models/              # Pydantic models (m.Cli.*)
+├── _config.py            # Config singleton
+├── _settings.py          # Settings singleton
+├── config.py             # Config validation (ADR-005)
+├── constants.py          # Constant facade (c.Cli.*)
+├── typings.py            # Typing aliases (t.Cli.*)
+├── protocols.py          # Structural protocols (p.Cli.*)
+├── models.py             # Model facade (m.Cli.*)
+├── utilities.py          # Utility facade (u.Cli.*)
+└── __init__.py           # Exports api.py, enforces isolation
 ```
 
 ### Direct Access Pattern
@@ -482,7 +497,7 @@ ______________________________________________________________________
 
 1. Create feature branch from main
 1. Implement changes with tests
-1. Run `make val` to ensure quality
+1. Run `make check` to ensure quality
 1. Submit pull request with description
 1. Address review feedback
 1. Merge after approval
