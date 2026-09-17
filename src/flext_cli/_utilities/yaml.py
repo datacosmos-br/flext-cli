@@ -128,7 +128,7 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
 
     @staticmethod
     def yaml_dump(
-        path: Path, data: t.JsonPayload, *, sort_keys: bool = False, indent: int = 2
+        path: Path, data: t.JsonValue | t.JsonPayload, *, sort_keys: bool = False, indent: int = 2
     ) -> p.Result[bool]:
         """Write *data* to a YAML file → ``r[bool]``.
 
@@ -156,7 +156,7 @@ class FlextCliUtilitiesYaml(FlextCliUtilitiesYamlEditingMixin):
 
     @staticmethod
     def yaml_dump_str(
-        data: t.JsonPayload, *, sort_keys: bool = False, indent: int = 2
+        data: t.JsonValue | t.JsonPayload, *, sort_keys: bool = False, indent: int = 2
     ) -> str:
         """Serialize *data* to a YAML string.
 
