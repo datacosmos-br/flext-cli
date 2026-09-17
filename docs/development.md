@@ -40,6 +40,7 @@
   - [Adding New Commands](#adding-new-commands)
   - [Custom Formatters](#custom-formatters)
 - [Debug and Troubleshooting](#debug-and-troubleshooting)
+  - [Atomic directory publication on macOS](#atomic-directory-publication-on-macos)
   - [Common Issues](#common-issues)
   - [Debug Commands](#debug-commands)
 <!-- TOC END -->

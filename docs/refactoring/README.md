@@ -67,7 +67,7 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 
 - **Issues**: [GitHub Issues](https://github.com/flext-sh/flext-cli/issues)
 - **Documentation**: [Main Docs](../index.md)
-- **Examples**: [examples/](https://github.com/flext-sh/flext-cli/tree/main/examples/)
+- **Examples**: [examples/](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)
 
 ## 📖 Reading Order
 
@@ -91,12 +91,12 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 
 ## 🚀 Quick Links
 
-- [Main README](https://github.com/flext-sh/flext-cli/blob/main/README.md)
+- [Main README](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/README.md)
 - [Architecture Documentation](../architecture.md)
 - [API Reference](../api-reference/README.md)
 - [Getting Started](../getting-started.md)
 - [Development Guide](../development.md)
-- [Changelog](https://github.com/flext-sh/flext-cli/blob/main/CHANGELOG.md)
+- [Changelog](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/CHANGELOG.md)
 
 ______________________________________________________________________
 

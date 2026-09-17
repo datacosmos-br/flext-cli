@@ -1,5 +1,97 @@
 # Triagem SonarCloud — flext-sh/flext-cli
 
+<!-- TOC START -->
+- [Resumo](#resumo)
+- [Como usar](#como-usar)
+- [Issues](#issues)
+  - [1 · 🔴 BLOCKER · CODE_SMELL · python:S3516](#1-blocker-code_smell-pythons3516)
+  - [2 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#2-critical-code_smell-pythons1192)
+  - [3 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#3-critical-code_smell-pythons1192)
+  - [4 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#4-critical-code_smell-pythons1192)
+  - [5 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#5-critical-code_smell-pythons1192)
+  - [6 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#6-critical-code_smell-pythons1192)
+  - [7 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#7-critical-code_smell-pythons1192)
+  - [8 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#8-critical-code_smell-pythons1192)
+  - [9 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#9-critical-code_smell-pythons1192)
+  - [10 · 🟠 CRITICAL · CODE_SMELL · python:S1192](#10-critical-code_smell-pythons1192)
+  - [11 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#11-critical-code_smell-pythons3776)
+  - [12 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#12-critical-code_smell-pythons3776)
+  - [13 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#13-critical-code_smell-pythons3776)
+  - [14 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#14-critical-code_smell-pythons3776)
+  - [15 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#15-critical-code_smell-pythons3776)
+  - [16 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#16-critical-code_smell-pythons3776)
+  - [17 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#17-critical-code_smell-pythons3776)
+  - [18 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#18-critical-code_smell-pythons3776)
+  - [19 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#19-critical-code_smell-pythons3776)
+  - [20 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#20-critical-code_smell-pythons3776)
+  - [21 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#21-critical-code_smell-pythons3776)
+  - [22 · 🟠 CRITICAL · CODE_SMELL · python:S5754](#22-critical-code_smell-pythons5754)
+  - [23 · 🟠 CRITICAL · CODE_SMELL · python:S5754](#23-critical-code_smell-pythons5754)
+  - [24 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#24-critical-code_smell-pythons3776)
+  - [25 · 🟠 CRITICAL · CODE_SMELL · python:S3776](#25-critical-code_smell-pythons3776)
+  - [26 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#26-major-code_smell-shelldres7688)
+  - [27 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#27-major-code_smell-shelldres7688)
+  - [28 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#28-major-code_smell-shelldres7688)
+  - [29 · 🟡 MAJOR · VULNERABILITY · githubactions:S8264](#29-major-vulnerability-githubactionss8264)
+  - [30 · 🟡 MAJOR · VULNERABILITY · githubactions:S8233](#30-major-vulnerability-githubactionss8233)
+  - [31 · 🟡 MAJOR · VULNERABILITY · githubactions:S8233](#31-major-vulnerability-githubactionss8233)
+  - [32 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#32-major-code_smell-shelldres7688)
+  - [33 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#33-major-code_smell-shelldres7688)
+  - [34 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#34-major-code_smell-shelldres7688)
+  - [35 · 🟡 MAJOR · CODE_SMELL · shelldre:S7677](#35-major-code_smell-shelldres7677)
+  - [36 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#36-major-code_smell-shelldres7688)
+  - [37 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#37-major-code_smell-shelldres7688)
+  - [38 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#38-major-code_smell-shelldres7688)
+  - [39 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#39-major-code_smell-shelldres7688)
+  - [40 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#40-major-code_smell-shelldres7688)
+  - [41 · 🟡 MAJOR · CODE_SMELL · shelldre:S7688](#41-major-code_smell-shelldres7688)
+  - [42 · 🟡 MAJOR · CODE_SMELL · python:S8786](#42-major-code_smell-pythons8786)
+  - [43 · 🟡 MAJOR · CODE_SMELL · python:S108](#43-major-code_smell-pythons108)
+  - [44 · 🟡 MAJOR · VULNERABILITY · text:S8565](#44-major-vulnerability-texts8565)
+  - [45 · 🟡 MAJOR · CODE_SMELL · python:S3358](#45-major-code_smell-pythons3358)
+  - [46 · 🟡 MAJOR · CODE_SMELL · python:S3358](#46-major-code_smell-pythons3358)
+  - [47 · 🟡 MAJOR · CODE_SMELL · python:S3358](#47-major-code_smell-pythons3358)
+  - [48 · 🟡 MAJOR · CODE_SMELL · python:S8495](#48-major-code_smell-pythons8495)
+  - [49 · 🟡 MAJOR · BUG · python:S3699](#49-major-bug-pythons3699)
+  - [50 · 🟡 MAJOR · CODE_SMELL · python:S3985](#50-major-code_smell-pythons3985)
+  - [51 · 🟡 MAJOR · CODE_SMELL · python:S112](#51-major-code_smell-pythons112)
+  - [52 · 🟡 MAJOR · CODE_SMELL · python:S5778](#52-major-code_smell-pythons5778)
+  - [53 · 🟡 MAJOR · CODE_SMELL · python:S8997](#53-major-code_smell-pythons8997)
+  - [54 · 🟡 MAJOR · CODE_SMELL · python:S8997](#54-major-code_smell-pythons8997)
+  - [55 · 🟡 MAJOR · CODE_SMELL · python:S8997](#55-major-code_smell-pythons8997)
+  - [56 · 🟡 MAJOR · CODE_SMELL · python:S8997](#56-major-code_smell-pythons8997)
+  - [57 · 🟡 MAJOR · CODE_SMELL · python:S8997](#57-major-code_smell-pythons8997)
+  - [58 · 🟡 MAJOR · CODE_SMELL · python:S8997](#58-major-code_smell-pythons8997)
+  - [59 · 🟡 MAJOR · CODE_SMELL · python:S8997](#59-major-code_smell-pythons8997)
+  - [60 · 🟡 MAJOR · CODE_SMELL · python:S5778](#60-major-code_smell-pythons5778)
+  - [61 · ⚪ MINOR · CODE_SMELL · python:S7504](#61-minor-code_smell-pythons7504)
+  - [62 · ⚪ MINOR · CODE_SMELL · shelldre:S1192](#62-minor-code_smell-shelldres1192)
+  - [63 · ⚪ MINOR · CODE_SMELL · python:S116](#63-minor-code_smell-pythons116)
+  - [64 · ⚪ MINOR · CODE_SMELL · python:S116](#64-minor-code_smell-pythons116)
+  - [65 · ⚪ MINOR · CODE_SMELL · python:S116](#65-minor-code_smell-pythons116)
+  - [66 · ⚪ MINOR · CODE_SMELL · python:S116](#66-minor-code_smell-pythons116)
+  - [67 · ⚪ MINOR · CODE_SMELL · python:S7508](#67-minor-code_smell-pythons7508)
+  - [68 · ⚪ MINOR · CODE_SMELL · python:S116](#68-minor-code_smell-pythons116)
+  - [69 · ⚪ MINOR · CODE_SMELL · python:S116](#69-minor-code_smell-pythons116)
+  - [70 · ⚪ MINOR · CODE_SMELL · python:S116](#70-minor-code_smell-pythons116)
+  - [71 · ⚪ MINOR · CODE_SMELL · python:S116](#71-minor-code_smell-pythons116)
+  - [72 · ⚪ MINOR · CODE_SMELL · python:S116](#72-minor-code_smell-pythons116)
+  - [73 · ⚪ MINOR · CODE_SMELL · python:S116](#73-minor-code_smell-pythons116)
+  - [74 · ⚪ MINOR · CODE_SMELL · python:S116](#74-minor-code_smell-pythons116)
+  - [75 · ⚪ MINOR · CODE_SMELL · python:S116](#75-minor-code_smell-pythons116)
+  - [76 · ⚪ MINOR · CODE_SMELL · python:S116](#76-minor-code_smell-pythons116)
+  - [77 · ⚪ MINOR · CODE_SMELL · python:S116](#77-minor-code_smell-pythons116)
+  - [78 · ⚪ MINOR · CODE_SMELL · python:S116](#78-minor-code_smell-pythons116)
+  - [79 · ⚪ MINOR · CODE_SMELL · python:S116](#79-minor-code_smell-pythons116)
+  - [80 · ⚪ MINOR · CODE_SMELL · python:S116](#80-minor-code_smell-pythons116)
+  - [81 · ⚪ MINOR · CODE_SMELL · python:S5713](#81-minor-code_smell-pythons5713)
+  - [82 · ⚪ MINOR · CODE_SMELL · python:S7504](#82-minor-code_smell-pythons7504)
+  - [83 · ⚪ MINOR · CODE_SMELL · python:S7504](#83-minor-code_smell-pythons7504)
+  - [84 · ⚪ MINOR · CODE_SMELL · python:S7504](#84-minor-code_smell-pythons7504)
+  - [85 · ⚪ MINOR · CODE_SMELL · python:S7504](#85-minor-code_smell-pythons7504)
+  - [86 · ⚪ MINOR · CODE_SMELL · python:S6353](#86-minor-code_smell-pythons6353)
+<!-- TOC END -->
+
 Gerado do dump da plataforma SonarCloud (2026-08-06).
 
 Bead: `mro-2wjm.1`
@@ -34,7 +126,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this method to not always return the same value.
 
-```python
+```text
        32      def files_delete(file_path: t.Cli.TextPath) -> p.Result[bool]:
        33          """Delete one file-system path using canonical error handling."""
        34          path = Path(file_path)
@@ -53,7 +145,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Value kind." 8 times.
 
-```python
+```text
        54              str, m.Field(min_length=1, description="Formatted Excel reference.")
        55          ]
        56  
@@ -72,7 +164,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Format kind." 3 times.
 
-```python
+```text
        16      # NOTE (multi-agent, mro-j2yt.1): visual styles and protection remain
        17      # orthogonal so style assignment cannot silently unlock cells.
        18      class XlsxContainsTextFormatPlan(m.FrozenModel):
@@ -91,7 +183,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Formatted range." 3 times.
 
-```python
+```text
        19          kind: Literal["contains_text"] = m.Field(
        20              default="contains_text", description="Format kind."
        21          )
@@ -110,7 +202,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Stop later rules." 3 times.
 
-```python
+```text
        23              description="Formatted range."
        24          )
        25          text: Annotated[str, m.Field(min_length=1, description="Searched text.")]
@@ -129,7 +221,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Color kind." 4 times.
 
-```python
+```text
        12  
        13      # NOTE (multi-agent, mro-j2yt.1): optional values preserve the source
        14      # OOXML distinction between an absent attribute and an explicit false.
@@ -148,7 +240,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Rule kind." 3 times.
 
-```python
+```text
        73          XlsxUnaryComparison | XlsxRangeComparison, m.Field(discriminator="mode")
        74      ]
        75  
@@ -167,7 +259,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Validated cell range." 3 times.
 
-```python
+```text
        75  
        76      class XlsxListValidationPlan(m.FrozenModel):
        77          kind: Literal["list"] = m.Field(default="list", description="Rule kind.")
@@ -186,7 +278,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Validation UI behavior." 3 times.
 
-```python
+```text
        81          source: FlextCliModelsXlsxValidation.XlsxListSource = m.Field(
        82              description="Allowed-value source."
        83          )
@@ -205,7 +297,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Define a constant instead of duplicating this literal "Color kind." 3 times.
 
-```python
+```text
        13      # NOTE (multi-agent, mro-j2yt.1): style primitives are data-only and
        14      # carry no document-specific or customer policy.
        15  
@@ -224,7 +316,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.
 
-```python
+```text
        25      """Implementation part for FlextCliUtilitiesFileTestHelpersMixin."""
        26  
        27      @classmethod
@@ -243,7 +335,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.
 
-```python
+```text
        18  class FlextCliUtilitiesFileTestHelpersMixin:
        19      """Implementation part for FlextCliUtilitiesFileTestHelpersMixin."""
        20  
@@ -262,7 +354,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 38 to the 15 allowed.
 
-```python
+```text
        84              f"Failed to load rules registry: no {registry_filename} found"
        85          )
        86  
@@ -281,7 +373,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
 
-```python
+```text
        31  ):
        32      """Own one child process and its streaming resources."""
        33  
@@ -300,7 +392,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.
 
-```python
+```text
        17  ):
        18      """Monitor one process group through events and one absolute deadline."""
        19  
@@ -319,7 +411,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
 
-```python
+```text
        14      # it back. Authored formulas keep canonical names; this codec owns the
        15      # single storage transformation at the external write boundary and
        16      # never rewrites text inside string literals.
@@ -338,7 +430,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 32 to the 15 allowed.
 
-```python
+```text
        26              detail = str(exc).strip() or exc.__class__.__name__
        27              return r[bool].fail(f"{c.Cli.XlsxError.RENDER_FAILED}: {detail}")
        28  
@@ -357,7 +449,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.
 
-```python
+```text
        73              content = (output_dir / c.Cli.XLSX_RECALC_SOURCE_NAME).read_bytes()
        74          return r[m.Cli.XlsxRecalcResult].ok(m.Cli.XlsxRecalcResult(content=content))
        75  
@@ -376,7 +468,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.
 
-```python
+```text
        26              raise ValueError(msg)
        27          return result.value
        28  
@@ -395,7 +487,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
 
-```python
+```text
        77              )
        78          return r[tuple[tuple[str, ...], tuple[str, ...]]].ok(evidence)
        79  
@@ -414,7 +506,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.
 
-```python
+```text
        22          digest = sha256(repr(visual).encode("utf-8")).hexdigest()[:16]
        23          return f"{prefix}_{digest}"
        24  
@@ -433,7 +525,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Reraise this exception to stop the application as the user expects
 
-```python
+```text
       214          except typer.Exit as exc:
       215              if (failure := cls._active_failure.get()) is not None:
       216                  return r[bool].from_failure(failure)
@@ -452,7 +544,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Reraise this exception to stop the application as the user expects
 
-```python
+```text
       263          except click.Abort as exc:
       264              return e.fail_operation(
       265                  c.Cli.OP_EXECUTE_APPLICATION, exc, result_type=r[bool]
@@ -471,7 +563,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 30 to the 15 allowed.
 
-```python
+```text
        16  
        17      _pipeline_logger: ClassVar[p.Logger] = u.fetch_logger(__name__)
        18  
@@ -490,7 +582,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.
 
-```python
+```text
        86              op_name="template_render_to",
        87          )
        88  
@@ -812,7 +904,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.
 
-```python
+```text
        62      EXAMPLE_TABLE_HEADERS_FIELD_VALUE: Final[t.Pair[str, str]] = ("Field", "Value")
        63      EXAMPLE_TABLE_HEADERS_SETTING_VALUE: Final[t.Pair[str, str]] = ("Setting", "Value")
        64  
@@ -831,7 +923,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Either remove or fill this block of code.
 
-```python
+```text
       153              case c.DeploymentEnvironment.TESTING:
       154                  result["max_workers"] = c.EXAMPLE_TESTING_MAX_WORKERS
       155                  result["enable_metrics"] = False
@@ -857,7 +949,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Extract this nested conditional expression into an independent statement.
 
-```python
+```text
        76                  case c.Cli.TypeKind.DICT:
        77                      source_mapping = (
        78                          self.value
@@ -876,7 +968,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Extract this nested conditional expression into an independent statement.
 
-```python
+```text
        24          default_factory = getattr(field_info, "default_factory", None)
        25          source_value = (
        26              getattr(settings, field_name)
@@ -895,7 +987,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Extract this nested conditional expression into an independent statement.
 
-```python
+```text
       156              force = forwarded_count >= force_after_signals
       157              forwarded_signal = (
       158                  signal_number
@@ -914,7 +1006,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this function to always return tuples of the same length.
 
-```python
+```text
        79              errors.append("process deadline expired before durable log flush")
        80          return tuple(errors)
        81  
@@ -933,7 +1025,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this use of the output from "flush"; "flush" doesn’t return anything.
 
-```python
+```text
       107      def emit_raw(text: str) -> None:
       108          """Write raw text to stdout as one atomic block."""
       109          with FlextCliUtilitiesOutput._EMIT_LOCK:
@@ -952,7 +1044,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unused private '_ModelCommand' class.
 
-```python
+```text
        15  
        16  class FlextCliCli:
        17      """Implementation part for FlextCliCli."""
@@ -971,7 +1063,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Replace this generic exception class with a more specific one.
 
-```python
+```text
        71          )
        72          if guarded.success:
        73              return guarded
@@ -990,7 +1082,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this exception test to have only one invocation possibly throwing an exception.
 
-```python
+```text
        84  
        85  
        86  def test_xlsx_datetime_rejects_unrepresentable_timezone() -> None:
@@ -1009,7 +1101,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        77      def test_config_load_yaml_expands_env(self, tmp_path: Path) -> None:
        78          """Verify that config load yaml expands env."""
        79          source = tmp_path / "app.yaml"
@@ -1028,12 +1120,12 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        24      """Interpolate ${VAR} / ${VAR:-default} templates through ``u.Cli``."""
        25  
        26      def test_env_expand_substitutes_braced_variable(self) -> None:
        27          """A ``${VAR}`` token is replaced by the process-environment value."""
->>>    28          os.environ["FLEXT_CLI_EXPAND_HOME"] = "/home/tester"
+>>>    28          os.environ["FLEXT_CLI_EXPAND_HOME"] = "/tmp/tester"
        29          try:
        30              result = u.Cli.env_expand("${FLEXT_CLI_EXPAND_HOME}/.claude")
        31          finally:
@@ -1047,8 +1139,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
-       34          tm.that(tm.ok(result), eq="/home/tester/.claude")
+```text
+       34          tm.that(tm.ok(result), eq="/tmp/tester/.claude")
        35  
        36      def test_env_expand_substitutes_bare_variable(self) -> None:
        37          """A bare ``$VAR`` token is replaced by the process-environment value."""
@@ -1066,12 +1158,12 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        60          tm.that(tm.ok(result), eq="prefix--suffix")
        61  
        62      def test_env_expand_template_is_data(self) -> None:
        63          """The template is a plain argument, so callers pass paths as data."""
->>>    64          os.environ["FLEXT_CLI_EXPAND_H"] = "/home/tester"
+>>>    64          os.environ["FLEXT_CLI_EXPAND_H"] = "/tmp/tester"
        65          try:
        66              for template, expected in (
        67                  (
@@ -1085,7 +1177,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        24  
        25      def test_env_read_returns_value_when_set(self) -> None:
        26          """A set environment variable is returned by name."""
@@ -1104,7 +1196,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        45      def test_env_read_name_is_data(self) -> None:
        46          """The variable name is a plain argument, so callers pass it as data."""
        47          first = "FLEXT_CLI_ENV_READ_A"
@@ -1123,7 +1215,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
 
-```python
+```text
        46          """The variable name is a plain argument, so callers pass it as data."""
        47          first = "FLEXT_CLI_ENV_READ_A"
        48          second = "FLEXT_CLI_ENV_READ_B"
@@ -1142,7 +1234,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Refactor this exception test to have only one invocation possibly throwing an exception.
 
-```python
+```text
        86              command(name="invalid", value="not-an-int")
        87  
        88      def test_derive_model_rejects_missing_required_field(self) -> None:
@@ -1161,7 +1253,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
-```python
+```text
        17          and Path(getattr(existing_package, "__file__", "")).resolve() == init_file
        18      ):
        19          return
@@ -1199,7 +1291,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "YamlParseError" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        48      # ``type[<Class>]`` annotation. Widening to a generic exception hides
        49      # the real ``FlextBaseError.__init__`` (with **extra_kwargs) from pyrefly,
        50      # which then rejects ``command=``/``model=`` kwargs at raise sites
@@ -1218,7 +1310,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "YamlRoundtripError" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        49      # the real ``FlextBaseError.__init__`` (with **extra_kwargs) from pyrefly,
        50      # which then rejects ``command=``/``model=`` kwargs at raise sites
        51      # (validation.py).
@@ -1237,7 +1329,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "CliDefinitionError" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        50      # which then rejects ``command=``/``model=`` kwargs at raise sites
        51      # (validation.py).
        52      YamlParseError: ClassVar[type[Exception]] = YAMLError
@@ -1256,7 +1348,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "CliValidationError" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        51      # (validation.py).
        52      YamlParseError: ClassVar[type[Exception]] = YAMLError
        53      YamlRoundtripError: ClassVar[type[Exception]] = RuamelYAMLError
@@ -1275,7 +1367,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this redundant call.
 
-```python
+```text
        11  
        12  class FlextCliConstantsSettings:
        13      """CLI defaults, messages, registries, and output configuration."""
@@ -1294,7 +1386,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Presentation" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        21  
        22      # NOTE (multi-agent, mro-j2yt.1): re-exporting keeps the external PPTX
        23      # dependency owned by flext-cli so cosmos-docgen can drop direct imports.
@@ -1313,7 +1405,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "PresentationDocument" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        22      # NOTE (multi-agent, mro-j2yt.1): re-exporting keeps the external PPTX
        23      # dependency owned by flext-cli so cosmos-docgen can drop direct imports.
        24  
@@ -1332,7 +1424,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "RGBColor" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        23      # dependency owned by flext-cli so cosmos-docgen can drop direct imports.
        24  
        25      Presentation = staticmethod(_Presentation)
@@ -1351,7 +1443,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "BaseOxmlElement" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        29      MSO_ANCHOR = MSO_ANCHOR
        30      MSO_AUTO_SIZE = MSO_AUTO_SIZE
        31      PP_ALIGN = PP_ALIGN
@@ -1370,7 +1462,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Shape" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        30      MSO_AUTO_SIZE = MSO_AUTO_SIZE
        31      PP_ALIGN = PP_ALIGN
        32      qn = staticmethod(_qn)
@@ -1389,7 +1481,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Picture" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        31      PP_ALIGN = PP_ALIGN
        32      qn = staticmethod(_qn)
        33      BaseOxmlElement = BaseOxmlElement
@@ -1408,7 +1500,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Slide" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        32      qn = staticmethod(_qn)
        33      BaseOxmlElement = BaseOxmlElement
        34      Shape = Shape
@@ -1427,7 +1519,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "SlideLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        33      BaseOxmlElement = BaseOxmlElement
        34      Shape = Shape
        35      Picture = Picture
@@ -1446,7 +1538,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "TextFrame" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        34      Shape = Shape
        35      Picture = Picture
        36      Slide = Slide
@@ -1465,7 +1557,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Emu" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        35      Picture = Picture
        36      Slide = Slide
        37      SlideLayout = SlideLayout
@@ -1484,7 +1576,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Inches" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        36      Slide = Slide
        37      SlideLayout = SlideLayout
        38      TextFrame = TextFrame
@@ -1503,7 +1595,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Length" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        37      SlideLayout = SlideLayout
        38      TextFrame = TextFrame
        39      Emu = Emu
@@ -1522,7 +1614,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Rename this field "Pt" to match the regular expression ^[_a-z][_a-z0-9]*$.
 
-```python
+```text
        38      TextFrame = TextFrame
        39      Emu = Emu
        40      Inches = Inches
@@ -1540,7 +1632,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this redundant Exception class; it derives from another which is already caught.
 
-```python
+```text
        77                  written = os.write(live_fd, remaining)
        78              except BlockingIOError:
        79                  stop.wait(cls._STREAM_POLL_SECONDS)
@@ -1559,7 +1651,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
-```python
+```text
        47          Copying its entries into a single ``Table`` gives callers a normal,
        48          fully readable table without altering the source document.
        49          """
@@ -1578,7 +1670,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
-```python
+```text
        96              # across the document. Consolidate them into one explicit table so
        97              # subsequent mutation targets a single contiguous section instead of
        98              # silently overwriting the fragments with an empty table.
@@ -1597,7 +1689,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
-```python
+```text
       107              if not table.is_super_table():
       108                  return table
       109              del parent[key]
@@ -1616,7 +1708,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
-```python
+```text
        48          }
        49          if current == normalized_expected:
        50              return False
@@ -1635,7 +1727,7 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 > Use concise character class syntax '\w' instead of '[A-Za-z0-9_]'.
 
-```python
+```text
         6  import re
         7  
         8  from flext_cli import p, r

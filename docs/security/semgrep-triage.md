@@ -1,5 +1,17 @@
 # Triagem Semgrep — flext-sh/flext-cli
 
+<!-- TOC START -->
+- [Resumo](#resumo)
+- [Como usar](#como-usar)
+- [Findings](#findings)
+  - [1 · 🟡 MEDIUM · conf high · package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown](#1-medium-conf-high-package_managersdependabotdependabot-missing-cooldowndependabot-missing-cooldown)
+  - [2 · 🟡 MEDIUM · conf high · package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown](#2-medium-conf-high-package_managersdependabotdependabot-missing-cooldowndependabot-missing-cooldown)
+  - [3 · 🟡 MEDIUM · conf high · package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown](#3-medium-conf-high-package_managersdependabotdependabot-missing-cooldowndependabot-missing-cooldown)
+  - [4 · 🟡 MEDIUM · conf high · package_managers.uv.uv-missing-dependency-cooldown.uv-missing-dependency-cooldown](#4-medium-conf-high-package_managersuvuv-missing-dependency-cooldownuv-missing-dependency-cooldown)
+  - [5 · 🟡 MEDIUM · conf low · python.django.security.audit.unvalidated-password.unvalidated-password](#5-medium-conf-low-pythondjangosecurityauditunvalidated-passwordunvalidated-password)
+  - [6 · ⚪ LOW · conf low · python.lang.security.audit.dangerous-annotations-usage.dangerous-annotations-usage](#6-low-conf-low-pythonlangsecurityauditdangerous-annotations-usagedangerous-annotations-usage)
+<!-- TOC END -->
+
 Gerado do dump da plataforma Semgrep (deployment `datacosmos`, 2026-08-06).
 
 Bead: `mro-p57t.4`
@@ -103,7 +115,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 
 > The password on 'protection' is being set without validating the password. Call django.contrib.auth.password_validation.validate_password() with validation functions before setting the password. See <https://docs.djangoproject.com/en/3.0/topics/auth/passwords/> for more information.
 
-```python
+```text
        61          if plan.credential is not None:
        62              if plan.credential.kind == "legacy_hash":
        63                  protection.set_password(plan.credential.value, already_hashed=True)
@@ -122,7 +134,7 @@ Cada finding traz a **mensagem completa da regra** (o Semgrep descreve o problem
 
 > Annotations passed to `typing.get_type_hints` are evaluated in `globals` and `locals` namespaces. Make sure that no arbitrary value can be written as the annotation and passed to `typing.get_type_hints` function.
 
-```python
+```text
        85              setattr(command, "__signature__", signature)
        86              command.__annotations__ = {
        87                  parameter.name: parameter.annotation for parameter in parameters
