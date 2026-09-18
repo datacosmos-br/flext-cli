@@ -41,7 +41,8 @@
 
 **Complete list of all breaking changes with fixes**
 
-> ⚠️ **Important**: v0.10.0 contains multiple breaking changes. Review this document carefully before upgrading.
+> ⚠️ **Important**: v0.10.0 contains multiple breaking changes. Review this document
+> carefully before upgrading.
 
 ---
 
@@ -213,7 +214,9 @@ from tests import (
 
 **Impact**: MEDIUM - If you used FlextCliContext or CLI execution context
 
-`FlextCliContext` was removed from the library. Remove any imports and usages. Use `m.Cli.CliContext` (Pydantic Value with `cwd`, `env`, `args`, `output_format`) if you need a simple context data model, or pass command/arguments directly where needed.
+`FlextCliContext` was removed from the library. Remove any imports and usages. Use
+`m.Cli.CliContext` (Pydantic Value with `cwd`, `env`, `args`, `output_format`) if you
+need a simple context data model, or pass command/arguments directly where needed.
 
 ---
 
@@ -443,29 +446,28 @@ Use this checklist to ensure complete migration:
 - **[Migration Guide](migration-guide-v0.9-to-v0.10.md)** - Step-by-step migration
 - **[Architecture Comparison](architecture-comparison.md)** - Before/after comparison
 - **[API Reference](../api-reference/README.md)** - Complete v0.10.0 API
-- **[Examples](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)** - Updated code examples
+- **[Examples](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)** -
+  Updated code examples
 
 ---
 
 ## FAQ
 
-**Q: Can I use both v0.9.0 and v0.10.0 patterns?**
-A: No, v0.10.0 removes the old patterns completely.
+**Q: Can I use both v0.9.0 and v0.10.0 patterns?** A: No, v0.10.0 removes the old
+patterns completely.
 
-**Q: How long is v0.9.0 supported?**
-A: Security fixes only. Migrate to v0.10.0 for new features.
+**Q: How long is v0.9.0 supported?** A: Security fixes only. Migrate to v0.10.0 for new
+features.
 
-**Q: Will there be more breaking changes?**
-A: We aim for stability. Future versions should be backwards compatible with v0.10.0.
+**Q: Will there be more breaking changes?** A: We aim for stability. Future versions
+should be backwards compatible with v0.10.0.
 
-**Q: What if I can't migrate immediately?**
-A: Stay on v0.9.0 temporarily, but plan migration within 3 months.
+**Q: What if I can't migrate immediately?** A: Stay on v0.9.0 temporarily, but plan
+migration within 3 months.
 
-**Q: Can I stage the migration?**
-A: No, changes must be made together (imports, API calls, context usage).
+**Q: Can I stage the migration?** A: No, changes must be made together (imports, API
+calls, context usage).
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-01-24
-**Applies to**: v0.10.0 only
+**Document Version**: 1.0 **Last Updated**: 2025-01-24 **Applies to**: v0.10.0 only

@@ -1,6 +1,7 @@
 # FLEXT-CLI Examples
 
-These examples show how to use flext-cli as a library through the public facade and the local examples runtime aliases.
+These examples show how to use flext-cli as a library through the public facade and the
+local examples runtime aliases.
 
 ## Core Pattern
 
@@ -13,16 +14,14 @@ These examples show how to use flext-cli as a library through the public facade 
 
 ## Start Here
 
-1. `ex_01_getting_started.py`
-   Minimal tour of `s`, `m.Examples`, the public `cli` facade, and the `r` result contract.
-2. `ex_02_output_formatting.py`
-   Table-string export through `cli.format_table()`.
-3. `ex_04_file_operations.py`
-   Typed file reads and writes.
-4. `ex_11_complete_integration.py`
-   A minimal end-to-end workflow using prompts plus JSON persistence.
-5. `ex_12_pydantic_driven_cli.py`
-   Railway-style Pydantic validation for a typed CLI payload.
+1. `ex_01_getting_started.py` Minimal tour of `s`, `m.Examples`, the public `cli`
+   facade, and the `r` result contract.
+2. `ex_02_output_formatting.py` Table-string export through `cli.format_table()`.
+3. `ex_04_file_operations.py` Typed file reads and writes.
+4. `ex_11_complete_integration.py` A minimal end-to-end workflow using prompts plus JSON
+   persistence.
+5. `ex_12_pydantic_driven_cli.py` Railway-style Pydantic validation for a typed CLI
+   payload.
 
 ## Quick Start
 
@@ -65,7 +64,8 @@ from flext_cli import cli
 cli.print("hello", style=c.Cli.MessageStyles.GREEN)
 ```
 
-Keep interaction with flext-cli on the public facade unless the example is explicitly documenting an internal type.
+Keep interaction with flext-cli on the public facade unless the example is explicitly
+documenting an internal type.
 
 ### Service Base Via `s`
 

@@ -49,7 +49,8 @@
 
 **Estimated Migration Time**: 30-60 minutes for typical projects
 
-> **📘 Quick Summary**: the supported output endpoint is `cli.print()`. Internal utility and formatter-service routes are not consumer APIs.
+> **📘 Quick Summary**: the supported output endpoint is `cli.print()`. Internal utility
+> and formatter-service routes are not consumer APIs.
 
 ---
 
@@ -70,18 +71,19 @@
 
 v0.10.0 simplifies FLEXT-CLI by:
 
-- ✅ **Public Facade Pattern**: Call the MRO-composed public endpoint (for example, `cli.print()`)
+- ✅ **Public Facade Pattern**: Call the MRO-composed public endpoint (for example,
+  `cli.print()`)
 - ✅ **Removed Wrappers**: No more thin wrapper methods in cli
 - ✅ **Simplified Services**: Only 3-4 service classes (down from 18)
-- ✅ **FlextCliContext removed**: Use `m.Cli.CliContext` for simple context data or pass args directly
+- ✅ **FlextCliContext removed**: Use `m.Cli.CliContext` for simple context data or pass
+  args directly
 - ✅ **Removed Complexity**: No unused async/threading/plugin code
 
 ### Why These Changes
 
-**Clarity**: It's now obvious which service handles what
-**Simplicity**: One way to do things, not multiple
-**Maintainability**: 30-40% less code to maintain
-**Performance**: Less indirection, faster execution
+**Clarity**: It's now obvious which service handles what **Simplicity**: One way to do
+things, not multiple **Maintainability**: 30-40% less code to maintain **Performance**:
+Less indirection, faster execution
 
 ### Compatibility
 
@@ -165,7 +167,8 @@ table_str = cli.output.format_data(data, format_type="table")
 
 ### 2. FlextCliContext Removed
 
-`FlextCliContext` was removed. Remove any imports and usages. For simple context data (cwd, env, args, output_format) use `m.Cli.CliContext` from `flext_cli.models`.
+`FlextCliContext` was removed. Remove any imports and usages. For simple context data
+(cwd, env, args, output_format) use `m.Cli.CliContext` from `flext_cli.models`.
 
 ### 3. Service Class Instantiation
 
@@ -274,7 +277,8 @@ grep -r "context\.activate()" .
 grep -r "context\.deactivate()" .
 ```
 
-**Fix**: Remove these calls. `FlextCliContext` was removed; use `m.Cli.CliContext` or pass command/arguments directly.
+**Fix**: Remove these calls. `FlextCliContext` was removed; use `m.Cli.CliContext` or
+pass command/arguments directly.
 
 ```text
 # ✅ Use simple context data if needed
@@ -354,11 +358,13 @@ Access these through cli instance:
 
 ### Q: Why remove wrapper methods
 
-**A**: Wrapper methods added no value and made the API confusing. Now there's one clear way to do each operation.
+**A**: Wrapper methods added no value and made the API confusing. Now there's one clear
+way to do each operation.
 
 ### Q: Will this break my code
 
-**A**: Yes, if you use wrapper methods. But the migration is straightforward - mostly find-and-replace.
+**A**: Yes, if you use wrapper methods. But the migration is straightforward - mostly
+find-and-replace.
 
 ### Q: Can I use both old and new patterns
 
@@ -370,7 +376,8 @@ Access these through cli instance:
 
 ### Q: Is the migration tool available
 
-**A**: Not yet, but the find-and-replace commands above work well. We may add a tool in the future.
+**A**: Not yet, but the find-and-replace commands above work well. We may add a tool in
+the future.
 
 ### Q: What if I have a large codebase
 
@@ -382,15 +389,18 @@ Access these through cli instance:
 
 ### Q: Will there be more breaking changes
 
-**A**: We aim for stability. v0.10.0 is a major cleanup. Future versions should be backwards compatible.
+**A**: We aim for stability. v0.10.0 is a major cleanup. Future versions should be
+backwards compatible.
 
 ### Q: Can I stay on v0.9.0
 
-**A**: Yes, but v0.10.0 has improvements and will receive ongoing support. v0.9.0 is now in maintenance mode.
+**A**: Yes, but v0.10.0 has improvements and will receive ongoing support. v0.9.0 is now
+in maintenance mode.
 
 ### Q: What about performance
 
-**A**: v0.10.0 is **faster** due to less indirection. You may notice 10-20% speed improvements.
+**A**: v0.10.0 is **faster** due to less indirection. You may notice 10-20% speed
+improvements.
 
 ### Q: Are there new features
 
@@ -398,7 +408,9 @@ Access these through cli instance:
 
 ### Q: Where's the full changelog
 
-**A**: See [CHANGELOG.md](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/CHANGELOG.md) for complete details.
+**A**: See
+[CHANGELOG.md](https://github.com/flext-sh/flext-cli/blob/0.12.0-dev/CHANGELOG.md) for
+complete details.
 
 ---
 
@@ -490,7 +502,8 @@ def process_data():
 
 ### Example 3: Context Usage
 
-`FlextCliContext` was removed. Use `m.Cli.CliContext` (cwd, env, args, output_format) from `flext_cli.models` for context data, or pass command/arguments directly.
+`FlextCliContext` was removed. Use `m.Cli.CliContext` (cwd, env, args, output_format)
+from `flext_cli.models` for context data, or pass command/arguments directly.
 
 ---
 
@@ -534,11 +547,9 @@ Found a bug after migrating?
 
 v0.10.0 brings significant improvements through simplification:
 
-✅ **Direct Access Pattern** - Clear ownership
-✅ **Removed Wrappers** - One way to do things
-✅ **Simpler Architecture** - Less complexity
-✅ **Better Performance** - Less indirection
-✅ **Easier Maintenance** - 30-40% less code
+✅ **Direct Access Pattern** - Clear ownership ✅ **Removed Wrappers** - One way to do
+things ✅ **Simpler Architecture** - Less complexity ✅ **Better Performance** - Less
+indirection ✅ **Easier Maintenance** - 30-40% less code
 
 **Migration is straightforward** - mostly find-and-replace.
 
@@ -548,6 +559,5 @@ We're confident you'll appreciate the simpler, cleaner API once migrated!
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-01-24
-**Questions?**: [Open an issue](https://github.com/flext-sh/flext-cli/issues)
+**Document Version**: 1.0 **Last Updated**: 2025-01-24 **Questions?**:
+[Open an issue](https://github.com/flext-sh/flext-cli/issues)

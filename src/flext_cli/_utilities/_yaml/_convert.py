@@ -113,7 +113,7 @@ class FlextCliUtilitiesYamlConvertMixin:
 
     @staticmethod
     def yaml_is_sequence(
-        value: t.SequenceOf[t.Cli.YamlValue] | t.Cli.YamlScalar,
+        value: t.Cli.YamlNode | t.SequenceOf[t.Cli.YamlValue],
     ) -> TypeGuard[t.Cli.YamlSequence]:
         """Return True for YAML sequence nodes while keeping strings scalar.
 

@@ -54,7 +54,8 @@
 
 ## 📌 Quick Navigation
 
-- [v0.12.0-dev Development Guidelines (Current)](#v0120-dev-development-guidelines-current) ← **Start Here**
+- [v0.12.0-dev Development Guidelines (Current)](#v0120-dev-development-guidelines-current)
+  ← **Start Here**
 - [v0.9.0 Development Guidelines (Historical Reference)](#v090-development-guidelines-historical-reference)
 
 ---
@@ -65,7 +66,9 @@
 
 ### Overview
 
-FLEXT-CLI v0.12.0-dev follows a simplified architecture with clear guidelines for when to use services vs simple classes. This guide helps you make the right architectural decisions.
+FLEXT-CLI v0.12.0-dev follows a simplified architecture with clear guidelines for when
+to use services vs simple classes. This guide helps you make the right architectural
+decisions.
 
 ---
 
@@ -327,7 +330,7 @@ Key phases:
    1. **Quality Gates (MANDATORY)**:
 
       ```bash
-      make check  # Must pass 100%
+      make check # Must pass 100%
       ```
 
 1. **Test Organization**:
@@ -340,7 +343,8 @@ Key phases:
 
 ## v0.9.0 Development Guidelines (Historical Reference)
 
-**Note**: The following documentation describes v0.9.0 patterns. This is kept for historical reference during the migration period.
+**Note**: The following documentation describes v0.9.0 patterns. This is kept for
+historical reference during the migration period.
 
 ## Development Setup
 
@@ -368,11 +372,11 @@ make setup
 ### Essential Commands
 
 ```bash
-make setup          # Complete development environment setup
-make check          # All quality checks (lint + type + test)
-make test           # Run test suite
-make fmt            # Auto-format code
-make clean          # Clean build artifacts
+make setup # Complete development environment setup
+make check # All quality checks (lint + type + test)
+make test  # Run test suite
+make fmt   # Auto-format code
+make clean # Clean build artifacts
 ```
 
 ### Code Quality Standards
@@ -575,24 +579,24 @@ class ProjectFormatters(FlextCliOutput):
 
 ### Atomic directory publication on macOS
 
-Physical-tree authentication reads the complete two-word filesystem identifier
-from `fstatfs` on the open descriptor. It deliberately does not use
-`os.fstatvfs().f_fsid`, which CPython truncates to the first word on macOS.
-The binding follows Darwin's 64-bit-inode `statfs` layout: `fstatfs` on arm64
-and `fstatfs$INODE64` on x86_64. Unsupported architectures and unavailable
-identities fail closed. These identities are local mount measurements, not
-persistent identifiers across reboots.
+Physical-tree authentication reads the complete two-word filesystem identifier from
+`fstatfs` on the open descriptor. It deliberately does not use `os.fstatvfs().f_fsid`,
+which CPython truncates to the first word on macOS. The binding follows Darwin's
+64-bit-inode `statfs` layout: `fstatfs` on arm64 and `fstatfs$INODE64` on x86_64.
+Unsupported architectures and unavailable identities fail closed. These identities are
+local mount measurements, not persistent identifiers across reboots.
 
-Directory publication uses descriptor-relative `renameatx_np` with `RENAME_EXCL`.
-An existing destination is rejected; syscall failures propagate without a
-check-then-rename fallback. Linux retains `/proc/self/fdinfo` mount IDs and
-`renameat2(RENAME_NOREPLACE)`; the Windows rename branch is unchanged.
+Directory publication uses descriptor-relative `renameatx_np` with `RENAME_EXCL`. An
+existing destination is rejected; syscall failures propagate without a check-then-rename
+fallback. Linux retains `/proc/self/fdinfo` mount IDs and `renameat2(RENAME_NOREPLACE)`;
+the Windows rename branch is unchanged.
 
 External contracts:
 [Darwin statfs ABI](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/sys/mount.h),
 [Darwin symbol selection](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/sys/cdefs.h),
 [exclusive rename](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/man/man2/rename.2),
-and [CPython statvfs conversion](https://github.com/python/cpython/blob/main/Modules/posixmodule.c).
+and
+[CPython statvfs conversion](https://github.com/python/cpython/blob/main/Modules/posixmodule.c).
 
 ### Common Issues
 
@@ -616,5 +620,5 @@ make check PROJECT=flext-cli
 
 ---
 
-For architectural details, see [architecture.md](architecture.md).
-For API usage, see [API Reference](api-reference/README.md).
+For architectural details, see [architecture.md](architecture.md). For API usage, see
+[API Reference](api-reference/README.md).

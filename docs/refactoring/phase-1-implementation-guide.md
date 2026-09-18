@@ -33,11 +33,8 @@
 
 ## v0.10.0 Refactoring - Remove Duplication & Dead Code
 
-**Status**: Ready for implementation
-**Steps**: 4-7 from IMPLEMENTATION_CHECKLIST.md
-**Estimated Time**: 1-2 hours
-**Files to Delete**: 2 files
-**Files to Move**: 1 file
+**Status**: Ready for implementation **Steps**: 4-7 from IMPLEMENTATION_CHECKLIST.md
+**Estimated Time**: 1-2 hours **Files to Delete**: 2 files **Files to Move**: 1 file
 **Files to Edit**: 1 file
 
 ---
@@ -171,7 +168,7 @@ __all__: list[str] = [
 ```bash
 # Should complete with no errors
 make check
-make test  # Verify tests still pass
+make test # Verify tests still pass
 ```
 
 **Expected**: No import errors, no test failures
@@ -314,7 +311,8 @@ make test
 python -c "from tests import FlextCliTesting; print('✓ Import works')"
 ```
 
-**Expected**: Can't import from flext_cli anymore, tests pass, can import from tests.fixtures
+**Expected**: Can't import from flext_cli anymore, tests pass, can import from
+tests.fixtures
 
 **Commit**: `refactor: move testing utilities to tests/fixtures/`
 
@@ -334,11 +332,15 @@ python -c "from tests import FlextCliTesting; print('✓ Import works')"
 grep -rn "^import asyncio\|^from concurrent.futures\|^import pluggy\|^from cachetools" src/flext_cli/services/ src/flext_cli/_utilities/
 ```
 
-**Expected**: Import statements found in `_utilities/pipeline.py` (still used); `asyncio`, `pluggy`, `cachetools` removed entirely.
+**Expected**: Import statements found in `_utilities/pipeline.py` (still used);
+`asyncio`, `pluggy`, `cachetools` removed entirely.
 
 ### Actions Required
 
-No action needed — `core.py` was refactored into `services/cli.py`, `services/cmd.py`, etc. Unused imports (`asyncio`, `pluggy`, `cachetools`) were removed during the split. Only `concurrent.futures.ThreadPoolExecutor` in `_utilities/pipeline.py` remains (and is actively used).
+No action needed — `core.py` was refactored into `services/cli.py`, `services/cmd.py`,
+etc. Unused imports (`asyncio`, `pluggy`, `cachetools`) were removed during the split.
+Only `concurrent.futures.ThreadPoolExecutor` in `_utilities/pipeline.py` remains (and is
+actively used).
 
 ### Validation
 
@@ -373,10 +375,10 @@ After completing all steps, verify:
 make check
 
 # Verify file counts
-ls src/flext_cli/*.py | wc -l  # Should be 2 fewer (validator, auth deleted)
+ls src/flext_cli/*.py | wc -l # Should be 2 fewer (validator, auth deleted)
 
 # Verify new test fixtures location
-ls tests/fixtures/testing_utilities.py  # Should exist
+ls tests/fixtures/testing_utilities.py # Should exist
 
 # Check no broken imports
 python -c "from flext_cli import cli, FlextCliSettings; cli.print('✓ Imports working')"
@@ -422,7 +424,8 @@ find tests -name "*.py" -type f -exec sed -i \
 
 **Lines Removed**: ~700 lines of unnecessary code
 
-**Impact**: Cleaner codebase, no breaking changes for external users (auth was duplicate, validator was empty, testing was test-only)
+**Impact**: Cleaner codebase, no breaking changes for external users (auth was
+duplicate, validator was empty, testing was test-only)
 
 ---
 

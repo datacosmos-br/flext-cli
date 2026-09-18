@@ -99,8 +99,8 @@ Bead: `mro-2wjm.1`
 
 ## Resumo
 
-**86 issues** — BLOCKER 1, CRITICAL 24, MAJOR 35, MINOR 26
-Tipos: VULNERABILITY 4, BUG 1, CODE_SMELL 81 · **Debt total: 516min**
+**86 issues** — BLOCKER 1, CRITICAL 24, MAJOR 35, MINOR 26 Tipos: VULNERABILITY 4, BUG
+1, CODE_SMELL 81 · **Debt total: 516min**
 
 | regra                 | issues |
 | --------------------- | ------ |
@@ -117,14 +117,18 @@ Tipos: VULNERABILITY 4, BUG 1, CODE_SMELL 81 · **Debt total: 516min**
 
 ## Como usar
 
-Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o **código real** (linha `>>>`), o tipo e o effort estimado.
-**Decisão**: `corrigir` / `falso-positivo` (marcar na plataforma com justificativa) / `risco-aceito`. Ordem: BLOCKER → CRITICAL → VULNERABILITY → MAJOR. CODE_SMELL em volume pede correção de padrão.
+Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
+**código real** (linha `>>>`), o tipo e o effort estimado. **Decisão**: `corrigir` /
+`falso-positivo` (marcar na plataforma com justificativa) / `risco-aceito`. Ordem:
+BLOCKER → CRITICAL → VULNERABILITY → MAJOR. CODE_SMELL em volume pede correção de
+padrão.
 
 ## Issues
 
 ### 1 · 🔴 BLOCKER · CODE_SMELL · `python:S3516`
 
-**Local**: `src/flext_cli/_utilities/_files_parts/flextcliutilitiesfiles_part_01.py:36` · **Effort**: 2min
+**Local**: `src/flext_cli/_utilities/_files_parts/flextcliutilitiesfiles_part_01.py:36`
+· **Effort**: 2min
 
 > Refactor this method to not always return the same value.
 
@@ -286,7 +290,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_models/_xlsx/xlsx_validation.py:85` · **Effort**: 6min
 
-> Define a constant instead of duplicating this literal "Validation UI behavior." 3 times.
+> Define a constant instead of duplicating this literal "Validation UI behavior." 3
+> times.
 
 ```text
        81          source: FlextCliModelsXlsxValidation.XlsxListSource = m.Field(
@@ -324,7 +329,9 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 11 · 🟠 CRITICAL · CODE_SMELL · `python:S3776`
 
-**Local**: `src/flext_cli/_utilities/_file_test_helper_parts/flextcliutilitiesfiletesthelpersmixin_part_01.py:29` · **Effort**: 17min
+**Local**:
+`src/flext_cli/_utilities/_file_test_helper_parts/flextcliutilitiesfiletesthelpersmixin_part_01.py:29`
+· **Effort**: 17min
 
 > Refactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.
 
@@ -344,7 +351,9 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 12 · 🟠 CRITICAL · CODE_SMELL · `python:S3776`
 
-**Local**: `src/flext_cli/_utilities/_file_test_helper_parts/flextcliutilitiesfiletesthelpersmixin_part_02.py:22` · **Effort**: 9min
+**Local**:
+`src/flext_cli/_utilities/_file_test_helper_parts/flextcliutilitiesfiletesthelpersmixin_part_02.py:22`
+· **Effort**: 9min
 
 > Refactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.
 
@@ -384,7 +393,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 14 · 🟠 CRITICAL · CODE_SMELL · `python:S3776`
 
-**Local**: `src/flext_cli/_utilities/_runtime_process_execution.py:35` · **Effort**: 16min
+**Local**: `src/flext_cli/_utilities/_runtime_process_execution.py:35` · **Effort**:
+16min
 
 > Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
 
@@ -484,7 +494,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 19 · 🟠 CRITICAL · CODE_SMELL · `python:S3776`
 
-**Local**: `src/flext_cli/_utilities/_xlxx/xlsx_recalc_evidence.py:30` · **Effort**: 6min
+**Local**: `src/flext_cli/_utilities/_xlxx/xlsx_recalc_evidence.py:30` · **Effort**:
+6min
 
 > Refactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.
 
@@ -504,7 +515,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 20 · 🟠 CRITICAL · CODE_SMELL · `python:S3776`
 
-**Local**: `src/flext_cli/_utilities/_xlxx/xlsx_recalc_evidence.py:81` · **Effort**: 16min
+**Local**: `src/flext_cli/_utilities/_xlxx/xlsx_recalc_evidence.py:81` · **Effort**:
+16min
 
 > Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
 
@@ -626,7 +638,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `.github/scripts/install-git-hooks.sh:55` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        51  _log "Installing Beads git hooks (chained) at ${REPOSITORY_ROOT}"
@@ -646,7 +659,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `.github/scripts/install-git-hooks.sh:104` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
       100  grep -q 'BD_ALLOW_AGENT_COMMIT_TRAILERS' "${hook_path}" \
@@ -666,7 +680,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `.github/scripts/install-git-hooks.sh:106` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
       102  grep -q 'bd hooks run prepare-commit-msg' "${hook_path}" \
@@ -745,7 +760,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/PHASE_1_DELETIONS.sh:12` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
         8  echo ""
@@ -765,7 +781,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/PHASE_1_DELETIONS.sh:22` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        18
@@ -785,7 +802,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:17` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        13  echo "========================================="
@@ -825,7 +843,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:27` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        23  echo ""
@@ -845,7 +864,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:37` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        33  echo ""
@@ -865,7 +885,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:48` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        44
@@ -885,7 +906,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:62` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        58
@@ -905,7 +927,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:100` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
        96
@@ -925,7 +948,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:113` · **Effort**: 2min
 
-> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more feature-rich.
+> Use '[[' instead of '[' for conditional tests. The '[[' construct is safer and more
+> feature-rich.
 
 ```bash
       109  echo "Running validation suite..."
@@ -945,7 +969,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `examples/constants.py:66` · **Effort**: 20min
 
-> Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.
+> Simplify this regular expression to reduce its runtime, as it has super-linear
+> performance due to backtracking.
 
 ```text
        62      EXAMPLE_TABLE_HEADERS_FIELD_VALUE: Final[t.Pair[str, str]] = ("Field", "Value")
@@ -985,13 +1010,15 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `pyproject.toml:-` · **Effort**: 5min
 
-> Dependency versions are not predictable if the lock file (uv.lock, uv.lock, pdm.lock or pylock.toml) is missing.
+> Dependency versions are not predictable if the lock file (uv.lock, uv.lock, pdm.lock
+> or pylock.toml) is missing.
 
 **Decisão**:
 
 ### 45 · 🟡 MAJOR · CODE_SMELL · `python:S3358`
 
-**Local**: `src/flext_cli/_models/_base/flextclimodelsbase_part_07.py:80` · **Effort**: 5min
+**Local**: `src/flext_cli/_models/_base/flextclimodelsbase_part_07.py:80` · **Effort**:
+5min
 
 > Extract this nested conditional expression into an independent statement.
 
@@ -1011,7 +1038,9 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 46 · 🟡 MAJOR · CODE_SMELL · `python:S3358`
 
-**Local**: `src/flext_cli/_utilities/_options_parts/flextcliutilitiesoptions_part_02.py:28` · **Effort**: 5min
+**Local**:
+`src/flext_cli/_utilities/_options_parts/flextcliutilitiesoptions_part_02.py:28` ·
+**Effort**: 5min
 
 > Extract this nested conditional expression into an independent statement.
 
@@ -1051,7 +1080,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 48 · 🟡 MAJOR · CODE_SMELL · `python:S8495`
 
-**Local**: `src/flext_cli/_utilities/_runtime_process_resources.py:83` · **Effort**: 10min
+**Local**: `src/flext_cli/_utilities/_runtime_process_resources.py:83` · **Effort**:
+10min
 
 > Refactor this function to always return tuples of the same length.
 
@@ -1091,7 +1121,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 50 · 🟡 MAJOR · CODE_SMELL · `python:S3985`
 
-**Local**: `src/flext_cli/services/_cli_parts/flextclicli_part_01.py:19` · **Effort**: 2min
+**Local**: `src/flext_cli/services/_cli_parts/flextclicli_part_01.py:19` · **Effort**:
+2min
 
 > Remove this unused private '\_ModelCommand' class.
 
@@ -1133,7 +1164,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/test_xlsx_render.py:88` · **Effort**: 5min
 
-> Refactor this exception test to have only one invocation possibly throwing an exception.
+> Refactor this exception test to have only one invocation possibly throwing an
+> exception.
 
 ```text
        84
@@ -1153,7 +1185,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_config_engine.py:81` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        77      def test_config_load_yaml_expands_env(self, tmp_path: Path) -> None:
@@ -1173,7 +1206,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_expand_utilities.py:28` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        24      """Interpolate ${VAR} / ${VAR:-default} templates through ``u.Cli``."""
@@ -1193,7 +1227,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_expand_utilities.py:38` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        34          tm.that(tm.ok(result), eq="/tmp/tester/.claude")
@@ -1213,7 +1248,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_expand_utilities.py:64` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        60          tm.that(tm.ok(result), eq="prefix--suffix")
@@ -1233,7 +1269,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_utilities.py:28` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        24
@@ -1253,7 +1290,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_utilities.py:49` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        45      def test_env_read_name_is_data(self) -> None:
@@ -1273,7 +1311,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_env_utilities.py:50` · **Effort**: 5min
 
-> Use the "monkeypatch" fixture for temporary modifications instead of manually modifying global state.
+> Use the "monkeypatch" fixture for temporary modifications instead of manually
+> modifying global state.
 
 ```text
        46          """The variable name is a plain argument, so callers pass it as data."""
@@ -1293,7 +1332,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `tests/unit/test_model_commands_cov.py:90` · **Effort**: 5min
 
-> Refactor this exception test to have only one invocation possibly throwing an exception.
+> Refactor this exception test to have only one invocation possibly throwing an
+> exception.
 
 ```text
        86              command(name="invalid", value="not-an-int")
@@ -1333,7 +1373,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `docs/refactoring/execute_phase_1.sh:125` · **Effort**: 4min
 
-> Define a constant instead of using the literal '=========================================' 6 times.
+> Define a constant instead of using the literal
+> '=========================================' 6 times.
 
 ```bash
       121
@@ -1353,7 +1394,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_constants/exceptions.py:52` · **Effort**: 2min
 
-> Rename this field "YamlParseError" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "YamlParseError" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        48      # ``type[<Class>]`` annotation. Widening to a generic exception hides
@@ -1373,7 +1415,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_constants/exceptions.py:53` · **Effort**: 2min
 
-> Rename this field "YamlRoundtripError" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "YamlRoundtripError" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        49      # the real ``FlextBaseError.__init__`` (with **extra_kwargs) from pyrefly,
@@ -1393,7 +1436,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_constants/exceptions.py:54` · **Effort**: 2min
 
-> Rename this field "CliDefinitionError" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "CliDefinitionError" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        50      # which then rejects ``command=``/``model=`` kwargs at raise sites
@@ -1413,7 +1457,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_constants/exceptions.py:55` · **Effort**: 2min
 
-> Rename this field "CliValidationError" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "CliValidationError" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        51      # (validation.py).
@@ -1473,7 +1518,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_utilities/_pptx/_types.py:26` · **Effort**: 2min
 
-> Rename this field "PresentationDocument" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "PresentationDocument" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        22      # NOTE (multi-agent, mro-j2yt.1): re-exporting keeps the external PPTX
@@ -1513,7 +1559,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_utilities/_pptx/_types.py:33` · **Effort**: 2min
 
-> Rename this field "BaseOxmlElement" to match the regular expression ^[\_a-z][_a-z0-9]\*$.
+> Rename this field "BaseOxmlElement" to match the regular expression
+> ^[\_a-z][_a-z0-9]\*$.
 
 ```text
        29      MSO_ANCHOR = MSO_ANCHOR
@@ -1712,7 +1759,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 **Local**: `src/flext_cli/_utilities/_runtime_process_stream.py:81` · **Effort**: 1min
 
-> Remove this redundant Exception class; it derives from another which is already caught.
+> Remove this redundant Exception class; it derives from another which is already
+> caught.
 
 ```text
        77                  written = os.write(live_fd, remaining)
@@ -1730,7 +1778,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 82 · ⚪ MINOR · CODE_SMELL · `python:S7504`
 
-**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:51` · **Effort**: 5min
+**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:51` ·
+**Effort**: 5min
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
@@ -1750,7 +1799,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 83 · ⚪ MINOR · CODE_SMELL · `python:S7504`
 
-**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:100` · **Effort**: 5min
+**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:100` ·
+**Effort**: 5min
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
@@ -1770,7 +1820,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 84 · ⚪ MINOR · CODE_SMELL · `python:S7504`
 
-**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:111` · **Effort**: 5min
+**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_02.py:111` ·
+**Effort**: 5min
 
 > Remove this unnecessary `list()` call on an already iterable object.
 
@@ -1790,7 +1841,8 @@ Cada issue traz a **mensagem do SonarQube** (descreve o problema e o impacto), o
 
 ### 85 · ⚪ MINOR · CODE_SMELL · `python:S7504`
 
-**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_05.py:52` · **Effort**: 5min
+**Local**: `src/flext_cli/_utilities/_toml_parts/flextcliutilitiestoml_part_05.py:52` ·
+**Effort**: 5min
 
 > Remove this unnecessary `list()` call on an already iterable object.
 

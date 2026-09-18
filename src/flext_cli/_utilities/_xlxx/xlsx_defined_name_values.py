@@ -70,11 +70,6 @@ class FlextCliUtilitiesXlsxDefinedNameValues(
         cells: t.VariadicTuple[m.Cli.XlsxDefinedNameCell] = ()
         selection = worksheet[coordinate]
         for cell in cls._flatten_cells(selection):
-            if not isinstance(cell, Cell):
-                return r[tuple[m.Cli.XlsxDefinedNameCell, ...]].fail(
-                    f"{c.Cli.XlsxError.DEFINED_NAME_INVALID}: "
-                    f"unsupported cell at {coordinate}"
-                )
             cell_value = cell.value
             if cell_value is not None and not isinstance(
                 cell_value, (str, int, float, bool, Decimal, date, datetime)
@@ -100,15 +95,13 @@ class FlextCliUtilitiesXlsxDefinedNameValues(
     ) -> t.VariadicTuple[Cell]:
         if isinstance(selection, Cell):
             return (selection,)
-        if isinstance(selection, tuple):
-            flattened: t.VariadicTuple[Cell] = ()
-            for item in selection:
-                flattened = (
-                    *flattened,
-                    *FlextCliUtilitiesXlsxDefinedNameValues._flatten_cells(item),
-                )
-            return flattened
-        return ()
+        flattened: t.VariadicTuple[Cell] = ()
+        for item in selection:
+            flattened = (
+                *flattened,
+                *FlextCliUtilitiesXlsxDefinedNameValues._flatten_cells(item),
+            )
+        return flattened
 
 
 __all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxDefinedNameValues",)

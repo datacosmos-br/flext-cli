@@ -16,10 +16,16 @@ Panorama da arquitetura implementada no **flext-cli** 0.12.0, conforme o código
 
 ## Princípios
 
-- **Facade única**: `FlextCli` (exposta como `cli`) compõe 16 serviços via MRO — `Cli`, `Cmd`, `Auth`, `FileTools`, `Formatters`, `Output`, `Prompts`, `Tables`, `Pipeline`, `Rules`, `Runtime`, `Docx`, `Pptx`, `Xlsx`, `YamlModel`, `CliParams` — e utilidades (`FlextCliUtilities`).
-- **Fronteiras claras de framework**: Typer/Click vivem em `services/cli.py`; Rich/Tabulate são usados apenas em `services/formatters.py` e `services/tables.py`.
-- **Contratos explícitos**: `m` (`models.py` + `_models/`) e `p` (`protocols.py`) definem os tipos de entrada/saída validados com Pydantic v2.
-- **Retornos com `r[T]`**: erros e sucessos são encadeáveis em autenticação, orquestração e I/O.
+- **Facade única**: `FlextCli` (exposta como `cli`) compõe 16 serviços via MRO — `Cli`,
+  `Cmd`, `Auth`, `FileTools`, `Formatters`, `Output`, `Prompts`, `Tables`, `Pipeline`,
+  `Rules`, `Runtime`, `Docx`, `Pptx`, `Xlsx`, `YamlModel`, `CliParams` — e utilidades
+  (`FlextCliUtilities`).
+- **Fronteiras claras de framework**: Typer/Click vivem em `services/cli.py`;
+  Rich/Tabulate são usados apenas em `services/formatters.py` e `services/tables.py`.
+- **Contratos explícitos**: `m` (`models.py` + `_models/`) e `p` (`protocols.py`)
+  definem os tipos de entrada/saída validados com Pydantic v2.
+- **Retornos com `r[T]`**: erros e sucessos são encadeáveis em autenticação,
+  orquestração e I/O.
 
 ## Mapa dos módulos
 
@@ -60,17 +66,26 @@ src/flext_cli/
 
 ## Fluxo em tempo de execução
 
-1. **Bootstrap**: `cli` (singleton `FlextCli`) é carregado via `fetch_global()`; todos os 16 serviços estão disponíveis via MRO.
-1. **Entrada do usuário**: `services/cli.py` (`FlextCliCli`) é a única fronteira com Typer/Click; despacha para comandos registrados.
-1. **Execução**: `FlextCli.execute()` relata o status do runtime via `u.Cli.cmd_status()`. Comandos específicos (`FlextCliCmd`) operam sobre configuração persistida.
-1. **Entrada/Saída**: `services/prompts.py` coleta entrada; `services/output.py`, `services/formatters.py` e `services/tables.py` geram saídas em Rich/ASCII/JSON/YAML/CSV sem expor o Rich diretamente.
-1. **Configuração**: `_settings.py` gerencia configuração imutável; `_config.py` valida contra esquemas.
+1. **Bootstrap**: `cli` (singleton `FlextCli`) é carregado via `fetch_global()`; todos
+   os 16 serviços estão disponíveis via MRO.
+1. **Entrada do usuário**: `services/cli.py` (`FlextCliCli`) é a única fronteira com
+   Typer/Click; despacha para comandos registrados.
+1. **Execução**: `FlextCli.execute()` relata o status do runtime via
+   `u.Cli.cmd_status()`. Comandos específicos (`FlextCliCmd`) operam sobre configuração
+   persistida.
+1. **Entrada/Saída**: `services/prompts.py` coleta entrada; `services/output.py`,
+   `services/formatters.py` e `services/tables.py` geram saídas em
+   Rich/ASCII/JSON/YAML/CSV sem expor o Rich diretamente.
+1. **Configuração**: `_settings.py` gerencia configuração imutável; `_config.py` valida
+   contra esquemas.
 
 ## Integração com flext-core
 
 - `r`: envelope de sucesso/falha usado por todas as operações públicas.
-- `s` (FlextService de flext-core): base para logging, contexto e ciclo de vida — todos os 16 serviços herdam de `s` via MRO.
-- `c/t/p/m/u`: constantes, tipagens, protocolos, modelos e utilitários — acessados via MRO como `c.Cli.*`, `t.Cli.*`, `p.Cli.*`, `m.Cli.*`, `u.Cli.*`.
+- `s` (FlextService de flext-core): base para logging, contexto e ciclo de vida — todos
+  os 16 serviços herdam de `s` via MRO.
+- `c/t/p/m/u`: constantes, tipagens, protocolos, modelos e utilitários — acessados via
+  MRO como `c.Cli.*`, `t.Cli.*`, `p.Cli.*`, `m.Cli.*`, `u.Cli.*`.
 
 ## Exemplo mínimo
 
@@ -100,8 +115,10 @@ cli.print("Done", style="green")
 
 **Across Projects**:
 
-- [flext-core Foundation](https://github.com/flext-sh/flext/tree/0.12.0-dev/flext-core/docs/architecture/overview.md) - Clean architecture and CQRS patterns
-- [flext-core Service Patterns](https://github.com/flext-sh/flext/tree/0.12.0-dev/flext-core/docs/guides/service-patterns.md) - Service patterns and dependency injection
+- [flext-core Foundation](https://github.com/flext-sh/flext/tree/0.12.0-dev/flext-core/docs/architecture/overview.md) -
+  Clean architecture and CQRS patterns
+- [flext-core Service Patterns](https://github.com/flext-sh/flext/tree/0.12.0-dev/flext-core/docs/guides/service-patterns.md) -
+  Service patterns and dependency injection
 
 **External Resources**:
 

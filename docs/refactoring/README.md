@@ -18,23 +18,29 @@
 
 <!-- TOC END -->
 
-This directory contains comprehensive documentation for the v0.12.0-dev refactoring, which simplifies the architecture and removes over-engineering.
+This directory contains comprehensive documentation for the v0.12.0-dev refactoring,
+which simplifies the architecture and removes over-engineering.
 
 ## 📚 Documentation Index
 
 ### Planning & Strategy
 
-- **[direct-typing-refactor-plan.md](direct-typing-refactor-plan.md)** - Complete refactoring plan with rationale, changes, and timeline
-- **[architecture-comparison.md](architecture-comparison.md)** - Side-by-side comparison of v0.9.0 vs v0.12.0-dev architecture
+- **[direct-typing-refactor-plan.md](direct-typing-refactor-plan.md)** - Complete
+  refactoring plan with rationale, changes, and timeline
+- **[architecture-comparison.md](architecture-comparison.md)** - Side-by-side comparison
+  of v0.9.0 vs v0.12.0-dev architecture
 
 ### Implementation Guides
 
-- **[phase-1-implementation-guide.md](phase-1-implementation-guide.md)** - Step-by-step checklist for developers implementing the refactoring
-- **[breaking-changes.md](breaking-changes.md)** - Complete list of breaking changes with detailed explanations
+- **[phase-1-implementation-guide.md](phase-1-implementation-guide.md)** - Step-by-step
+  checklist for developers implementing the refactoring
+- **[breaking-changes.md](breaking-changes.md)** - Complete list of breaking changes
+  with detailed explanations
 
 ### User Resources
 
-- **[migration-guide-v0.9-to-v0.10.md](migration-guide-v0.9-to-v0.10.md)** - User-friendly migration guide with code examples and patterns
+- **[migration-guide-v0.9-to-v0.10.md](migration-guide-v0.9-to-v0.10.md)** -
+  User-friendly migration guide with code examples and patterns
 
 ## 🎯 Overview
 
@@ -69,7 +75,8 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 
 - **Issues**: [GitHub Issues](https://github.com/flext-sh/flext-cli/issues)
 - **Documentation**: [Main Docs](../index.md)
-- **Examples**: [examples/](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)
+- **Examples**:
+  [examples/](https://github.com/flext-sh/flext-cli/tree/0.12.0-dev/examples/)
 
 ## 📖 Reading Order
 
@@ -88,7 +95,8 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 ### For Maintainers
 
 1. Review all documents
-1. Understand rationale in [direct-typing-refactor-plan.md](direct-typing-refactor-plan.md)
+1. Understand rationale in
+   [direct-typing-refactor-plan.md](direct-typing-refactor-plan.md)
 1. Follow [phase-1-implementation-guide.md](phase-1-implementation-guide.md) strictly
 
 ## 🚀 Quick Links
@@ -102,6 +110,5 @@ This directory contains comprehensive documentation for the v0.12.0-dev refactor
 
 ---
 
-**Last Updated**: 2025-01-24
-**Version**: 0.12.0-dev
-**Status**: 📝 Documentation Phase (Implementation Pending)
+**Last Updated**: 2025-01-24 **Version**: 0.12.0-dev **Status**: 📝 Documentation Phase
+(Implementation Pending)

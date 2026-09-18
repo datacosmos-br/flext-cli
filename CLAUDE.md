@@ -2,6 +2,7 @@
 
 # CLAUDE.md
 
-Read [`AGENTS.md`](AGENTS.md) before acting. It is the sole project instruction authority.
+Read [`AGENTS.md`](AGENTS.md) before acting. It is the sole project instruction
+authority.
 
 <!-- AIHUB-INSTRUCTION-POINTER -->

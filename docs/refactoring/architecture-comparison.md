@@ -442,5 +442,4 @@ cli.confirm(        → cli.prompts.confirm(
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-01-24
+**Document Version**: 1.0 **Last Updated**: 2025-01-24
