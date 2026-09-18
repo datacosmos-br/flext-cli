@@ -39,7 +39,7 @@ src/flext_cli/
 │   ├── cli_params.py     # FlextCliCommonParams — parâmetros reutilizáveis
 │   ├── cmd.py            # FlextCliCmd — configuração persistida e comandos
 │   ├── docx.py           # FlextCliDocx — manipulação de documentos Word
-│   ├── file_tools.py     # FlextCliFileTools — I/O de arquivos (texto, JSON, YAML, CSV, zip)
+│   ├── file_tools.py     # FlextCliFileTools — file I/O (text, JSON, YAML, CSV, zip)
 │   ├── formatters.py     # FlextCliFormatters — saída Rich, print, render_table
 │   ├── output.py         # FlextCliOutput — saída JSON/YAML/CSV sem expor Rich
 │   ├── pipeline.py       # FlextCliPipeline — orquestração de workflows

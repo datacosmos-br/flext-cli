@@ -241,12 +241,18 @@ Use your IDE or command-line tools:
 # Replace removed nested/private output calls with cli.print(...).
 
 # File operations
-find . -name "*.py" -exec sed -i 's/cli\.read_json_file(/cli.file_tools.read_json_file(/g' {} +
-find . -name "*.py" -exec sed -i 's/cli\.write_json_file(/cli.file_tools.write_json_file(/g' {} +
-find . -name "*.py" -exec sed -i 's/cli\.read_yaml_file(/cli.file_tools.read_yaml_file(/g' {} +
-find . -name "*.py" -exec sed -i 's/cli\.write_yaml_file(/cli.file_tools.write_yaml_file(/g' {} +
-find . -name "*.py" -exec sed -i 's/cli\.read_csv_file(/cli.file_tools.read_csv_file(/g' {} +
-find . -name "*.py" -exec sed -i 's/cli\.write_csv_file(/cli.file_tools.write_csv_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.read_json_file(/cli.file_tools.read_json_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.write_json_file(/cli.file_tools.write_json_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.read_yaml_file(/cli.file_tools.read_yaml_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.write_yaml_file(/cli.file_tools.write_yaml_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.read_csv_file(/cli.file_tools.read_csv_file(/g' {} +
+find . -name "*.py" -exec sed -i \
+  's/cli\.write_csv_file(/cli.file_tools.write_csv_file(/g' {} +
 
 # Prompts
 find . -name "*.py" -exec sed -i 's/cli\.prompt_user(/cli.prompts.prompt(/g' {} +

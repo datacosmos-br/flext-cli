@@ -122,7 +122,6 @@ rm src/flext_cli/auth.py
 **Line 170**: Remove entire line
 
 ```text
-from flext_cli import FlextCliAuthService
 ```
 
 **Line 195**: Remove entire line from `__all__` list
@@ -213,7 +212,8 @@ mv src/flext_cli/testing.py tests/fixtures/testing_utilities.py
 **Find all test files with testing imports**:
 
 ```bash
-find tests -name "*.py" -type f -exec grep -l "from flext_cli import.*Test\|from flext_cli.testing" {} \;
+find tests -name "*.py" -type f -exec grep -l \
+  "from flext_cli import.*Test\|from flext_cli.testing" {} \;
 ```
 
 **For each test file**, update imports:
@@ -246,7 +246,8 @@ find tests -name "*.py" -type f -exec sed -i \
   {} +
 
 find tests -name "*.py" -type f -exec sed -i \
-  's/from flext_cli import FlextCliMockScenarios/from tests import FlextCliMockScenarios/g' \
+  's/from flext_cli import FlextCliMockScenarios/\
+from tests import FlextCliMockScenarios/g' \
   {} +
 
 find tests -name "*.py" -type f -exec sed -i \
@@ -302,7 +303,8 @@ __all__: list[str] = [
 
 ```bash
 # Import should fail (expected)
-python -c "from flext_cli import FlextCliTesting" 2>&1 | grep -q "ImportError" && echo "✓ Correctly removed from exports"
+python -c "from flext_cli import FlextCliTesting" 2>&1 | grep -q "ImportError" \
+  && echo "✓ Correctly removed from exports"
 
 # Tests should still work
 make test
@@ -329,7 +331,8 @@ tests.fixtures
 # asyncio/pluggy/cachetools → removed (no longer referenced)
 
 # Check for unused imports across services
-grep -rn "^import asyncio\|^from concurrent.futures\|^import pluggy\|^from cachetools" src/flext_cli/services/ src/flext_cli/_utilities/
+grep -rn "^import asyncio\|^from concurrent.futures\|^import pluggy\|^from cachetools" \
+  src/flext_cli/services/ src/flext_cli/_utilities/
 ```
 
 **Expected**: Import statements found in `_utilities/pipeline.py` (still used);

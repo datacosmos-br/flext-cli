@@ -48,14 +48,7 @@ class Demo(s):
 
 ### Local Examples Aliases
 
-```python
-from examples import c, m, p, r, s, t, u
-```
-
-Use these for example-owned constants, models, utilities, and service setup.
-
-### Public CLI Facade
-
+```python notest
 ```python
 from examples import c
 from flext_cli import cli
@@ -69,7 +62,7 @@ documenting an internal type.
 
 ### Service Base Via `s`
 
-```python
+```python notest
 from __future__ import annotations
 
 from examples import p, r, s, t

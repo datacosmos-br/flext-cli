@@ -157,7 +157,8 @@ padrão.
        55          ]
        56
        57      class XlsxBlankValue(m.FrozenModel):
->>>    58          kind: Literal["blank"] = m.Field(default="blank", description="Value kind.")
+>>>    58          kind: Literal["blank"] = m.Field(
+                        default="blank", description="Value kind.")
        59
        60      class XlsxTextValue(m.FrozenModel):
        61          kind: Literal["text"] = m.Field(default="text", description="Value kind.")
@@ -646,7 +647,8 @@ padrão.
        52  bd hooks install --chain >/dev/null || fail "bd hooks install --chain failed"
        53
        54  hook_path="$(git rev-parse --git-path hooks/prepare-commit-msg)"
->>>    55  [ -f "${hook_path}" ] || fail "prepare-commit-msg hook missing after bd hooks install"
+>>>    55  [ -f "${hook_path}" ] || \
+           fail "prepare-commit-msg hook missing after bd hooks install"
        56
        57  _log "Applying FLEXT agent-trailer guard to ${hook_path}"
        58  GUARD_TOKEN="BD_ALLOW_AGENT_COMMIT_TRAILERS" python3 - "${hook_path}" <<'PY'
@@ -691,7 +693,8 @@ padrão.
 >>>   106  [ -f "$(git rev-parse --git-path hooks/pre-push)" ] \
       107   || fail "pre-push hook missing after provisioning"
       108
-      109  echo "install-git-hooks: prepare-commit-msg guarded (BD_ALLOW_AGENT_COMMIT_TRAILERS opt-in)"
+      109  echo "install-git-hooks: prepare-commit-msg guarded \
+          (BD_ALLOW_AGENT_COMMIT_TRAILERS opt-in)"
 ```
 
 **Decisão**:
@@ -912,7 +915,9 @@ padrão.
 ```bash
        58
        59  # Count how many files need updating
-       60  affected_files=$(find tests -name "*.py" -type f -exec grep -l "from flext_cli import.*Test\|from flext_cli.testing" {} \; 2>/dev/null | wc -l) || true
+       60  affected_files=$(find tests -name "*.py" -type f \
+             -exec grep -l "from flext_cli import.*Test\|from flext_cli.testing" {} \; \
+             2>/dev/null | wc -l) || true
        61
 >>>    62  if [ "${affected_files}" -gt 0 ]; then
        63   echo "Found ${affected_files} test files with imports to update"
@@ -934,7 +939,9 @@ padrão.
        96
        97  # Check no references remain
        98  echo "Checking for remaining references..."
-       99  remaining_references=$(grep -r "from flext_cli.validator\|from flext_cli.auth\|from flext_cli.testing" src/ tests/ 2>/dev/null | grep -v "tests/fixtures/testing_utilities") || true
+       99  remaining_references=$(grep -r "from flext_cli.validator\|from flext_cli.auth\
+             \|from flext_cli.testing" src/ tests/ 2>/dev/null \
+             | grep -v "tests/fixtures/testing_utilities") || true
 >>>   100  if [ -n "${remaining_references}" ]; then
       101   echo "⚠️  WARNING: Found remaining references (review above)"
       102   echo "${remaining_references}"
@@ -974,7 +981,8 @@ padrão.
 
 ```text
        62      EXAMPLE_TABLE_HEADERS_FIELD_VALUE: Final[t.Pair[str, str]] = ("Field", "Value")
-       63      EXAMPLE_TABLE_HEADERS_SETTING_VALUE: Final[t.Pair[str, str]] = ("Setting", "Value")
+       63      EXAMPLE_TABLE_HEADERS_SETTING_VALUE: Final[t.Pair[str, str]] = (
+                   "Setting", "Value")
        64
        65      EXAMPLE_REGEX_EMAIL: Final[t.RegexPattern] = re.compile(
 >>>    66          r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
@@ -1806,8 +1814,8 @@ padrão.
 
 ```text
        96              # across the document. Consolidate them into one explicit table so
-       97              # subsequent mutation targets a single contiguous section instead of
-       98              # silently overwriting the fragments with an empty table.
+       97              # subsequent mutation targets a single contiguous section
+                       # instead of silently overwriting the fragments with an empty table.
        99              table = tomlkit.table()
 >>>   100              for entry_key in list(existing):
       101                  table[entry_key] = existing[entry_key]

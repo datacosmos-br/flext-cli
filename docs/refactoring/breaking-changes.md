@@ -69,6 +69,8 @@
 All these methods have been removed from `cli`:
 
 ```text
+from os import path
+from random import choices
 # ❌ REMOVED - No longer available
 # The former nested/private print route is removed.
 cli.create_table(data, headers, title)
