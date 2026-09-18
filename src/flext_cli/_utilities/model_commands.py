@@ -49,9 +49,7 @@ class FlextCliUtilitiesModelCommands:
             self.handler = handler
             self.settings = settings
 
-        def _resolve_default(
-            self, field_info: m.FieldInfo
-        ) -> t.Cli.CliValue | type:
+        def _resolve_default(self, field_info: m.FieldInfo) -> t.Cli.CliValue | type:
             if field_info.is_required():
                 return inspect.Parameter.empty
             # NOTE (multi-agent): ``FieldInfo.get_default`` is typed ``Any``

@@ -112,7 +112,9 @@ class FlextCliUtilitiesYamlConvertMixin:
         return data
 
     @staticmethod
-    def yaml_is_sequence(value: t.Cli.YamlValue) -> TypeGuard[t.Cli.YamlSequence]:
+    def yaml_is_sequence(
+        value: t.SequenceOf[t.Cli.YamlValue] | t.Cli.YamlScalar,
+    ) -> TypeGuard[t.Cli.YamlSequence]:
         """Return True for YAML sequence nodes while keeping strings scalar.
 
         NOTE (multi-agent): deliberately excludes ``tuple`` (unlike the legacy

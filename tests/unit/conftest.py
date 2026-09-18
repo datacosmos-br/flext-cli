@@ -129,8 +129,8 @@ def make_failing_prompts() -> Callable[..., TestsFlextCliFailingLogPrompts]:
 def scripted_password_pair() -> Callable[[], tuple[str, str]]:
     """Provide a callable sourcing the synthetic prompt secret pair per call."""
     return lambda: (
-        os.environ.get(c.Tests.PROMPT_PASSWORD_SHORT_ENV_NAME, "short"),
-        os.environ.get(c.Tests.PROMPT_PASSWORD_VALID_ENV_NAME, "v" + "0" * 15),
+        os.environ.get(c.Tests.PROMPT_SHORT_ENV_NAME, "short"),
+        os.environ.get(c.Tests.PROMPT_VALID_ENV_NAME, "v" + "0" * 15),
     )
 
 

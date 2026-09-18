@@ -55,8 +55,8 @@ class TestsFlextCliConstantsCore:
         "你好世界🌍",
     )
 
-    PROMPT_PASSWORD_SHORT_ENV_NAME: Final[str] = "FLEXT_TEST_PROMPT_SHORT"
-    PROMPT_PASSWORD_VALID_ENV_NAME: Final[str] = "FLEXT_TEST_PROMPT_VALID"
+    PROMPT_SHORT_ENV_NAME: Final[str] = "FLEXT_TEST_PROMPT_SHORT"
+    PROMPT_VALID_ENV_NAME: Final[str] = "FLEXT_TEST_PROMPT_VALID"
 
     VERSION_STR_CASES: Final[t.MappingKV[str, str]] = MappingProxyType({
         "valid_semver": VERSION_VALID_SEMVER,

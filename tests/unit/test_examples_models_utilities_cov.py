@@ -37,10 +37,7 @@ class TestsFlextCliExampleModelsUtilitiesCov:
     def test_my_app_settings_accepts_explicit_typed_values(self) -> None:
         """Explicit values cross the model boundary without ambient overrides."""
         settings = m.Examples.MyAppSettings(
-            app_name="explicit-tool",
-            api_key="k" + "0" * 14,
-            max_workers=9,
-            timeout=45,
+            app_name="explicit-tool", api_key="k" + "0" * 14, max_workers=9, timeout=45
         )
 
         tm.that(settings.app_name, eq="explicit-tool")

@@ -134,7 +134,7 @@ class TestsFlextCliCommands:
     ) -> None:
         # Act
         """Verify that error message surfaces code without traceback in normal mode."""
-        result: r[str] = r[str].fail(
+        result = r[str].fail(
             "proposal config ausente: /x.yaml",
             error_code="missing_config",
             exception=FileNotFoundError("nope"),
@@ -166,7 +166,7 @@ class TestsFlextCliCommands:
             captured_exception = exc
 
         # Act
-        result: r[str] = r[str].fail(
+        result = r[str].fail(
             "proposal config ausente: /x.yaml",
             error_code="missing_config",
             exception=captured_exception,

@@ -95,18 +95,20 @@ class FlextCliUtilitiesXlsxDefinedNameValues(
         return r[tuple[m.Cli.XlsxDefinedNameCell, ...]].ok(cells)
 
     @staticmethod
-    def _flatten_cells(selection: object) -> t.VariadicTuple[t.JsonValue]:
+    def _flatten_cells(
+        selection: Cell | t.VariadicTuple[Cell | t.VariadicTuple[Cell]],
+    ) -> t.VariadicTuple[Cell]:
         if isinstance(selection, Cell):
             return (selection,)
         if isinstance(selection, tuple):
-            flattened: t.VariadicTuple[t.JsonValue] = ()
+            flattened: t.VariadicTuple[Cell] = ()
             for item in selection:
                 flattened = (
                     *flattened,
                     *FlextCliUtilitiesXlsxDefinedNameValues._flatten_cells(item),
                 )
             return flattened
-        return (selection,)
+        return ()
 
 
 __all__: t.VariadicTuple[str] = ("FlextCliUtilitiesXlsxDefinedNameValues",)

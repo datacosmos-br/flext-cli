@@ -211,7 +211,7 @@ class TestsFlextCliTomlSyncCoverage:
         return {"project": {"name": "demo"}, "obsolete": True}
 
     def test_mapping_remove_key_if_present_reports_and_deletes(
-        self, payload: t.MappingKV[str, t.JsonValue]
+        self, payload: t.MutableJsonMapping
     ) -> None:
         # Act
         """Verify that mapping remove key if present reports and deletes."""
@@ -224,7 +224,7 @@ class TestsFlextCliTomlSyncCoverage:
         tm.that(payload, lacks="obsolete")
 
     def test_mapping_sync_value_writes_expected(
-        self, payload: t.MappingKV[str, t.JsonValue]
+        self, payload: t.MutableJsonMapping
     ) -> None:
         # Arrange
         """Verify that mapping sync value writes expected."""
@@ -237,9 +237,7 @@ class TestsFlextCliTomlSyncCoverage:
         tm.that(changed, eq=True)
         tm.that(payload["build-system"], eq=build)
 
-    def test_mapping_sync_value_idempotent(
-        self, payload: t.MappingKV[str, t.JsonValue]
-    ) -> None:
+    def test_mapping_sync_value_idempotent(self, payload: t.MutableJsonMapping) -> None:
         # Arrange
         """Verify that mapping sync value idempotent."""
         build: t.JsonValue = {"requires": ["setuptools>=70"]}
@@ -252,7 +250,7 @@ class TestsFlextCliTomlSyncCoverage:
         tm.that(second, eq=False)
 
     def test_mapping_merge_then_sorted_sync_is_noop(
-        self, payload: t.MappingKV[str, t.JsonValue]
+        self, payload: t.MutableJsonMapping
     ) -> None:
         # Arrange
         """Verify that mapping merge then sorted sync is noop."""
@@ -271,7 +269,7 @@ class TestsFlextCliTomlSyncCoverage:
         tm.that(payload["plugins"], eq=["pytest", "ruff"])
 
     def test_mapping_sync_mapping_table_writes_and_is_idempotent(
-        self, payload: t.MappingKV[str, t.JsonValue]
+        self, payload: t.MutableJsonMapping
     ) -> None:
         # Arrange
         """Verify that mapping sync mapping table writes and is idempotent."""

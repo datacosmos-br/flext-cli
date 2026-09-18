@@ -110,7 +110,9 @@ class TestsFlextCliServicesAuth:
                 {c.Cli.DICT_KEY_USERNAME: "user"}, "password", id="username-only"
             ),
             pytest.param(
-                {c.Cli.DICT_KEY_USER_SECRET: "s" + "0" * 9}, "username", id="secret-only"
+                {c.Cli.DICT_KEY_USER_SECRET: "s" + "0" * 9},
+                "username",
+                id="secret-only",
             ),
         ],
     )
@@ -138,7 +140,10 @@ class TestsFlextCliServicesAuth:
         [
             pytest.param({c.Cli.DICT_KEY_AUTH_TOKEN: "t" + "0" * 9}, id="token"),
             pytest.param(
-                {c.Cli.DICT_KEY_USERNAME: "user", c.Cli.DICT_KEY_USER_SECRET: "s" + "0" * 9},
+                {
+                    c.Cli.DICT_KEY_USERNAME: "user",
+                    c.Cli.DICT_KEY_USER_SECRET: "s" + "0" * 9,
+                },
                 id="username-password",
             ),
         ],

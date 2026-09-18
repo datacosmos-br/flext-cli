@@ -68,6 +68,7 @@ class TyperApplication:
             raise TypeError(msg)
         self._app.add_typer(group.backend, name=name)
 
+
 class ClickCommand:
     """Private command implementation satisfying ``p.Cli.ExternalCommand``."""
 
@@ -88,7 +89,6 @@ class ClickCommand:
             args=args, prog_name=prog_name, standalone_mode=standalone_mode
         )
         return t.Cli.JSON_VALUE_ADAPTER.validate_python(result)
-
 
 
 class FlextCliUtilitiesFramework:
@@ -119,13 +119,9 @@ class FlextCliUtilitiesFramework:
         return cls.framework_exit(code=c.Cli.EXIT_CODE_FAILURE)
 
     @staticmethod
-    def _unwrap(
-        application: p.Cli.Application,
-    ) -> TyperApplication:
+    def _unwrap(application: p.Cli.Application) -> TyperApplication:
         """Return the private application or fail on a foreign implementation."""
-        if not isinstance(
-            application, TyperApplication
-        ):
+        if not isinstance(application, TyperApplication):
             msg = "CLI application was not created by flext_cli"
             raise TypeError(msg)
         return application
@@ -287,9 +283,7 @@ class FlextCliUtilitiesFramework:
         cls, application: p.Cli.Application
     ) -> p.Cli.ExternalCommand:
         """Expose an adapter-owned application through the command protocol."""
-        return ClickCommand(
-            typer.main.get_command(cls._unwrap(application).backend)
-        )
+        return ClickCommand(typer.main.get_command(cls._unwrap(application).backend))
 
     @classmethod
     def framework_invoke(
@@ -321,17 +315,14 @@ class FlextCliUtilitiesFramework:
         runner = CliRunner(charset=charset, env=runner_env)
         private_application = cls._unwrap(application)
         result = runner.invoke(
-            private_application.backend,
-            args=list(args) if args is not None else None,
+            private_application.backend, args=list(args) if args is not None else None
         )
         return m.Cli.InvocationResult(
             exit_code=result.exit_code,
             stdout=result.stdout,
             stderr=result.stderr,
             outcome=m.Cli.ProcessOutcome(
-                raw_return_code=result.exit_code,
-                timed_out=False,
-                forwarded_signal=None,
+                raw_return_code=result.exit_code, timed_out=False, forwarded_signal=None
             ),
         )
 
@@ -344,5 +335,3 @@ class FlextCliUtilitiesFramework:
 
 
 __all__: list[str] = ["FlextCliUtilitiesFramework"]
-
-
