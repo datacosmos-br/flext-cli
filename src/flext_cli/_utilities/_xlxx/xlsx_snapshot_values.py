@@ -29,7 +29,7 @@ class FlextCliUtilitiesXlsxSnapshotValues:
         return style_name
 
     @staticmethod
-    def _require_success(result: r[T]) -> T:
+    def _require_success[T](result: p.Result[T]) -> T:
         if result.failure:
             error = result.error
             if error is None:
