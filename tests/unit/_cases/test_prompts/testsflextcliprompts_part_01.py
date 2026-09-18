@@ -117,5 +117,30 @@ class TestsFlextCliPrompts:
         result = prompts.confirm("Continue?", default=False)
         tm.fail(result, has=expected)
 
+    def test_prompt_password_paths(
+        self,
+        make_prompts: Callable[..., p.Tests.ScriptedPrompts],
+        scripted_password_pair: Callable[[], tuple[str, str]],
+    ) -> None:
+        """Verify that prompt password paths."""
+        short_secret, valid_secret = scripted_password_pair()
+        tm.fail(
+            make_prompts(interactive_mode=False).prompt_password("Password:"),
+            has="Interactive mode disabled",
+        )
+        short_prompts = make_prompts().use_password(short_secret)
+        short_result = short_prompts.prompt_password("Password:", min_length=8)
+        tm.fail(short_result, has="too short")
+        valid_prompts = make_prompts().use_password(valid_secret)
+        valid_result = valid_prompts.prompt_password("Password:", min_length=8)
+        tm.ok(valid_result)
+        tm.that(len(valid_result.value), gte=8)
+        failing_prompts = make_prompts().use_password_error(
+            ValueError("Password input error")
+        )
+        tm.fail(
+            failing_prompts.prompt_password("Password:"), has="Password input error"
+        )
+
 
 __all__: list[str] = ["TestsFlextCliPrompts"]

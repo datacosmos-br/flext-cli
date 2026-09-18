@@ -52,29 +52,6 @@ class TestsFlextCliPrompts:
         tm.ok(selected)
         tm.that(selected.value, eq="simple")
 
-    def test_prompt_password_paths(
-        self, make_prompts: Callable[..., p.Tests.ScriptedPrompts]
-    ) -> None:
-        """Verify that prompt password paths."""
-        tm.fail(
-            make_prompts(interactive_mode=False).prompt_password("Password:"),
-            has="Interactive mode disabled",
-        )
-        short_prompts = make_prompts().use_password("short")
-        tm.fail(
-            short_prompts.prompt_password("Password:", min_length=8), has="too short"
-        )
-        valid_prompts = make_prompts().use_password("v" + "0" * 14)
-        valid_result = valid_prompts.prompt_password("Password:", min_length=8)
-        tm.ok(valid_result)
-        tm.that(len(valid_result.value), gte=8)
-        failing_prompts = make_prompts().use_password_error(
-            ValueError("Password input error")
-        )
-        tm.fail(
-            failing_prompts.prompt_password("Password:"), has="Password input error"
-        )
-
     def test_print_helpers_paths(
         self, make_prompts: Callable[..., p.Tests.ScriptedPrompts]
     ) -> None:

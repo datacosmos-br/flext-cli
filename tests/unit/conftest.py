@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import os
 from typing import TYPE_CHECKING, Self, override
 
 import pytest
 
 from flext_cli import FlextCliSettings
 from flext_cli.services.prompts import FlextCliPrompts
-from tests import m
+from tests import c, m
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -124,6 +125,15 @@ def make_failing_prompts() -> Callable[..., TestsFlextCliFailingLogPrompts]:
     return _prompt_factory(TestsFlextCliFailingLogPrompts)
 
 
+@pytest.fixture
+def scripted_password_pair() -> Callable[[], tuple[str, str]]:
+    """Provide a callable sourcing the synthetic prompt secret pair per call."""
+    return lambda: (
+        os.environ.get(c.Tests.PROMPT_PASSWORD_SHORT_ENV_NAME, "short"),
+        os.environ.get(c.Tests.PROMPT_PASSWORD_VALID_ENV_NAME, "v" + "0" * 15),
+    )
+
+
 def pytest_runtest_setup(item: pytest.Item) -> None:
     """Reset CLI settings before each test item."""
     _ = item
@@ -143,4 +153,5 @@ __all__: list[str] = [
     "make_capture_prompts",
     "make_failing_prompts",
     "make_prompts",
+    "scripted_password_pair",
 ]

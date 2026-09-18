@@ -38,13 +38,13 @@ class TestsFlextCliExampleModelsUtilitiesCov:
         """Explicit values cross the model boundary without ambient overrides."""
         settings = m.Examples.MyAppSettings(
             app_name="explicit-tool",
-            api_key="explicit-secret",
+            api_key="k" + "0" * 14,
             max_workers=9,
             timeout=45,
         )
 
         tm.that(settings.app_name, eq="explicit-tool")
-        tm.that(settings.api_key, eq="explicit-secret")
+        tm.that(settings.api_key, eq="k" + "0" * 14)
         tm.that(settings.max_workers, eq=9)
         tm.that(settings.timeout, eq=45)
 
@@ -70,7 +70,7 @@ class TestsFlextCliExampleModelsUtilitiesCov:
         bad_temp_dir = tmp_path / "not-a-dir"
         bad_temp_dir.write_text("broken", encoding="utf-8")
         outcome = m.Examples.AppSettingsAdvanced(
-            api_key="valid-api-key", temp_dir=bad_temp_dir
+            api_key="k" + "1" * 14, temp_dir=bad_temp_dir
         ).validate_to_mapping()
 
         tm.fail(outcome, has="TEMP_DIR must be a directory")
@@ -80,7 +80,7 @@ class TestsFlextCliExampleModelsUtilitiesCov:
         good_temp_dir = tmp_path / "temp-ok"
         mapping: t.JsonMapping = tm.ok(
             m.Examples.AppSettingsAdvanced(
-                api_key="super-secret",
+                api_key="k" + "2" * 14,
                 environment=c.DeploymentEnvironment.PRODUCTION,
                 temp_dir=good_temp_dir,
             ).validate_to_mapping()

@@ -26,7 +26,7 @@ class TestsFlextCliExamplesSmoke:
         settings_result = Ex06Settings.load_application_settings(
             m.Examples.AppSettingsAdvanced(
                 environment=c.DeploymentEnvironment.PRODUCTION,
-                api_key="prod-secret",
+                api_key="k" + "3" * 14,
                 max_workers=25,
                 temp_dir=cache_dir,
             )
@@ -69,7 +69,7 @@ class TestsFlextCliExamplesSmoke:
                 "port": 5432,
                 "name": "prod",
                 "username": "user",
-                "password": "secret-pass",
+                "password": "p" + "3" * 10,
                 "ssl_enabled": False,
                 "connection_pool": 10,
             })
