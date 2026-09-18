@@ -148,13 +148,13 @@ class TestsFlextCliServicesAuthCov:
         self, auth: p.Cli.AuthService
     ) -> None:
         """Verify that authenticate with direct token returns and persists it."""
-        credentials = {c.Cli.DICT_KEY_AUTH_TOKEN: "direct-token-abc"}
+        credentials = {c.Cli.DICT_KEY_AUTH_TOKEN: "t" + "2" * 12}
 
         result = auth.authenticate(credentials)
 
         tm.ok(result)
-        tm.that(result.value, eq="direct-token-abc")
-        tm.that(auth.fetch_auth_token().value, eq="direct-token-abc")
+        tm.that(result.value, eq="t" + "2" * 12)
+        tm.that(auth.fetch_auth_token().value, eq="t" + "2" * 12)
 
     def test_authenticate_with_valid_credentials_generates_persisted_token(
         self, auth: p.Cli.AuthService

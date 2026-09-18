@@ -106,7 +106,7 @@ class TestsFlextCliAuthUtilsCov:
     def test_extract_token_returns_token_from_mapping(self) -> None:
         # Arrange
         """Verify that extract token returns token from mapping."""
-        payload: dict[str, t.JsonValue] = {c.Cli.DICT_KEY_AUTH_TOKEN: "my-secret-token"}
+        payload: dict[str, t.JsonValue] = {c.Cli.DICT_KEY_AUTH_TOKEN: "t" + "1" * 12}
 
         # Act
         result = u.Cli.auth_extract_token(payload)

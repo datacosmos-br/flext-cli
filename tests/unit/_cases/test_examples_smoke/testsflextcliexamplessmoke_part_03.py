@@ -67,7 +67,7 @@ class TestsFlextCliExamplesSmoke:
         token_dir.mkdir()
         token_path = token_dir / "auth_token.json"
         token_path.write_text(
-            '{"auth_token": "token-value-1234567890"}', encoding="utf-8"
+            '{"auth_token": "t" + "3" * 16}', encoding="utf-8"
         )
         settings.cli_token_file = str(token_path)
 

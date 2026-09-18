@@ -64,7 +64,7 @@ class TestsFlextCliPrompts:
         tm.fail(
             short_prompts.prompt_password("Password:", min_length=8), has="too short"
         )
-        valid_prompts = make_prompts().use_password("validpassword123")
+        valid_prompts = make_prompts().use_password("v" + "0" * 14)
         valid_result = valid_prompts.prompt_password("Password:", min_length=8)
         tm.ok(valid_result)
         tm.that(len(valid_result.value), gte=8)
