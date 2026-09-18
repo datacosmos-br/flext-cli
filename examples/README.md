@@ -50,7 +50,6 @@ class Demo(s):
 
 ### Local Examples Aliases
 
-```python notest
 ```python
 from examples import c
 from flext_cli import cli
