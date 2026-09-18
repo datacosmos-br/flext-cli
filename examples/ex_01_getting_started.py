@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import override
@@ -21,7 +22,7 @@ class ExamplesFlextCliGettingStarted(s[t.JsonMapping]):
         """Build a validated application settings model through the examples facade."""
         settings_payload: t.JsonMapping = {
             "app_name": c.EXAMPLE_DEFAULT_TOOL_NAME,
-            "api_key": "example-api-key",
+            "api_key": os.environ.get("FLEXT_EXAMPLE_API_KEY", "<demo>"),
             "max_workers": c.EXAMPLE_DEFAULT_MAX_WORKERS,
             "timeout": c.EXAMPLE_DEFAULT_TIMEOUT_SECONDS,
         }
