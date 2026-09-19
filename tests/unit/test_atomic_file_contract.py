@@ -98,8 +98,9 @@ class TestsAtomicFileContract:
         tm.that(owner.read_text(encoding="utf-8"), eq="owner")
 
     def test_snapshot_reads_hardlinked_destination(self, tmp_path: Path) -> None:
-        """Why (d75f50d5 follow-up): a hard destination is safe to read — the
-        state captures the observed link count instead of refusing, so
+        """A hard destination is safe to read under the d75f50d5 law.
+
+        The state captures the observed link count instead of refusing, so
         package-manager-hardlinked content (uv link-mode) splices cleanly.
         """
         owner, destination = self._linked_destination(tmp_path, "hard")
@@ -109,6 +110,7 @@ class TestsAtomicFileContract:
         tm.ok(result)
         tm.that(result.value.content, eq=b"owner")
         tm.that(result.value.link_count, eq=2)
+        tm.that(owner.read_text(encoding="utf-8"), eq="owner")
 
     def test_unconditional_write_replaces_hardlinked_destination(
         self, tmp_path: Path
