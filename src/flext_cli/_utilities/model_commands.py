@@ -18,8 +18,11 @@ from flext_cli import p, settings, t
 from flext_core import m
 
 
-class SignatureCarrier(Protocol):
-    """A callable whose CLI parameters typer/click read from `__signature__`.
+class FlextCliUtilitiesModelCommands:
+    """Model command methods exposed directly on ``u.Cli``."""
+    
+    class SignatureCarrier(Protocol):
+        """A callable whose CLI parameters typer/click read from `__signature__`.
 
     `__signature__` is a documented runtime attribute of function objects, but
     it is absent from the static `FunctionType`, so assigning it directly is
@@ -27,12 +30,8 @@ class SignatureCarrier(Protocol):
     generated command actually satisfies, with no suppression.
     """
 
-    __signature__: inspect.Signature
-    __annotations__: dict[str, object]
-
-
-class FlextCliUtilitiesModelCommands:
-    """Model command methods exposed directly on ``u.Cli``."""
+        __signature__: inspect.Signature
+        __annotations__: dict[str, object]
 
     class Builder[M: t.Cli.ModelLike]:
         """Thin builder for direct model-backed command callables."""
@@ -149,6 +148,4 @@ class FlextCliUtilitiesModelCommands:
         return FlextCliUtilitiesModelCommands.Builder(
             model_class=model_class, handler=handler, settings=settings
         ).build()
-
-
-__all__: t.MutableSequenceOf[str] = ["FlextCliUtilitiesModelCommands"]
+__all__: list[str] = ["FlextCliUtilitiesModelCommands"]
