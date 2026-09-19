@@ -79,6 +79,7 @@ def assert_temporary_owned(
         message = f"atomic temporary identity changed before publication: {temporary}"
         raise OSError(errno.ESTALE, message, temporary)
     _validate_regular_state(temporary, state)
+    _validate_exclusive_link(temporary, state)
     file_descriptor.assert_parent_unchanged(parent)
 
 
@@ -130,8 +131,18 @@ def _validate_regular_state(path: Path, state: os.stat_result) -> None:
     if not stat.S_ISREG(state.st_mode) or file_path.is_reparse_point(state):
         message = f"atomic destination is not a regular file: {path}"
         raise OSError(errno.EINVAL, message, path)
+
+
+def _validate_exclusive_link(path: Path, state: os.stat_result) -> None:
+    """Require exactly one pathname link for staged inode exclusivity.
+
+    Publication swaps the destination entry, so destinations hardlinked by
+    package managers (uv ``link-mode = clone``) are safe to replace; the
+    staged temporary, however, must be uniquely owned or the descriptor-bound
+    identity proof cannot distinguish the staged bytes from a sibling link.
+    """
     if state.st_nlink != 1:
-        message = f"atomic destination has {state.st_nlink} hard links: {path}"
+        message = f"atomic staged file has {state.st_nlink} hard links: {path}"
         raise OSError(errno.EMLINK, message, path)
 
 
