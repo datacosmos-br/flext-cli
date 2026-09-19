@@ -96,7 +96,9 @@ class FlextCliUtilitiesModelCommands:
 
             # typer/click read the CLI parameters off `__signature__`; the
             # protocol above declares that contract so no cast is suppressed.
-            typed_command = cast("SignatureCarrier", command)
+            typed_command = cast(
+                "FlextCliUtilitiesModelCommands.SignatureCarrier", command
+            )
             typed_command.__signature__ = signature
             typed_command.__annotations__ = {
                 parameter.name: parameter.annotation for parameter in parameters
