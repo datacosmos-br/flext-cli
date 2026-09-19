@@ -180,6 +180,16 @@ def _entry(
     digest: str | None = None,
     link_target: str | None = None,
 ) -> m.Cli.AtomicPhysicalTreeEntry:
+    if kind == "file" and observed.st_nlink > 1:
+        # Cleanup authority is per pathname; a second physical name sharing
+        # the inode means pruning this tree must not silently claim the
+        # sibling's content. Read/replace paths stay permissive — this
+        # refusal owns the cleanup verb only.
+        message = (
+            f"cleanup authority refused: {path} has {observed.st_nlink} hard"
+            " links (another physical name owns the same inode)"
+        )
+        raise OSError(errno.EMLINK, message, path)
     return m.Cli.AtomicPhysicalTreeEntry(
         path=path,
         kind=kind,

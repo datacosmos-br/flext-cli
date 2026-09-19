@@ -65,11 +65,11 @@ class TestsAtomicFileContract:
         tm.that(path.read_bytes(), eq=b"after")
         tm.that(stat.S_IMODE(path.stat().st_mode), eq=expected_mode)
 
-    @pytest.mark.parametrize("link_kind", ["symbolic", "hard"])
+    @pytest.mark.parametrize("link_kind", ["symbolic"])
     def test_unconditional_write_rejects_linked_destination(
         self, tmp_path: Path, link_kind: str
     ) -> None:
-        """Reject linked names through every public atomic-write facade."""
+        """Reject non-regular linked names through the atomic-write facade."""
         owner, destination = self._linked_destination(tmp_path, link_kind)
         owner_inode = owner.lstat().st_ino
         destination_inode = destination.lstat().st_ino
@@ -83,13 +83,12 @@ class TestsAtomicFileContract:
         tm.that(destination.lstat().st_ino, eq=destination_inode)
 
     @pytest.mark.parametrize(
-        ("link_kind", "error_fragment"),
-        [("symbolic", "not a regular file"), ("hard", "hard links")],
+        ("link_kind", "error_fragment"), [("symbolic", "not a regular file")]
     )
     def test_snapshot_rejects_linked_destination(
         self, tmp_path: Path, link_kind: str, error_fragment: str
     ) -> None:
-        """Reject a pathname that cannot form a uniquely owned state."""
+        """Reject non-regular pathnames; hard destinations read fine."""
         owner, destination = self._linked_destination(tmp_path, link_kind)
 
         result = u.Cli.atomic_read_binary_file_state(destination, required=True)
@@ -97,6 +96,38 @@ class TestsAtomicFileContract:
         tm.fail(result)
         tm.that(result.error or "", has=error_fragment)
         tm.that(owner.read_text(encoding="utf-8"), eq="owner")
+
+    def test_snapshot_reads_hardlinked_destination(self, tmp_path: Path) -> None:
+        """Why (d75f50d5 follow-up): a hard destination is safe to read — the
+        state captures the observed link count instead of refusing, so
+        package-manager-hardlinked content (uv link-mode) splices cleanly.
+        """
+        owner, destination = self._linked_destination(tmp_path, "hard")
+
+        result = u.Cli.atomic_read_binary_file_state(destination, required=True)
+
+        tm.ok(result)
+        tm.that(result.value.content, eq=b"owner")
+        tm.that(result.value.link_count, eq=2)
+
+    def test_unconditional_write_replaces_hardlinked_destination(
+        self, tmp_path: Path
+    ) -> None:
+        """Writing over a hard destination replaces that pathname only.
+
+        The owner keeps its inode and bytes; the destination gets fresh
+        content on a new inode, ending the hardlink share.
+        """
+        owner, destination = self._linked_destination(tmp_path, "hard")
+        owner_inode = owner.lstat().st_ino
+
+        result = u.Cli.atomic_write_text_file(destination, "replacement")
+
+        tm.ok(result)
+        tm.that(owner.read_text(encoding="utf-8"), eq="owner")
+        tm.that(destination.read_text(encoding="utf-8"), eq="replacement")
+        tm.that(owner.lstat().st_ino, eq=owner_inode)
+        tm.that(destination.lstat().st_ino != owner_inode)
 
     def test_write_failure_after_staging_leaves_no_partial_file(
         self, tmp_path: Path
