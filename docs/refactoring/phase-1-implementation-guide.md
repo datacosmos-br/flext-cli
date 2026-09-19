@@ -122,6 +122,7 @@ rm src/flext_cli/auth.py
 **Line 170**: Remove entire line
 
 ```text
+
 ```
 
 **Line 195**: Remove entire line from `__all__` list

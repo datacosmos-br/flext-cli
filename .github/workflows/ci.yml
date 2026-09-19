@@ -28,7 +28,7 @@ name: CI
       CI_DEPENDENCIES_APP_ID:
         required: false
         description: >-
-          Optional datacosmos-ci-dependencies GitHub App id; when absent the
+          Optional cross-repo dependency GitHub App id; when absent the
           cross-repo credential step records NOT EXECUTED and public sibling
           dependencies resolve anonymously.
       CI_DEPENDENCIES_APP_PRIVATE_KEY:
@@ -66,7 +66,7 @@ jobs:
       # this repository only, so it cannot clone siblings that turn private.
       # Every declared sibling is public today and resolves anonymously; the
       # credential exists for the private-sibling scenario. When the org
-      # installs the datacosmos-ci-dependencies GitHub App and exposes
+      # installs its cross-repo dependency GitHub App and exposes
       # CI_DEPENDENCIES_APP_ID / CI_DEPENDENCIES_APP_PRIVATE_KEY, mint a
       # short-lived installation token and scope it to github.com clones.
       # Absent secrets make this step a recorded NOT EXECUTED: dependency
@@ -170,7 +170,7 @@ jobs:
         run: CI=Y make check
 
       # Why (aihub-v01jg): CI=Y runs ONE HALF of the gate set
-      # (lint pyright silent-failure deferred-self-reference security markdown markdown-format markdown-code loc-cap boundary runtime-census namespace tier-whitelist index-declarations smells codemod layout canonical-alias direnv duplication); the complement
+      # (lint pyright silent-failure deferred-self-reference security markdown loc-cap boundary runtime-census namespace tier-whitelist index-declarations smells codemod layout canonical-alias direnv duplication); the complement
       # (pyrefly mypy) is owned by
       # CI=N and, without this step, ran on developer
       # machines only. That split let real defects reach main twice: five
@@ -253,7 +253,7 @@ jobs:
       # this repository only, so it cannot clone siblings that turn private.
       # Every declared sibling is public today and resolves anonymously; the
       # credential exists for the private-sibling scenario. When the org
-      # installs the datacosmos-ci-dependencies GitHub App and exposes
+      # installs its cross-repo dependency GitHub App and exposes
       # CI_DEPENDENCIES_APP_ID / CI_DEPENDENCIES_APP_PRIVATE_KEY, mint a
       # short-lived installation token and scope it to github.com clones.
       # Absent secrets make this step a recorded NOT EXECUTED: dependency

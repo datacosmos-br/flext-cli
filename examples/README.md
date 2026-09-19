@@ -34,14 +34,12 @@ from flext_cli import cli
 
 class Demo(s):
     def execute(self) -> p.Result[t.JsonMapping]:
-        settings = m.Examples.MyAppSettings.model_validate(
-            {
-                "app_name": "my-cli-tool",
-                "api_key": "example-api-key",
-                "max_workers": 4,
-                "timeout": 30,
-            }
-        )
+        settings = m.Examples.MyAppSettings.model_validate({
+            "app_name": "my-cli-tool",
+            "api_key": "example-api-key",
+            "max_workers": 4,
+            "timeout": 30,
+        })
         cli.print(settings.app_name, style=c.Cli.MessageStyles.BOLD_GREEN)
         return r[t.JsonMapping].ok(settings.model_dump(mode="json"))
 ```
@@ -50,7 +48,6 @@ class Demo(s):
 
 ### Local Examples Aliases
 
-```python notest
 ```python
 from examples import c
 from flext_cli import cli
