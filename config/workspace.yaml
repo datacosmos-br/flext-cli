@@ -6,8 +6,8 @@ name: flext-cli
 repository:
   name: flext-cli
   distribution: flext-cli
-  provider: flext-sh
-  url: https://github.com/flext-sh/flext-cli.git
+  provider: datacosmos-br
+  url: https://github.com/datacosmos-br/flext-cli.git
   path: .
   role: standalone
   state: active
