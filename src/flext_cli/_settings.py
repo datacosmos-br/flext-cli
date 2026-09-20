@@ -14,8 +14,6 @@ from __future__ import annotations
 
 from typing import Annotated, ClassVar
 
-from pydantic_settings import SettingsConfigDict
-
 from flext_cli.models import m
 from flext_core import FlextSettings
 
@@ -25,7 +23,7 @@ from ._constants.settings import FlextCliConstantsSettings
 class FlextCliSettings(FlextSettings):
     """CLI settings: flat scalars under the ``FLEXT_CLI_`` env prefix."""
 
-    model_config: ClassVar[SettingsConfigDict] = SettingsConfigDict(
+    model_config: ClassVar[m.SettingsConfigDict] = m.SettingsConfigDict(
         env_prefix="FLEXT_CLI_", extra="ignore"
     )
 
