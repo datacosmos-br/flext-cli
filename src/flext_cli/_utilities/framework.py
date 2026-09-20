@@ -30,69 +30,67 @@ _TYPER_CLICK_EXCEPTION: type[Exception] = next(
 )
 
 
-class TyperApplication:
-    """Private application implementation hidden behind ``p.Cli.Application``."""
-
-    __slots__ = ("_app", "_name")
-
-    def __init__(self, app: typer.Typer, *, name: str | None) -> None:
-        self._app = app
-        self._name = name
-
-    @property
-    def name(self) -> str | None:
-        """The configured application name."""
-        return self._name
-
-    @property
-    def backend(self) -> typer.Typer:
-        """The backend object inside this private adapter module."""
-        return self._app
-
-    def callback(
-        self,
-    ) -> Callable[[Callable[..., t.JsonPayload]], Callable[..., t.JsonPayload]]:
-        """Return the private framework callback decorator."""
-        return self._app.callback()
-
-    def command[TCommand: Callable[..., t.JsonPayload]](
-        self, name: str | None = None, *, help_text: str | None = None
-    ) -> Callable[[TCommand], TCommand]:
-        """Return a typed command decorator through the neutral contract."""
-        return self._app.command(name, help=help_text)
-
-    def add_typer(self, group: p.Cli.Application, *, name: str) -> None:
-        """Attach another adapter-owned application as a child group."""
-        if not isinstance(group, TyperApplication):
-            msg = "CLI group was not created by flext_cli"
-            raise TypeError(msg)
-        self._app.add_typer(group.backend, name=name)
-
-
-class ClickCommand:
-    """Private command implementation satisfying ``p.Cli.ExternalCommand``."""
-
-    __slots__ = ("_command",)
-
-    def __init__(self, command: p.Cli.ExternalCommand) -> None:
-        self._command = command
-
-    def main(
-        self,
-        args: list[str] | None = None,
-        prog_name: str | None = None,
-        *,
-        standalone_mode: bool = True,
-    ) -> t.JsonPayload:
-        """Execute and validate the backend command result at the boundary."""
-        result = self._command.main(
-            args=args, prog_name=prog_name, standalone_mode=standalone_mode
-        )
-        return t.Cli.JSON_VALUE_ADAPTER.validate_python(result)
-
-
 class FlextCliUtilitiesFramework:
     """Single adapter owning all Click/Typer runtime interaction."""
+
+    class TyperApplication:
+        """Private application implementation hidden behind ``p.Cli.Application``."""
+
+        __slots__ = ("_app", "_name")
+
+        def __init__(self, app: typer.Typer, *, name: str | None) -> None:
+            self._app = app
+            self._name = name
+
+        @property
+        def name(self) -> str | None:
+            """The configured application name."""
+            return self._name
+
+        @property
+        def backend(self) -> typer.Typer:
+            """The backend object inside this private adapter module."""
+            return self._app
+
+        def callback(
+            self,
+        ) -> Callable[[Callable[..., t.JsonPayload]], Callable[..., t.JsonPayload]]:
+            """Return the private framework callback decorator."""
+            return self._app.callback()
+
+        def command[TCommand: Callable[..., t.JsonPayload]](
+            self, name: str | None = None, *, help_text: str | None = None
+        ) -> Callable[[TCommand], TCommand]:
+            """Return a typed command decorator through the neutral contract."""
+            return self._app.command(name, help=help_text)
+
+        def add_typer(self, group: p.Cli.Application, *, name: str) -> None:
+            """Attach another adapter-owned application as a child group."""
+            if not isinstance(group, FlextCliUtilitiesFramework.TyperApplication):
+                msg = "CLI group was not created by flext_cli"
+                raise TypeError(msg)
+            self._app.add_typer(group.backend, name=name)
+
+    class ClickCommand:
+        """Private command implementation satisfying ``p.Cli.ExternalCommand``."""
+
+        __slots__ = ("_command",)
+
+        def __init__(self, command: p.Cli.ExternalCommand) -> None:
+            self._command = command
+
+        def main(
+            self,
+            args: list[str] | None = None,
+            prog_name: str | None = None,
+            *,
+            standalone_mode: bool = True,
+        ) -> t.JsonPayload:
+            """Execute and validate the backend command result at the boundary."""
+            result = self._command.main(
+                args=args, prog_name=prog_name, standalone_mode=standalone_mode
+            )
+            return t.Cli.JSON_VALUE_ADAPTER.validate_python(result)
 
     _active_execution: ContextVar[bool] = ContextVar(
         "flext_cli_active_execution", default=False
@@ -119,9 +117,11 @@ class FlextCliUtilitiesFramework:
         return cls.framework_exit(code=c.Cli.EXIT_CODE_FAILURE)
 
     @staticmethod
-    def _unwrap(application: p.Cli.Application) -> TyperApplication:
+    def _unwrap(
+        application: p.Cli.Application,
+    ) -> FlextCliUtilitiesFramework.TyperApplication:
         """Return the private application or fail on a foreign implementation."""
-        if not isinstance(application, TyperApplication):
+        if not isinstance(application, FlextCliUtilitiesFramework.TyperApplication):
             msg = "CLI application was not created by flext_cli"
             raise TypeError(msg)
         return application
@@ -142,7 +142,7 @@ class FlextCliUtilitiesFramework:
         cls, *, name: str | None, help_text: str, add_completion: bool = True
     ) -> p.Cli.Application:
         """Create one private Typer application behind the neutral protocol."""
-        return TyperApplication(
+        return FlextCliUtilitiesFramework.TyperApplication(
             typer.Typer(name=name, help=help_text, add_completion=add_completion),
             name=name,
         )
@@ -283,7 +283,9 @@ class FlextCliUtilitiesFramework:
         cls, application: p.Cli.Application
     ) -> p.Cli.ExternalCommand:
         """Expose an adapter-owned application through the command protocol."""
-        return ClickCommand(typer.main.get_command(cls._unwrap(application).backend))
+        return FlextCliUtilitiesFramework.ClickCommand(
+            typer.main.get_command(cls._unwrap(application).backend)
+        )
 
     @classmethod
     def framework_invoke(

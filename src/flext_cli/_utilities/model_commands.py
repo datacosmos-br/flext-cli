@@ -18,21 +18,20 @@ from flext_cli import p, settings, t
 from flext_core import m
 
 
-class SignatureCarrier(Protocol):
-    """A callable whose CLI parameters typer/click read from `__signature__`.
-
-    `__signature__` is a documented runtime attribute of function objects, but
-    it is absent from the static `FunctionType`, so assigning it directly is
-    rejected by the type checkers. Declaring it here states the contract the
-    generated command actually satisfies, with no suppression.
-    """
-
-    __signature__: inspect.Signature
-    __annotations__: dict[str, object]
-
-
 class FlextCliUtilitiesModelCommands:
     """Model command methods exposed directly on ``u.Cli``."""
+
+    class SignatureCarrier(Protocol):
+        """A callable whose CLI parameters typer/click read from `__signature__`.
+
+        `__signature__` is a documented runtime attribute of function objects, but
+        it is absent from the static `FunctionType`, so assigning it directly is
+        rejected by the type checkers. Declaring it here states the contract the
+        generated command actually satisfies, with no suppression.
+        """
+
+        __signature__: inspect.Signature
+        __annotations__: dict[str, object]
 
     class Builder[M: t.Cli.ModelLike]:
         """Thin builder for direct model-backed command callables."""
@@ -97,7 +96,9 @@ class FlextCliUtilitiesModelCommands:
 
             # typer/click read the CLI parameters off `__signature__`; the
             # protocol above declares that contract so no cast is suppressed.
-            typed_command = cast("SignatureCarrier", command)
+            typed_command = cast(
+                "FlextCliUtilitiesModelCommands.SignatureCarrier", command
+            )
             typed_command.__signature__ = signature
             typed_command.__annotations__ = {
                 parameter.name: parameter.annotation for parameter in parameters
@@ -151,4 +152,4 @@ class FlextCliUtilitiesModelCommands:
         ).build()
 
 
-__all__: t.MutableSequenceOf[str] = ["FlextCliUtilitiesModelCommands"]
+__all__: list[str] = ["FlextCliUtilitiesModelCommands"]
