@@ -67,9 +67,8 @@ class FlextCliModelsBase:
             int | None,
             m.Field(
                 ge=1,
-                le=1,
                 strict=True,
-                description="Required unique link count, or None when absent",
+                description="Observed link count (>= 1), or None when absent",
             ),
         ] = None
         file_attributes: Annotated[
