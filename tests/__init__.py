@@ -19,6 +19,15 @@ if TYPE_CHECKING:
     from .models import TestsFlextCliModels, TestsFlextCliModels as m
     from .protocols import TestsFlextCliProtocols, TestsFlextCliProtocols as p
     from .settings import TestsFlextCliSettings
+    from .test_xlsx_range import (
+        test_xlsx_format_reference_collapses_equal_bounds_and_rejects_inversion,
+        test_xlsx_format_reference_exposes_every_typed_rendering_mode,
+        test_xlsx_parse_range_fails_loud_for_non_concrete_or_inverted_input,
+        test_xlsx_parse_range_returns_typed_concrete_bounds,
+    )
+    from .test_yaml_model_write import (
+        test_write_yaml_model_round_trips_the_same_model_contract,
+    )
     from .typings import TestsFlextCliTypes, TestsFlextCliTypes as t
     from .utilities import TestsFlextCliUtilities, TestsFlextCliUtilities as u
 __all__: tuple[str, ...] = (
@@ -41,6 +50,11 @@ __all__: tuple[str, ...] = (
     "s",
     "t",
     "td",
+    "test_write_yaml_model_round_trips_the_same_model_contract",
+    "test_xlsx_format_reference_collapses_equal_bounds_and_rejects_inversion",
+    "test_xlsx_format_reference_exposes_every_typed_rendering_mode",
+    "test_xlsx_parse_range_fails_loud_for_non_concrete_or_inverted_input",
+    "test_xlsx_parse_range_returns_typed_concrete_bounds",
     "tf",
     "tk",
     "tm",
@@ -58,6 +72,15 @@ _LAZY_IMPORTS = MappingProxyType(
             ".models": ("TestsFlextCliModels", "m"),
             ".protocols": ("TestsFlextCliProtocols", "p"),
             ".settings": ("TestsFlextCliSettings",),
+            ".test_xlsx_range": (
+                "test_xlsx_format_reference_collapses_equal_bounds_and_rejects_inversion",
+                "test_xlsx_format_reference_exposes_every_typed_rendering_mode",
+                "test_xlsx_parse_range_fails_loud_for_non_concrete_or_inverted_input",
+                "test_xlsx_parse_range_returns_typed_concrete_bounds",
+            ),
+            ".test_yaml_model_write": (
+                "test_write_yaml_model_round_trips_the_same_model_contract",
+            ),
             ".typings": ("TestsFlextCliTypes", "t"),
             ".unit": ("unit",),
             ".utilities": ("TestsFlextCliUtilities", "u"),

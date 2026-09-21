@@ -23,10 +23,11 @@ if TYPE_CHECKING:
     from flext_core import d, e, h, r, x
 
     from . import services
-    from ._config import FlextCliConfig, config
+    from .__version__ import FlextCliVersion
     from ._settings import FlextCliSettings, settings
     from .api import FlextCli, cli
     from .base import FlextCliServiceBase, FlextCliServiceBase as s
+    from .config import FlextCliConfig, config
     from .constants import FlextCliConstants, FlextCliConstants as c
     from .models import FlextCliModels, FlextCliModels as m
     from .protocols import FlextCliProtocols, FlextCliProtocols as p
@@ -72,6 +73,7 @@ __all__: tuple[str, ...] = (
     "FlextCliTables",
     "FlextCliTypes",
     "FlextCliUtilities",
+    "FlextCliVersion",
     "FlextCliXlsx",
     "FlextCliYamlModel",
     "__author__",
@@ -102,10 +104,11 @@ __all__: tuple[str, ...] = (
 _LAZY_IMPORTS = MappingProxyType(
     build_lazy_import_map(
         MappingProxyType({
-            "._config": ("FlextCliConfig", "config"),
+            ".__version__": ("FlextCliVersion",),
             "._settings": ("FlextCliSettings", "settings"),
             ".api": ("FlextCli", "cli"),
             ".base": ("FlextCliServiceBase", "s"),
+            ".config": ("FlextCliConfig", "config"),
             ".constants": ("FlextCliConstants", "c"),
             ".models": ("FlextCliModels", "m"),
             ".protocols": ("FlextCliProtocols", "p"),
